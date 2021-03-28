@@ -151,7 +151,7 @@ int main(int argc, char **argv){
                 GenGpx[nmG] = p4_gamma[nmG].Px();
                 GenGpy[nmG] = p4_gamma[nmG].Py();
                 GenGpz[nmG] = p4_gamma[nmG].Pz();
-                GenGtheta[nmG] = TMath::ATan2( tPx::Sqrt(tPx*tPx + tPy*tPy), tPz);
+                GenGtheta[nmG] = TMath::ATan2( TMath::Sqrt(tPx*tPx + tPy*tPy), tPz);
                 GenGphi[nmG]   = TMath::ATan2(tPy,tPx);
                 nmG++;
               }

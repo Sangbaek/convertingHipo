@@ -155,7 +155,7 @@ int main(int argc, char **argv){
     Float_t GenGpx[100];
     Float_t GenGpy[100];
     Float_t GenGpz[100];
-
+/*
 vector<Int_t> vScInd;
 vector<Int_t> vScPnd;
 vector<Int_t> vScDet;
@@ -169,7 +169,7 @@ vector<Double_t> vScX;
 vector<Double_t> vScY;
 vector<Double_t> vScZ;
 vector<Int_t> vScStat;
-
+*/
  
     //===========   additional missing masses ======
    Int_t Before[100];
