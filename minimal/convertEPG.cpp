@@ -33,7 +33,7 @@ int main(int argc, char **argv){
 
 
     TFile *rFile = TFile::Open(mode+".root","RECREATE");
-    TTree *T=new TTree("T","epg");
+    TTree *T=new TTree("T", mode);
 
     Float_t beamQ;
     Float_t liveTime;
@@ -212,35 +212,35 @@ int main(int argc, char **argv){
 
 // event bank ====
 //
-        for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
-            auto tempB = c12.getBank(idx_RECEv)->getFloat(aBeamQ,ipa1);
-            auto tempL = c12.getBank(idx_RECEv)->getDouble(aLiveT,ipa1);
-            auto tempS = c12.getBank(idx_RECEv)->getFloat(aStarT,ipa1);
-            auto tempR = c12.getBank(idx_RECEv)->getFloat(aRFTim,ipa1);
-            auto tempH = c12.getBank(idx_RECEv)->getInt(aHelic,ipa1);
-            auto tempHR = c12.getBank(idx_RECEv)->getInt(aHeRaw,ipa1);
+            for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
+                auto tempB = c12.getBank(idx_RECEv)->getFloat(aBeamQ,ipa1);
+                auto tempL = c12.getBank(idx_RECEv)->getDouble(aLiveT,ipa1);
+                auto tempS = c12.getBank(idx_RECEv)->getFloat(aStarT,ipa1);
+                auto tempR = c12.getBank(idx_RECEv)->getFloat(aRFTim,ipa1);
+                auto tempH = c12.getBank(idx_RECEv)->getInt(aHelic,ipa1);
+                auto tempHR = c12.getBank(idx_RECEv)->getInt(aHeRaw,ipa1);
 
-            beamQ = tempB;
-            liveTime = tempL;
-            startTime = tempS;
-            RFTime = tempR;
-            helicity = tempH;
-            helicityRaw = tempHR;
-        }
+                beamQ = tempB;
+                liveTime = tempL;
+                startTime = tempS;
+                RFTime = tempR;
+                helicity = tempH;
+                helicityRaw = tempHR;
+            }
 
 
 // Run config bank
-        for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
-            auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
-            auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
-            
-            EventNum = tempE;
-            RunNum = tempR;
-        }
+            for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
+                auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
+                auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
+                
+                EventNum = tempE;
+                RunNum = tempR;
+            }
 
-        bool condition = nmb>0;
-        if (mode == "pi0") condition = nmb>0 && nmg>1;
-        if (condition) T->Fill();
+            bool condition = nmb>0;
+            if (mode == "pi0") condition = nmb>0 && nmg>1;
+            if (condition) T->Fill();
 
         }
 
@@ -249,5 +249,5 @@ int main(int argc, char **argv){
     rFile->Write();
     rFile->Close();
 
-return 1;
+    return 1;
 }

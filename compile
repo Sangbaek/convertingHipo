@@ -3,3 +3,6 @@ module load clas12/pro
 
 cd minimal
 ./compile.sh
+
+cd all
+./compile.sh

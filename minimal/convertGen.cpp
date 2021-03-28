@@ -14,22 +14,20 @@ using namespace std;
 int main(int argc, char **argv){
     clas12root::HipoChain chain;
 
-    if(argc == 1){
-      char File[200];
-      system("ls -1 *.hipo > dataFiles.txt");
-      ifstream in("dataFiles.txt", ios::in);
-      if(!in){
-        cerr<< "File Not Opened!" <<endl;
-        exit(1);
-      }
-      while( in >> File){
-        cout<<" File Name = "<<File<<endl;
-        chain.Add(File);  
-      }
+    char File[200];
+    system("ls -1 *.hipo > dataFiles.txt");
+    ifstream in("dataFiles.txt", ios::in);
+    if(!in){
+      cerr<< "File Not Opened!" <<endl;
+      exit(1);
+    }
+    while( in >> File){
+      cout<<" File Name = "<<File<<endl;
+      chain.Add(File);  
     }
 
     TFile *rFile = TFile::Open("genOnly.root","RECREATE");
-    TTree *T=new TTree("T","GEN");
+    TTree *T=new TTree("T","Gen");
 
    // =====  proton =====
     Float_t GenPpx;
@@ -63,10 +61,9 @@ int main(int argc, char **argv){
     T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
-  long index=0;
     
   //
-  //loop over fiees
+  //loop over files
   //
   for(int ifile=0; ifile<chain.GetNFiles();++ifile){
       clas12::clas12reader c12{chain.GetFileName(ifile).Data()};
@@ -78,7 +75,6 @@ int main(int argc, char **argv){
       auto iPy  = c12.getBankOrder(idx_GenPart,"py");
       auto iPz  = c12.getBankOrder(idx_GenPart,"pz");
 
-        index=0;
         while(c12.next() == true){
     
           nmG=0;
@@ -119,5 +115,5 @@ int main(int argc, char **argv){
   rFile->Write();
   rFile->Close();
 
-return 1;
+  return 1;
 }

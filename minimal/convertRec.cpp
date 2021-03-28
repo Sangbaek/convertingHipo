@@ -28,7 +28,7 @@ int main(int argc, char **argv){
 	}
     
     TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
-    TTree *T=new TTree("T","epg");
+    TTree *T=new TTree("T","Rec");
 
    // =====  proton =====
     Int_t nmb;
@@ -229,9 +229,7 @@ int main(int argc, char **argv){
             	}
             }
 
-//pi0 condition
-		if(nmb>0 && nmg>=nmG)
-        	T->Fill();
+    		if(nmb>0 && nmg>=nmG) T->Fill();
         }
 
     }
@@ -239,5 +237,5 @@ int main(int argc, char **argv){
 	rFile->Write();
 	rFile->Close();
 
-return 1;
+    return 1;
 }
