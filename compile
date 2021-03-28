@@ -1,4 +1,4 @@
-source /group/clas12/packages/setup.csh
+source /group/clas12/packages/setup.sh
 module load clas12/pro
 
 cd minimal
