@@ -15,20 +15,17 @@ using namespace std;
 int main(int argc, char **argv){
     clas12root::HipoChain chain;
 
-	if(argc == 1){
-		char File[200];
-		system("ls -1 *.hipo > dataFiles.txt");
-		ifstream in("dataFiles.txt", ios::in);
-		if(!in){
-			cerr<< "File Not Opened!" <<endl;
-			exit(1);
-		}
-		while( in >> File){
-			cout<<" File Name = "<<File<<endl;
-			chain.Add(File);	
-		}
+	char File[200];
+	system("ls -1 *.hipo > dataFiles.txt");
+	ifstream in("dataFiles.txt", ios::in);
+	if(!in){
+		cerr<< "File Not Opened!" <<endl;
+		exit(1);
 	}
-
+	while( in >> File){
+		cout<<" File Name = "<<File<<endl;
+		chain.Add(File);	
+	}
     
     TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
     TTree *T=new TTree("T","epg");

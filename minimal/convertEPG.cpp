@@ -32,7 +32,7 @@ int main(int argc, char **argv){
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
 
-    TFile *rFile = TFile::Open("epg.root","RECREATE");
+    TFile *rFile = TFile::Open(mode+".root","RECREATE");
     TTree *T=new TTree("T","epg");
 
     Float_t beamQ;
