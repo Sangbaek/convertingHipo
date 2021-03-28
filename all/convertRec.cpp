@@ -190,7 +190,6 @@ vector<Int_t> vScStat;
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
     T->Branch("Ptheta",&Ptheta,"Ptheta[nmb]/F");
     T->Branch("Pphi",&Pphi,"Pphi[nmb]/F");
-    T->Branch("Ptime",&Ptime,"Ptime[nmb]/F");
     T->Branch("Pvx",&Pvx,"Pvx[nmb]/F");
     T->Branch("Pvy",&Pvy,"Pvy[nmb]/F");
     T->Branch("Pvz",&Pvz,"Pvz[nmb]/F");
@@ -208,7 +207,6 @@ vector<Int_t> vScStat;
     T->Branch("Epz",&Epz,"Epz/F");
     T->Branch("Etheta",&Etheta,"Etheta/F");
     T->Branch("Ephi",&Ephi,"Ephi/F");
-    T->Branch("Etime",&Etime,"Etime/F");
     T->Branch("Evx",&Evx,"Evx/F");
     T->Branch("Evy",&Evy,"Evy/F");
     T->Branch("Evz",&Evz,"Evz/F");
@@ -227,7 +225,6 @@ vector<Int_t> vScStat;
     T->Branch("Gpz",&Gpz,"Gpz[nmg]/F");
     T->Branch("Gtheta",&Gtheta,"Gtheta[nmg]/F");
     T->Branch("Gphi",&Gphi,"Gphi[nmg]/F");
-    T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
     T->Branch("Gvx",&Gvx,"Gvx[nmg]/F");
     T->Branch("Gvy",&Gvy,"Gvy[nmg]/F");
     T->Branch("Gvz",&Gvz,"Gvz[nmg]/F");
@@ -652,7 +649,7 @@ vector<Int_t> vScStat;
     		
     		combint = 0;
     		for(int i=0;i<nmb;i++){
-    			vgs = p4_beam - p4_electron[0];
+    			vgs = p4_beam - p4_electron;
 
     			for(int j=0;j<nmg;j++){
 
@@ -662,11 +659,11 @@ vector<Int_t> vScStat;
                 	auto costheta = temp1/(temp2 * temp3);
 
 
-                    tE[combint] =   (mp*Q2[0] + 2 *mp*Nu[0]*( Nu[0] - TMath::Sqrt(Nu[0]*Nu[0] + Q2[0]) *costheta ))/(mp + Nu[0] - TMath::Sqrt(Nu[0]*Nu[0] + Q2[0])*costheta);
-                    vmP = p4_beam + p4_target - p4_electron[0] - p4_gamma[j];
-                    vmG = p4_beam + p4_target - p4_electron[0] - p4_proton[i];
+                    tE[combint] =   (mp*Q2 + 2 *mp*Nu*( Nu - TMath::Sqrt(Nu*Nu + Q2) *costheta ))/(mp + Nu - TMath::Sqrt(Nu*Nu + Q2)*costheta);
+                    vmP = p4_beam + p4_target - p4_electron - p4_gamma[j];
+                    vmG = p4_beam + p4_target - p4_electron - p4_proton[i];
 
-        	        vM = p4_beam + p4_target - p4_electron[0] - p4_proton[i] - p4_gamma[j];
+        	        vM = p4_beam + p4_target - p4_electron - p4_proton[i] - p4_gamma[j];
         	        mmG[combint] = vmG.M2();
                 	meG[combint] = vmG.E();
                     mmP[combint] = vmP.M2();
@@ -702,7 +699,7 @@ vector<Int_t> vScStat;
 
     			// trento 1
                     v1.SetXYZ(p4_beam.Px(),p4_beam.Py(),p4_beam.Pz());
-                    v2.SetXYZ(p4_electron[0].Px(),p4_electron[0].Py(),p4_electron[0].Pz());
+                    v2.SetXYZ(p4_electron.Px(),p4_electron.Py(),p4_electron.Pz());
                     v3l = v1.Cross(v2);
 
                     v1.SetXYZ(p4_proton[i].Px(),p4_proton[i].Py(),p4_proton[i].Pz());
@@ -718,7 +715,7 @@ vector<Int_t> vScStat;
 
     			// trento 2
 
-                    v2.SetXYZ(p4_electron[0].Px(),p4_electron[0].Py(),p4_electron[0].Pz());
+                    v2.SetXYZ(p4_electron.Px(),p4_electron.Py(),p4_electron.Pz());
                     v1.SetXYZ(vgs.Px(),vgs.Py(),vgs.Pz());
 
                     vtemp1 = v1.Cross(v2);
