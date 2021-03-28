@@ -28,11 +28,12 @@ int main(int argc, char **argv){
     }
 
     string mode = "pi0";
+    string ext = ".root"
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
 
-    TFile *rFile = TFile::Open(mode+".root","RECREATE");
+    TFile *rFile = TFile::Open(mode+ext,"RECREATE");
     TTree *T=new TTree("T", mode);
 
     Float_t beamQ;

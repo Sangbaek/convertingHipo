@@ -45,10 +45,11 @@ int main(int argc, char **argv){
     p4_target.SetXYZM(0,0,0,0.938272081);
     
     string mode = "pi0";
+    string ext = ".root";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
-    TFile *rFile = TFile::Open(mode+".root","RECREATE");
+    TFile *rFile = TFile::Open(mode+ext,"RECREATE");
     TTree *T=new TTree("T", mode);
 
     // Define variables
