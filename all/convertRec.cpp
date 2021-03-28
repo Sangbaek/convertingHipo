@@ -140,8 +140,8 @@ int main(int argc, char **argv){
     Float_t Gpx[100];
     Float_t Gpy[100];
     Float_t Gpz[100];
-//    Float_t Gtheta[100];
-//    Float_t Gphi[100];
+    Float_t Gtheta[100];
+    Float_t Gphi[100];
     Float_t Gvx[100];
     Float_t Gvy[100];
     Float_t Gvz[100];

@@ -108,8 +108,7 @@ int main(int argc, char **argv){
       auto iVy  = c12.getBankOrder(idx_GenPart,"vy");
       auto iVz  = c12.getBankOrder(idx_GenPart,"vz");
 
-        index=0;
-        while(c12.next() == true){
+      while(c12.next() == true){
     
           nmG=0;
 
@@ -129,7 +128,7 @@ int main(int argc, char **argv){
                 GenEpy = p4_electron.Py();
                 GenEpz = p4_electron.Pz();
                 GenEtheta = TMath::ATan2( TMath::Sqrt(tPx*tPx + tPy*tPy), tPz);
-                GenEphi   = TMath::ATan2(tPy,tpx);
+                GenEphi   = TMath::ATan2(tPy,tPx);
                 GenEvx = tVx;
                 GenEvy = tVy;
                 GenEvz = tVz;
@@ -142,7 +141,7 @@ int main(int argc, char **argv){
                 GenPpy = p4_proton.Py();
                 GenPpz = p4_proton.Pz();
                 GenPtheta = TMath::ATan2( TMath::Sqrt(tPx*tPx + tPy*tPy), tPz);
-                GenPphi   = TMath::ATan2(tPy,tpx);
+                GenPphi   = TMath::ATan2(tPy,tPx);
                 
               } // if for protons
                 
@@ -153,7 +152,7 @@ int main(int argc, char **argv){
                 GenGpy[nmG] = p4_gamma[nmG].Py();
                 GenGpz[nmG] = p4_gamma[nmG].Pz();
                 GenGtheta[nmG] = TMath::ATan2( tPx::Sqrt(tPx*tPx + tPy*tPy), tPz);
-                GenGphi[nmG]   = TMath::ATan2(tPy,Epx);
+                GenGphi[nmG]   = TMath::ATan2(tPy,tPx);
                 nmG++;
               }
           }
