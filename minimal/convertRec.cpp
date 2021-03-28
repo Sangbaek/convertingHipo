@@ -104,9 +104,6 @@ int main(int argc, char **argv){
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
     T->Branch("GenEpz",&GenEpz,"GenEpz/F");
-    T->Branch("GenEvx",&GenEvx,"GenEvx/F");
-    T->Branch("GenEvy",&GenEvy,"GenEvy/F");
-    T->Branch("GenEvz",&GenEvz,"GenEvz/F");
     T->Branch("GenPpx",&GenPpx,"GenPpx/F");
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
@@ -156,7 +153,6 @@ int main(int argc, char **argv){
     		nmG=0;
 
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
-               auto val = c12.getBank(idx_FILTER)->getInt(iInd,ipa);
                auto tempPcalSector = c12.getBank(idx_FILTER)->getInt(iPcalSector,ipa);
                auto tempFtof1aSector = c12.getBank(idx_FILTER)->getInt(iFtof1aSector,ipa);
                auto tempFtof1bSector = c12.getBank(idx_FILTER)->getInt(iFtof1bSector,ipa);

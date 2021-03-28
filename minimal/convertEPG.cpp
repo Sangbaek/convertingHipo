@@ -28,9 +28,8 @@ int main(int argc, char **argv){
     }
 
     char* mode = "pi0";
-    if (argc==2) mode = argv[1]
+    if (argc==2) mode = argv[1];
 
-    bool condition = true;
 
     TFile *rFile = TFile::Open("epg.root","RECREATE");
     TTree *T=new TTree("T","epg");
@@ -66,7 +65,6 @@ int main(int argc, char **argv){
     Int_t Gstat[100];
     Int_t Gsector[100];
 
-    Int_t Before[100];
     Int_t PcalSector[100];
     Int_t Ftof1aSector[100];
     Int_t Ftof1bSector[100];
@@ -82,7 +80,6 @@ int main(int argc, char **argv){
 
 
 // ===============    Electrons ==============    
-    T->Branch("Ep",&Ep,"Ep/F");
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
@@ -147,7 +144,6 @@ int main(int argc, char **argv){
 
 //  Filter bank created by Sangbaek
         auto idx_FILTER = c12.addBank("FILTER::Index");
-        auto iInd = c12.getBankOrder(idx_FILTER,"before");
         auto iPcalSector = c12.getBankOrder(idx_FILTER, "pcal_sector");
         auto iFtof1aSector = c12.getBankOrder(idx_FILTER, "ftof1a_sector");
         auto iFtof1bSector = c12.getBankOrder(idx_FILTER, "ftof1b_sector");
@@ -158,10 +154,8 @@ int main(int argc, char **argv){
         
             nmb=0;
             nmg=0;
-            nmG=0;
 
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
-                auto val = c12.getBank(idx_FILTER)->getInt(iInd,ipa);
                 auto tempPcalSector = c12.getBank(idx_FILTER)->getInt(iPcalSector,ipa);
                 auto tempFtof1aSector = c12.getBank(idx_FILTER)->getInt(iFtof1aSector,ipa);
                 auto tempFtof1bSector = c12.getBank(idx_FILTER)->getInt(iFtof1bSector,ipa);
@@ -244,8 +238,9 @@ int main(int argc, char **argv){
             RunNum = tempR;
         }
 
+        bool condition = true;
         if (mode == "pi0") condition = nmg>1;
-        if(condition) T->Fill();
+        if (condition) T->Fill();
 
         }
 
