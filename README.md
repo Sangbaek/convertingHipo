@@ -27,6 +27,6 @@ where the mode can be "pi0" and "dvcs" for now.
 The executables in this directory saves all useful information,
 such as Q2, missing masses, ...
 
-##minimal
+## minimal
 The executables in this directory saves px, py, pz of particles.
 The convertEPG saves some logistic information such as run numbers too, because it's useful for the experimental data.
