@@ -27,13 +27,13 @@ int main(int argc, char **argv){
         chain.Add(File);    
     }
 
-    string mode = "pi0";
-    string ext = ".root"
+    TString mode = "pi0";
+    TString ext = ".root";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
 
-    TFile *rFile = TFile::Open(mode+ext,"RECREATE");
+    TFile *rFile = TFile::Open(mode + ext,"RECREATE");
     TTree *T=new TTree("T", mode);
 
     Float_t beamQ;

@@ -44,8 +44,8 @@ int main(int argc, char **argv){
     p4_beam.SetXYZM(0,0,10.604,0.5109989461 * 0.001);
     p4_target.SetXYZM(0,0,0,0.938272081);
     
-    string mode = "pi0";
-    string ext = ".root";
+    TString mode = "pi0";
+    TString ext = ".root";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
