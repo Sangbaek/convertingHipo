@@ -238,8 +238,8 @@ int main(int argc, char **argv){
             RunNum = tempR;
         }
 
-        bool condition = true;
-        if (mode == "pi0") condition = nmg>1;
+        bool condition = nmb>0;
+        if (mode == "pi0") condition = nmb>0 && nmg>1;
         if (condition) T->Fill();
 
         }

@@ -233,7 +233,7 @@ int main(int argc, char **argv){
             }
 
 //pi0 condition
-		if(nmg>=nmG)
+		if(nmb>0 && nmg>=nmG)
         	T->Fill();
         }
 
