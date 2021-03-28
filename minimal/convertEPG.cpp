@@ -27,8 +27,9 @@ int main(int argc, char **argv){
         chain.Add(File);    
     }
 
-    char* mode = "pi0";
+    string mode = "pi0";
     if (argc==2) mode = argv[1];
+    std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
 
     TFile *rFile = TFile::Open("epg.root","RECREATE");
@@ -179,7 +180,6 @@ int main(int argc, char **argv){
                     Epy = tPy;
                     Epz = tPz;
                     Esector = PcalSector[ipa];
-                    nml++;
                 }
                 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212  && tStat<4000){  // protons, FD
