@@ -734,7 +734,7 @@ vector<Int_t> vScStat;
                 }
             }
 
-            if(nmb==0 && nmg>=nmG)   T->Fill();
+            if(nmg>=nmG)   T->Fill();
 
         }
 

@@ -641,7 +641,7 @@ int main(int argc, char **argv){
 //pi0 condition
             bool condition = nmb>0;
             if (mode == "pi0") condition = nmb>0 && nmg>1;
-            else if (mode == "egg") condition = nmb==0 && nmg>1;
+            else if (mode == "egg") condition = nmg>1;
             
             if (condition) T->Fill();
         }
