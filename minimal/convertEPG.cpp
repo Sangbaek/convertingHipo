@@ -79,7 +79,7 @@ int main(int argc, char **argv){
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
-    T->Branch("Pvz",&Ppz,"Pvz[nmb]/F");
+    T->Branch("Pvz",&Pvz,"Pvz[nmb]/F");
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
 
