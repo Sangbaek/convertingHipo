@@ -50,6 +50,7 @@ int main(int argc, char **argv){
     Float_t Ppx[100];
     Float_t Ppy[100];
     Float_t Ppz[100];
+    Float_t Pvz[100];
     Int_t Pstat[100];
     Int_t Psector[100];
 
@@ -57,6 +58,7 @@ int main(int argc, char **argv){
     Float_t Epx;
     Float_t Epy;
     Float_t Epz;
+    Float_t Evz;
     Int_t Estat;
     Int_t Esector;
     // ==== gammas =====
@@ -77,6 +79,7 @@ int main(int argc, char **argv){
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
+    T->Branch("Pvz",&Ppz,"Pvz[nmb]/F");
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
 
@@ -85,6 +88,7 @@ int main(int argc, char **argv){
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
+    T->Branch("Evz",&Evz,"Evz/F");
     T->Branch("Estat",&Estat,"Estat/I");
     T->Branch("Esector",&Esector,"Esector/I");
 
@@ -139,6 +143,7 @@ int main(int argc, char **argv){
         auto iPx  = c12.getBankOrder(idx_RECPart,"px");
         auto iPy  = c12.getBankOrder(idx_RECPart,"py");
         auto iPz  = c12.getBankOrder(idx_RECPart,"pz");
+        auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
         auto iB  = c12.getBankOrder(idx_RECPart,"beta");
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
 //===================
@@ -173,6 +178,7 @@ int main(int argc, char **argv){
                 auto tPx = c12.getBank(idx_RECPart)->getFloat(iPx,ipa);
                 auto tPy = c12.getBank(idx_RECPart)->getFloat(iPy,ipa);
                 auto tPz = c12.getBank(idx_RECPart)->getFloat(iPz,ipa);
+                auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
 
  
@@ -180,6 +186,7 @@ int main(int argc, char **argv){
                     Epx = tPx;
                     Epy = tPy;
                     Epz = tPz;
+                    Evz = tVz;
                     Esector = PcalSector[ipa];
                 }
                 
@@ -188,6 +195,7 @@ int main(int argc, char **argv){
                     Ppx[nmb] = tPx;
                     Ppy[nmb] = tPy;
                     Ppz[nmb] = tPz;
+                    Pvz[nmb] = tVz;
                     Pstat[nmb] = tStat;
                     if (Pstat[nmb] >4000) Psector[nmb] = Pstat[nmb];
                     else if (Ftof1aSector[ipa]>0) Psector[nmb] = Ftof1aSector[ipa]; 
