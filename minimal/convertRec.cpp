@@ -35,6 +35,7 @@ int main(int argc, char **argv){
     Float_t Ppx[100];
     Float_t Ppy[100];
     Float_t Ppz[100];
+    Float_t Pvz[100];
     Int_t Pstat[100];
     Int_t Psector[100];
 
@@ -45,12 +46,14 @@ int main(int argc, char **argv){
     Float_t Epx;
     Float_t Epy;
     Float_t Epz;
+    Float_t Evz;
     Int_t Estat;
     Int_t Esector;
     
     Float_t GenEpx;
     Float_t GenEpy;
     Float_t GenEpz;
+    Float_t GenEvz;
     
     // ==== gammas =====
     Int_t nmg;
@@ -76,6 +79,7 @@ int main(int argc, char **argv){
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
+    T->Branch("Pvz",&Pvz,"Pvz[nmb]/F");
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
 
@@ -84,6 +88,7 @@ int main(int argc, char **argv){
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
+    T->Branch("Evz",&Evz,"Evz/F");
     T->Branch("Estat",&Estat,"Estat/I");
     T->Branch("Esector",&Esector,"Esector/I");
 
@@ -101,6 +106,7 @@ int main(int argc, char **argv){
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
     T->Branch("GenEpz",&GenEpz,"GenEpz/F");
+    T->Branch("GenEvz",&GenEvz,"GenEvz/F");
     T->Branch("GenPpx",&GenPpx,"GenPpx/F");
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
@@ -122,6 +128,7 @@ int main(int argc, char **argv){
     	auto iPx  = c12.getBankOrder(idx_RECPart,"px");
     	auto iPy  = c12.getBankOrder(idx_RECPart,"py");
        	auto iPz  = c12.getBankOrder(idx_RECPart,"pz");
+        auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
 //===================
 
@@ -142,6 +149,7 @@ int main(int argc, char **argv){
     	auto iGenPx  = c12.getBankOrder(idx_GenPart,"px");
     	auto iGenPy  = c12.getBankOrder(idx_GenPart,"py");
        	auto iGenPz  = c12.getBankOrder(idx_GenPart,"pz");
+        auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
 
         while(c12.next() == true){
 		
@@ -165,11 +173,13 @@ int main(int argc, char **argv){
             	auto tGenPx = c12.getBank(idx_GenPart)->getFloat(iGenPx,ipa);
             	auto tGenPy = c12.getBank(idx_GenPart)->getFloat(iGenPy,ipa);
             	auto tGenPz = c12.getBank(idx_GenPart)->getFloat(iGenPz,ipa);
+                auto tGenVz = c12.getBank(idx_GenPart)->getFloat(iGenVz,ipa);
  
             	if( (c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 11  ){  // electrons
     				GenEpx = tGenPx;
     				GenEpy = tGenPy;
     				GenEpz = tGenPz;
+                    GenEvz = tGenVz;
             	}
                 
                 if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 2212  ){  // protons
@@ -192,12 +202,14 @@ int main(int argc, char **argv){
             	auto tPx = c12.getBank(idx_RECPart)->getFloat(iPx,ipa);
             	auto tPy = c12.getBank(idx_RECPart)->getFloat(iPy,ipa);
             	auto tPz = c12.getBank(idx_RECPart)->getFloat(iPz,ipa);
+                auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
     			auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
 
             	if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
     				Epx = tPx;
     				Epy = tPy;
     				Epz = tPz;
+                    Evz = tVz;
     				Esector = PcalSector[ipa];
             	}
                 
@@ -206,6 +218,7 @@ int main(int argc, char **argv){
             		Ppx[nmb] = tPx;
             		Ppy[nmb] = tPy;
             		Ppz[nmb] = tPz;
+                    Pvz[nmb] = tVz;
     				Pstat[nmb] = tStat;
     				if (Pstat[nmb] >4000) Psector[nmb] = Pstat[nmb];
     				else if (Ftof1aSector[ipa]>0) Psector[nmb] = Ftof1aSector[ipa];	
