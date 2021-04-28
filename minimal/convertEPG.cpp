@@ -247,7 +247,7 @@ int main(int argc, char **argv){
                 RunNum = tempR;
             }
 
-            bool condition = nmb>0;
+            bool condition = (nmb>0) && (nmg>0);
             if (mode == "pi0") condition = nmb>0 && nmg>1;
             if (condition) T->Fill();
 
