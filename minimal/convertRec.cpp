@@ -27,6 +27,10 @@ int main(int argc, char **argv){
 		chain.Add(File);	
 	}
     
+    TString mode = "pi0";
+    if (argc==2) mode = argv[1];
+    std::cout<<"The mode is "<<mode<<"."<<std::endl;
+
     TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
     TTree *T=new TTree("T","Rec");
 
@@ -242,7 +246,9 @@ int main(int argc, char **argv){
             	}
             }
 
-    		if(nmb>0 && nmg>=nmG) T->Fill();
+            bool condition = (nmb>0) && (nmg>0);
+            if (mode == "pi0") condition = nmb>0 && nmg>1;
+            if (condition) T->Fill();
         }
 
     }
