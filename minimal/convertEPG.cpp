@@ -58,6 +58,8 @@ int main(int argc, char **argv){
     Float_t Epx;
     Float_t Epy;
     Float_t Epz;
+    Float_t Evx;
+    Float_t Evy;
     Float_t Evz;
     Int_t Estat;
     Int_t Esector;
@@ -88,6 +90,8 @@ int main(int argc, char **argv){
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
+    T->Branch("Evx",&Evx,"Evx/F");
+    T->Branch("Evy",&Evy,"Evy/F");
     T->Branch("Evz",&Evz,"Evz/F");
     T->Branch("Estat",&Estat,"Estat/I");
     T->Branch("Esector",&Esector,"Esector/I");
@@ -143,6 +147,8 @@ int main(int argc, char **argv){
         auto iPx  = c12.getBankOrder(idx_RECPart,"px");
         auto iPy  = c12.getBankOrder(idx_RECPart,"py");
         auto iPz  = c12.getBankOrder(idx_RECPart,"pz");
+        auto iVx  = c12.getBankOrder(idx_RECPart,"vx");
+        auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
         auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
         auto iB  = c12.getBankOrder(idx_RECPart,"beta");
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
@@ -178,6 +184,8 @@ int main(int argc, char **argv){
                 auto tPx = c12.getBank(idx_RECPart)->getFloat(iPx,ipa);
                 auto tPy = c12.getBank(idx_RECPart)->getFloat(iPy,ipa);
                 auto tPz = c12.getBank(idx_RECPart)->getFloat(iPz,ipa);
+                auto tVx = c12.getBank(idx_RECPart)->getFloat(iVx,ipa);
+                auto tVy = c12.getBank(idx_RECPart)->getFloat(iVy,ipa);
                 auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
 
@@ -186,6 +194,8 @@ int main(int argc, char **argv){
                     Epx = tPx;
                     Epy = tPy;
                     Epz = tPz;
+                    Evx = tVx;
+                    Evy = tVy;
                     Evz = tVz;
                     Esector = PcalSector[ipa];
                 }
