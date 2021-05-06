@@ -106,7 +106,7 @@ int main(int argc, char **argv){
               }
           }
 
-          T->Fill();
+          if (nmG>0) T->Fill();
 
         }
 
