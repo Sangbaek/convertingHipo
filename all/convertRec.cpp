@@ -36,7 +36,11 @@ int main(int argc, char **argv){
     
     p4_beam.SetXYZM(0,0,10.604,0.5109989461 * 0.001);
     p4_target.SetXYZM(0,0,0,0.938272081);
-    
+ 
+    TString mode = "pi0";
+    if (argc==2) mode = argv[1];
+    std::cout<<"The mode is "<<mode<<"."<<std::endl;
+   
     TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
     TTree *T=new TTree("T","Rec");
 
@@ -734,7 +738,9 @@ vector<Int_t> vScStat;
     			}
     		}
 
-            if(nmb>0 && nmg>=nmG)   T->Fill();
+            bool condition = (nmb>0) && (nmg>0) && (nmG>0);
+            if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nmG>0);
+            if (condition) T->Fill();
 
         }
 
