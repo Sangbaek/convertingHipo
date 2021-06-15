@@ -81,6 +81,12 @@ int main(int argc, char **argv){
     Int_t Ftof1bSector[100];
     Int_t Ftof2Sector[100];
 
+   // =====  pion =====
+    Int_t nmpi;
+
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz;
    
  ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
@@ -122,6 +128,9 @@ int main(int argc, char **argv){
     T->Branch("GenPpx",&GenPpx,"GenPpx/F");
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
+    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz/F");
     T->Branch("nmG", &nmG, "nmG/I");
     T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
@@ -206,6 +215,12 @@ int main(int argc, char **argv){
             		GenPpx = tGenPx;
             		GenPpy = tGenPy;
             		GenPpz = tGenPz;
+            	}
+
+                if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // protons
+            		GenPipx = tGenPix;
+            		GenPipy = tGenPiy;
+            		GenPipz = tGenPiz;
             	}
                     
             	if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 22  ){  // photons
