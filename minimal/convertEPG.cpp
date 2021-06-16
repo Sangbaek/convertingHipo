@@ -200,7 +200,7 @@ int main(int argc, char **argv){
                     Esector = PcalSector[ipa];
                 }
                 
-                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212  && tStat<4000){  // protons, FD
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons, FD
              
                     Ppx[nmb] = tPx;
                     Ppy[nmb] = tPy;
