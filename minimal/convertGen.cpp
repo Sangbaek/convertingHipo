@@ -45,6 +45,14 @@ int main(int argc, char **argv){
     Float_t GenGpy[2];
     Float_t GenGpz[2];
 
+    // =====  pion =====
+    Int_t nmpi;
+
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz;
+    
+
 // ===============    Electrons ==============    
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
@@ -55,6 +63,12 @@ int main(int argc, char **argv){
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
 
+// ===============    Pions ================================== 
+    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz/F");
+
+
 
 // ================   Gammas  ===============    
     T->Branch("nmG",&nmG,"nmG/I");
@@ -62,13 +76,7 @@ int main(int argc, char **argv){
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
 
-// =====  pion =====
-    Int_t nmpi;
 
-    Float_t GenPipx;
-    Float_t GenPipy;
-    Float_t GenPipz;
-    
   //
   //loop over files
   //
