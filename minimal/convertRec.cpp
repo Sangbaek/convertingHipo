@@ -218,9 +218,9 @@ int main(int argc, char **argv){
             	}
 
                 if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // protons
-            		GenPipx = tGenPix;
-            		GenPipy = tGenPiy;
-            		GenPipz = tGenPiz;
+            		GenPipx = tGenPx;
+            		GenPipy = tGenPy;
+            		GenPipz = tGenPz;
             	}
                     
             	if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 22  ){  // photons
