@@ -100,7 +100,7 @@ int main(int argc, char **argv){
               auto tPy = c12.getBank(idx_GenPart)->getFloat(iPy,ipa);
               auto tPz = c12.getBank(idx_GenPart)->getFloat(iPz,ipa);
 
-              cout<<" PID = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa))<<endl;
+              cout<<" PID = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
 
               if( (c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 11  ){  // electrons
                   GenEpx = tPx;
