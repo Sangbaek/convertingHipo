@@ -104,6 +104,7 @@ int main(int argc, char **argv){
 
 
               if( (c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 11  ){  // electrons
+                  cout<<" FOUND ELECTRON VALUES = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
                   GenEpx = tPx;
                   GenEpy = tPy;
                   GenEpz = tPz;
