@@ -95,6 +95,8 @@ int main(int argc, char **argv){
           nmG=0;
 
           for(auto ipa=0;ipa<c12.getBank(idx_GenPart)->getRows();ipa++){
+
+              cout<<" PID = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
             
               auto tPx = c12.getBank(idx_GenPart)->getFloat(iPx,ipa);
               auto tPy = c12.getBank(idx_GenPart)->getFloat(iPy,ipa);
@@ -113,7 +115,7 @@ int main(int argc, char **argv){
                   GenPpz = tPz;
 
               if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 111  ){  // protons
-                  cout<<" PID = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
+                  cout<<" WRITING THE GEN PI VALUES = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
                   GenPipx = tPx;
                   GenPipy = tPy;
                   GenPipz = tPz;
