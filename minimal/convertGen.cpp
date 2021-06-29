@@ -115,7 +115,7 @@ int main(int argc, char **argv){
                   GenPpy = tPy;
                   GenPpz = tPz;
 
-              if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 111  ){  // protons
+              if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 2212  ){  // protons
                   cout<<" WRITING THE GEN PI VALUES = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
                   GenPipx = tPx;
                   GenPipy = tPy;
