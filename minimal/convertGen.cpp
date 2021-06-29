@@ -104,9 +104,9 @@ int main(int argc, char **argv){
                   GenPpz = tPz;
 
               if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // protons
-            		GenPipx = tGenPx;
-            		GenPipy = tGenPy;
-            		GenPipz = tGenPz;
+            		GenPipx = tPx;
+            		GenPipy = tPy;
+            		GenPipz = tPz;
             	}
                 
               } // if for protons
