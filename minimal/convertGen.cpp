@@ -61,6 +61,13 @@ int main(int argc, char **argv){
     T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
+
+// =====  pion =====
+    Int_t nmpi;
+
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz;
     
   //
   //loop over files
@@ -95,6 +102,12 @@ int main(int argc, char **argv){
                   GenPpx = tPx;
                   GenPpy = tPy;
                   GenPpz = tPz;
+
+              if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // protons
+            		GenPipx = tGenPx;
+            		GenPipy = tGenPy;
+            		GenPipz = tGenPz;
+            	}
                 
               } // if for protons
                 
