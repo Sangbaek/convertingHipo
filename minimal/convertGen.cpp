@@ -96,7 +96,6 @@ int main(int argc, char **argv){
 
           for(auto ipa=0;ipa<c12.getBank(idx_GenPart)->getRows();ipa++){
 
-              cout<<" PID = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
             
               auto tPx = c12.getBank(idx_GenPart)->getFloat(iPx,ipa);
               auto tPy = c12.getBank(idx_GenPart)->getFloat(iPy,ipa);
@@ -104,7 +103,6 @@ int main(int argc, char **argv){
 
 
               if( (c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 11  ){  // electrons
-                  cout<<" FOUND ELECTRON VALUES = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
                   GenEpx = tPx;
                   GenEpy = tPy;
                   GenEpz = tPz;
@@ -118,7 +116,6 @@ int main(int argc, char **argv){
             	}
 
               if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 111  ){  // protons
-                  cout<<" WRITING GENERATED PION VALUES = "<<c12.getBank(idx_GenPart)->getInt(iPid,ipa)<<endl;
                   GenPipx = tPx;
                   GenPipy = tPy;
                   GenPipz = tPz;
