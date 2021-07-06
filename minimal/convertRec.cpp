@@ -42,6 +42,10 @@ int main(int argc, char **argv){
     Float_t Pvz[100];
     Int_t Pstat[100];
     Int_t Psector[100];
+    Int_t PPcalSector[100];
+    Int_t PFtof1aSector[100];
+    Int_t PFtof1bSector[100];
+    Int_t PFtof2Sector[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
