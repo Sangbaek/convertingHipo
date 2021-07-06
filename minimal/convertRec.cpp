@@ -90,6 +90,10 @@ int main(int argc, char **argv){
     T->Branch("Pvz",&Pvz,"Pvz[nmb]/F");
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
+    T->Branch("PPcalSector",&PPcalSector,"PPcalSector[nmb]/I");
+    T->Branch("PFtof1aSector",&PFtof1aSector,"PFtof1aSector[nmb]/I");
+    T->Branch("PFtof1bSector",&PFtof1bSector,"PFtof1bSector[nmb]/I");
+    T->Branch("PFtof2Sector",&PFtof2Sector,"PFtof2Sector[nmb]/I");
 
 
 // ===============    Electrons ==============    
@@ -248,6 +252,10 @@ int main(int argc, char **argv){
     				else if (Ftof1aSector[ipa]>0) Psector[nmb] = Ftof1aSector[ipa];	
     				else if (Ftof1bSector[ipa]>0) Psector[nmb] = Ftof1bSector[ipa];	
     				else if (Ftof2Sector[ipa]>0) Psector[nmb] = Ftof2Sector[ipa];	
+                    PPcalSector[nmb] = PcalSector[ipa];
+                    PFtof1aSector[nmb] = Ftof1aSector[ipa];
+                    PFtof1bSector[nmb] = Ftof1bSector[ipa];
+                    PFtof2Sector[nmb] = Ftof2Sector[ipa];
 
                		nmb++;
                     

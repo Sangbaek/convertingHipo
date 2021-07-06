@@ -53,6 +53,10 @@ int main(int argc, char **argv){
     Float_t Pvz[100];
     Int_t Pstat[100];
     Int_t Psector[100];
+    Int_t PPcalSector[100];
+    Int_t PFtof1aSector[100];
+    Int_t PFtof1bSector[100];
+    Int_t PFtof2Sector[100];
 
     // ==== electron =====
     Float_t Epx;
@@ -84,6 +88,10 @@ int main(int argc, char **argv){
     T->Branch("Pvz",&Pvz,"Pvz[nmb]/F");
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
+    T->Branch("PPcalSector",&PPcalSector,"PPcalSector[nmb]/I");
+    T->Branch("PFtof1aSector",&PFtof1aSector,"PFtof1aSector[nmb]/I");
+    T->Branch("PFtof1bSector",&PFtof1bSector,"PFtof1bSector[nmb]/I");
+    T->Branch("PFtof2Sector",&PFtof2Sector,"PFtof2Sector[nmb]/I");
 
 
 // ===============    Electrons ==============    
@@ -211,6 +219,11 @@ int main(int argc, char **argv){
                     else if (Ftof1aSector[ipa]>0) Psector[nmb] = Ftof1aSector[ipa]; 
                     else if (Ftof1bSector[ipa]>0) Psector[nmb] = Ftof1bSector[ipa]; 
                     else if (Ftof2Sector[ipa]>0) Psector[nmb] = Ftof2Sector[ipa];   
+                    PPcalSector[nmb] = PcalSector[ipa];
+                    PFtof1aSector[nmb] = Ftof1aSector[ipa];
+                    PFtof1bSector[nmb] = Ftof1bSector[ipa];
+                    PFtof2Sector[nmb] = Ftof2Sector[ipa];
+
                     nmb++;
                     
                 } // if for protons
@@ -259,6 +272,7 @@ int main(int argc, char **argv){
 
             bool condition = (nmb>0) && (nmg>0);
             if (mode == "pi0") condition = nmb>0 && nmg>1;
+            if (mode == "elas") condition = nmb>0;
             if (condition) T->Fill();
 
         }
