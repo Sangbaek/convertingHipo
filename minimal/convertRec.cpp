@@ -44,8 +44,28 @@ int main(int argc, char **argv){
     Int_t Psector[100];
     Int_t PPcalSector[100];
     Int_t PFtof1aSector[100];
+    Int_t PFtof1aHitx[100];
+    Int_t PFtof1aHity[100];
+    Int_t PFtof1aHitz[100];
+    Int_t PFtof1aTime[100];
+    Int_t PFtof1aPath[100];
     Int_t PFtof1bSector[100];
+    Int_t PFtof1bHitx[100];
+    Int_t PFtof1bHity[100];
+    Int_t PFtof1bHitz[100];
+    Int_t PFtof1bTime[100];
+    Int_t PFtof1bPath[100];
     Int_t PFtof2Sector[100];
+    Int_t PFtof2Hitx[100];
+    Int_t PFtof2Hity[100];
+    Int_t PFtof2Hitz[100];
+    Int_t PFtof2Time[100];
+    Int_t PFtof2Path[100];
+    Int_t PCtofHitx[100];
+    Int_t PCtofHity[100];
+    Int_t PCtofHitz[100];
+    Int_t PCtofTime[100];
+    Int_t PCtofPath[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
@@ -80,6 +100,7 @@ int main(int argc, char **argv){
     Float_t GenGpy[2];
     Float_t GenGpz[2];
 
+    Int_t Before[100];
     Int_t PcalSector[100];
     Int_t Ftof1aSector[100];
     Int_t Ftof1bSector[100];
@@ -96,8 +117,28 @@ int main(int argc, char **argv){
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
     T->Branch("PPcalSector",&PPcalSector,"PPcalSector[nmb]/I");
     T->Branch("PFtof1aSector",&PFtof1aSector,"PFtof1aSector[nmb]/I");
+    T->Branch("PFtof1aHitx",&PFtof1aHitx,"PFtof1aHitx[nmb]/I");
+    T->Branch("PFtof1aHity",&PFtof1aHity,"PFtof1aHity[nmb]/I");
+    T->Branch("PFtof1aHitz",&PFtof1aHitz,"PFtof1aHitz[nmb]/I");
+    T->Branch("PFtof1aTime",&PFtof1aTime,"PFtof1aTime[nmb]/I");
+    T->Branch("PFtof1aPath",&PFtof1aPath,"PFtof1aPath[nmb]/I");
     T->Branch("PFtof1bSector",&PFtof1bSector,"PFtof1bSector[nmb]/I");
+    T->Branch("PFtof1bHitx",&PFtof1bHitx,"PFtof1bHitx[nmb]/I");
+    T->Branch("PFtof1bHity",&PFtof1bHity,"PFtof1bHity[nmb]/I");
+    T->Branch("PFtof1bHitz",&PFtof1bHitz,"PFtof1bHitz[nmb]/I");
+    T->Branch("PFtof1bTime",&PFtof1bTime,"PFtof1bTime[nmb]/I");
+    T->Branch("PFtof1bPath",&PFtof1bPath,"PFtof1bPath[nmb]/I");
     T->Branch("PFtof2Sector",&PFtof2Sector,"PFtof2Sector[nmb]/I");
+    T->Branch("PFtof2Hitx",&PFtof2Hitx,"PFtof2Hitx[nmb]/I");
+    T->Branch("PFtof2Hity",&PFtof2Hity,"PFtof2Hity[nmb]/I");
+    T->Branch("PFtof2Hitz",&PFtof2Hitz,"PFtof2Hitz[nmb]/I");
+    T->Branch("PFtof2Time",&PFtof2Time,"PFtof2Time[nmb]/I");
+    T->Branch("PFtof2Path",&PFtof2Path,"PFtof2Path[nmb]/I");
+    T->Branch("PCtofHitx",&PCtofHitx,"PCtofHitx[nmb]/I");
+    T->Branch("PCtofHity",&PCtofHity,"PCtofHity[nmb]/I");
+    T->Branch("PCtofHitz",&PCtofHitz,"PCtofHitz[nmb]/I");
+    T->Branch("PCtofTime",&PCtofTime,"PCtofTime[nmb]/I");
+    T->Branch("PCtofPath",&PCtofPath,"PCtofPath[nmb]/I");
 
 
 // ===============    Electrons ==============    
@@ -163,6 +204,17 @@ int main(int argc, char **argv){
     	auto iFtof2Sector = c12.getBankOrder(idx_FILTER, "ftof2_sector");
 //=========
 
+// Scintillator bank
+    auto idx_RECScint = c12.addBank("REC::Scintillator");
+    auto jPnd = c12.getBankOrder(idx_RECScint,"pindex");
+    auto jDet = c12.getBankOrder(idx_RECScint,"detector");
+    auto jSec = c12.getBankOrder(idx_RECScint,"sector");
+    auto jLay = c12.getBankOrder(idx_RECScint,"layer");
+    auto jTim = c12.getBankOrder(idx_RECScint,"time");
+    auto jPat = c12.getBankOrder(idx_RECScint,"path");
+    auto jX   = c12.getBankOrder(idx_RECScint,"x");
+    auto jY = c12.getBankOrder(idx_RECScint,"y");
+    auto jZ = c12.getBankOrder(idx_RECScint,"z");
 
 
 // MC bank
@@ -182,10 +234,12 @@ int main(int argc, char **argv){
     		nmG=0;
 
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
+               auto val = c12.getBank(idx_FILTER)->getInt(iInd,ipa);
                auto tempPcalSector = c12.getBank(idx_FILTER)->getInt(iPcalSector,ipa);
                auto tempFtof1aSector = c12.getBank(idx_FILTER)->getInt(iFtof1aSector,ipa);
                auto tempFtof1bSector = c12.getBank(idx_FILTER)->getInt(iFtof1bSector,ipa);
                auto tempFtof2Sector = c12.getBank(idx_FILTER)->getInt(iFtof2Sector,ipa);
+               Before[ipa] = val;
                PcalSector[ipa] = tempPcalSector;
                Ftof1aSector[ipa] = tempFtof1aSector;
                Ftof1bSector[ipa] = tempFtof1bSector;
@@ -261,8 +315,56 @@ int main(int argc, char **argv){
                     PFtof1bSector[nmb] = Ftof1bSector[ipa];
                     PFtof2Sector[nmb] = Ftof2Sector[ipa];
 
+                    // Scintillaror Bank        //
+                    for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
+
+                        auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPnd,ipa1);
+                        auto tempDet = c12.getBank(idx_RECScint)->getInt(jDet,ipa1);    
+                        auto tempLay = c12.getBank(idx_RECScint)->getInt(jLay,ipa1); 
+                        auto tempTim = c12.getBank(idx_RECScint)->getFloat(jTim,ipa1); 
+                        auto tempPat = c12.getBank(idx_RECScint)->getFloat(jPat,ipa1); 
+                        auto tempX= c12.getBank(idx_RECScint)->getFloat(jX,ipa1); 
+                        auto tempY = c12.getBank(idx_RECScint)->getFloat(jY,ipa1); 
+                        auto tempZ = c12.getBank(idx_RECScint)->getFloat(jZ,ipa1);
+
+                        if (tempPnd == Before[ipa]){
+
+                            if (tempDet == 12 ){// ftof{
+                                if (tempLay == 1){
+                                    PFtof1aHitx[nmb] = tempX
+                                    PFtof1aHity[nmb] = tempY
+                                    PFtof1aHitz[nmb] = tempZ
+                                    PFtof1aTime[nmb] = tempTim
+                                    PFtof1aPath[nmb] = tempPat
+                                }
+
+                                if (tempLay == 2){
+                                    PFtof1bHitx[nmb] = tempX
+                                    PFtof1bHity[nmb] = tempY
+                                    PFtof1bHitz[nmb] = tempZ
+                                    PFtof1bTime[nmb] = tempTim
+                                    PFtof1bPath[nmb] = tempPat
+                                }
+
+                                if (tempLay == 3){
+                                    PFtof2Hitx[nmb] = tempX
+                                    PFtof2Hity[nmb] = tempY
+                                    PFtof2Hitz[nmb] = tempZ
+                                    PFtof2Time[nmb] = tempTim
+                                    PFtof2Path[nmb] = tempPat
+                                }
+                            }
+                            if (tempDet == 4 ){// ctof{
+                                CtofHitx[nmb] = tempX
+                                CtofHity[nmb] = tempY
+                                CtofHitz[nmb] = tempZ
+                                CtofTime[nmb] = tempTim
+                                CtofPath[nmb] = tempPat
+                            }
+
+                        }
+                    }
                		nmb++;
-                    
             	} // if for protons
                     
             	if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 22  ){  // photons
