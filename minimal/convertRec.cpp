@@ -356,11 +356,11 @@ int main(int argc, char **argv){
                                 }
                             }
                             if (tempDet == 4 ){// ctof{
-                                PCtofHitx[nmb] = tempX
-                                PCtofHity[nmb] = tempY
-                                PCtofHitz[nmb] = tempZ
-                                PCtofTime[nmb] = tempTim
-                                PCtofPath[nmb] = tempPat
+                                PCtofHitx[nmb] = tempX;
+                                PCtofHity[nmb] = tempY;
+                                PCtofHitz[nmb] = tempZ;
+                                PCtofTime[nmb] = tempTim;
+                                PCtofPath[nmb] = tempPat;
                             }
 
                         }
