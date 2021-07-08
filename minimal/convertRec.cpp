@@ -198,6 +198,7 @@ int main(int argc, char **argv){
 
 //  Filter bank created by Sangbaek
     	auto idx_FILTER = c12.addBank("FILTER::Index");
+        auto iInd = c12.getBankOrder(idx_FILTER,"before");
     	auto iPcalSector = c12.getBankOrder(idx_FILTER, "pcal_sector");
     	auto iFtof1aSector = c12.getBankOrder(idx_FILTER, "ftof1a_sector");
     	auto iFtof1bSector = c12.getBankOrder(idx_FILTER, "ftof1b_sector");
