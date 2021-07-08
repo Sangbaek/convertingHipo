@@ -331,35 +331,35 @@ int main(int argc, char **argv){
 
                             if (tempDet == 12 ){// ftof{
                                 if (tempLay == 1){
-                                    PFtof1aHitx[nmb] = tempX
-                                    PFtof1aHity[nmb] = tempY
-                                    PFtof1aHitz[nmb] = tempZ
-                                    PFtof1aTime[nmb] = tempTim
-                                    PFtof1aPath[nmb] = tempPat
+                                    PFtof1aHitx[nmb] = tempX;
+                                    PFtof1aHity[nmb] = tempY;
+                                    PFtof1aHitz[nmb] = tempZ;
+                                    PFtof1aTime[nmb] = tempTim;
+                                    PFtof1aPath[nmb] = tempPat;
                                 }
 
                                 if (tempLay == 2){
-                                    PFtof1bHitx[nmb] = tempX
-                                    PFtof1bHity[nmb] = tempY
-                                    PFtof1bHitz[nmb] = tempZ
-                                    PFtof1bTime[nmb] = tempTim
-                                    PFtof1bPath[nmb] = tempPat
+                                    PFtof1bHitx[nmb] = tempX;
+                                    PFtof1bHity[nmb] = tempY;
+                                    PFtof1bHitz[nmb] = tempZ;
+                                    PFtof1bTime[nmb] = tempTim;
+                                    PFtof1bPath[nmb] = tempPat;
                                 }
 
                                 if (tempLay == 3){
-                                    PFtof2Hitx[nmb] = tempX
-                                    PFtof2Hity[nmb] = tempY
-                                    PFtof2Hitz[nmb] = tempZ
-                                    PFtof2Time[nmb] = tempTim
-                                    PFtof2Path[nmb] = tempPat
+                                    PFtof2Hitx[nmb] = tempX;
+                                    PFtof2Hity[nmb] = tempY;
+                                    PFtof2Hitz[nmb] = tempZ;
+                                    PFtof2Time[nmb] = tempTim;
+                                    PFtof2Path[nmb] = tempPat;
                                 }
                             }
                             if (tempDet == 4 ){// ctof{
-                                CtofHitx[nmb] = tempX
-                                CtofHity[nmb] = tempY
-                                CtofHitz[nmb] = tempZ
-                                CtofTime[nmb] = tempTim
-                                CtofPath[nmb] = tempPat
+                                PCtofHitx[nmb] = tempX
+                                PCtofHity[nmb] = tempY
+                                PCtofHitz[nmb] = tempZ
+                                PCtofTime[nmb] = tempTim
+                                PCtofPath[nmb] = tempPat
                             }
 
                         }
