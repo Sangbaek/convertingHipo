@@ -316,6 +316,27 @@ int main(int argc, char **argv){
                     PFtof1bSector[nmb] = Ftof1bSector[ipa];
                     PFtof2Sector[nmb] = Ftof2Sector[ipa];
 
+                    PFtof1aHitx[nmb] = -100000;
+                    PFtof1aHity[nmb] = -100000;
+                    PFtof1aHitz[nmb] = -100000;
+                    PFtof1aTime[nmb] = -100000;
+                    PFtof1aPath[nmb] = -100000;
+                    PFtof1bHitx[nmb] = -100000;
+                    PFtof1bHity[nmb] = -100000;
+                    PFtof1bHitz[nmb] = -100000;
+                    PFtof1bTime[nmb] = -100000;
+                    PFtof1bPath[nmb] = -100000;
+                    PFtof2Hitx[nmb] = -100000;
+                    PFtof2Hity[nmb] = -100000;
+                    PFtof2Hitz[nmb] = -100000;
+                    PFtof2Time[nmb] = -100000;
+                    PFtof2Path[nmb] = -100000;
+                    PCtofHitx[nmb] = -100000;
+                    PCtofHity[nmb] = -100000;
+                    PCtofHitz[nmb] = -100000;
+                    PCtofTime[nmb] = -100000;
+                    PCtofPath[nmb] = -100000;
+
                     // Scintillaror Bank        //
                     for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
 
@@ -327,27 +348,6 @@ int main(int argc, char **argv){
                         auto tempX= c12.getBank(idx_RECScint)->getFloat(jX,ipa1); 
                         auto tempY = c12.getBank(idx_RECScint)->getFloat(jY,ipa1); 
                         auto tempZ = c12.getBank(idx_RECScint)->getFloat(jZ,ipa1);
-
-                        PFtof1aHitx[nmb] = -100000;
-                        PFtof1aHity[nmb] = -100000;
-                        PFtof1aHitz[nmb] = -100000;
-                        PFtof1aTime[nmb] = -100000;
-                        PFtof1aPath[nmb] = -100000;
-                        PFtof1bHitx[nmb] = -100000;
-                        PFtof1bHity[nmb] = -100000;
-                        PFtof1bHitz[nmb] = -100000;
-                        PFtof1bTime[nmb] = -100000;
-                        PFtof1bPath[nmb] = -100000;
-                        PFtof2Hitx[nmb] = -100000;
-                        PFtof2Hity[nmb] = -100000;
-                        PFtof2Hitz[nmb] = -100000;
-                        PFtof2Time[nmb] = -100000;
-                        PFtof2Path[nmb] = -100000;
-                        PCtofHitx[nmb] = -100000;
-                        PCtofHity[nmb] = -100000;
-                        PCtofHitz[nmb] = -100000;
-                        PCtofTime[nmb] = -100000;
-                        PCtofPath[nmb] = -100000;
 
 
                         if (tempPnd == Before[ipa]){
