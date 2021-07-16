@@ -148,15 +148,15 @@ int main(int argc, char **argv){
     T->Branch("PCtofHitz",&PCtofHitz,"PCtofHitz[nmb]/F");
     T->Branch("PCtofTime",&PCtofTime,"PCtofTime[nmb]/F");
     T->Branch("PCtofPath",&PCtofPath,"PCtofPath[nmb]/F");
-    T->Branch("PDC1Hitx",&PDC1Hitx,"PDC1Hitx[nmb]/F");
-    T->Branch("PDC1Hity",&PDC1Hity,"PDC1Hity[nmb]/F");
-    T->Branch("PDC1Hitz",&PDC1Hitz,"PDC1Hitz[nmb]/F");
-    T->Branch("PDC2Hitx",&PDC2Hitx,"PDC2Hitx[nmb]/F");
-    T->Branch("PDC2Hity",&PDC2Hity,"PDC2Hity[nmb]/F");
-    T->Branch("PDC2Hitz",&PDC2Hitz,"PDC2Hitz[nmb]/F");
-    T->Branch("PDC3Hitx",&PDC3Hitx,"PDC3Hitx[nmb]/F");
-    T->Branch("PDC3Hity",&PDC3Hity,"PDC3Hity[nmb]/F");
-    T->Branch("PDC3Hitz",&PDC3Hitz,"PDC3Hitz[nmb]/F");
+    T->Branch("PDc1Hitx",&PDc1Hitx,"PDc1Hitx[nmb]/F");
+    T->Branch("PDc1Hity",&PDc1Hity,"PDc1Hity[nmb]/F");
+    T->Branch("PDc1Hitz",&PDc1Hitz,"PDc1Hitz[nmb]/F");
+    T->Branch("PDc2Hitx",&PDc2Hitx,"PDc2Hitx[nmb]/F");
+    T->Branch("PDc2Hity",&PDc2Hity,"PDc2Hity[nmb]/F");
+    T->Branch("PDc2Hitz",&PDc2Hitz,"PDc2Hitz[nmb]/F");
+    T->Branch("PDc3Hitx",&PDc3Hitx,"PDc3Hitx[nmb]/F");
+    T->Branch("PDc3Hity",&PDc3Hity,"PDc3Hity[nmb]/F");
+    T->Branch("PDc3Hitz",&PDc3Hitz,"PDc3Hitz[nmb]/F");
 
 
 // ===============    Electrons ==============    
