@@ -438,19 +438,19 @@ int main(int argc, char **argv){
                         if (tempPnd_dc == Before[ipa]){
 
                             if (tempDet_dc == 6 ){// ftof{
-                                if (tempLay == 1){
+                                if (tempLay_dc == 1){
                                     PDc1Hitx[nmb] = tempX_dc;
                                     PDc1Hity[nmb] = tempY_dc;
                                     PDc1Hitz[nmb] = tempZ_dc;
                                 }
 
-                                if (tempLay == 2){
+                                if (tempLay_dc == 2){
                                     PDc2Hitx[nmb] = tempX_dc;
                                     PDc2Hity[nmb] = tempY_dc;
                                     PDc2Hitz[nmb] = tempZ_dc;
                                 }
 
-                                if (tempLay == 3){
+                                if (tempLay_dc == 3){
                                     PDc3Hitx[nmb] = tempX_dc;
                                     PDc3Hity[nmb] = tempY_dc;
                                     PDc3Hitz[nmb] = tempZ_dc;
