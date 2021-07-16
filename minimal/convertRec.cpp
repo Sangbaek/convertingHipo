@@ -66,6 +66,15 @@ int main(int argc, char **argv){
     Float_t PCtofHitz[100];
     Float_t PCtofTime[100];
     Float_t PCtofPath[100];
+    Float_t PDC1Hitx[100];
+    Float_t PDC1Hity[100];
+    Float_t PDC1Hitz[100];
+    Float_t PDC2Hitx[100];
+    Float_t PDC2Hity[100];
+    Float_t PDC2Hitz[100];
+    Float_t PDC3Hitx[100];
+    Float_t PDC3Hity[100];
+    Float_t PDC3Hitz[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
@@ -139,6 +148,15 @@ int main(int argc, char **argv){
     T->Branch("PCtofHitz",&PCtofHitz,"PCtofHitz[nmb]/F");
     T->Branch("PCtofTime",&PCtofTime,"PCtofTime[nmb]/F");
     T->Branch("PCtofPath",&PCtofPath,"PCtofPath[nmb]/F");
+    T->Branch("PDC1Hitx",&PDC1Hitx,"PDC1Hitx[nmb]/F");
+    T->Branch("PDC1Hity",&PDC1Hity,"PDC1Hity[nmb]/F");
+    T->Branch("PDC1Hitz",&PDC1Hitz,"PDC1Hitz[nmb]/F");
+    T->Branch("PDC2Hitx",&PDC2Hitx,"PDC2Hitx[nmb]/F");
+    T->Branch("PDC2Hity",&PDC2Hity,"PDC2Hity[nmb]/F");
+    T->Branch("PDC2Hitz",&PDC2Hitz,"PDC2Hitz[nmb]/F");
+    T->Branch("PDC3Hitx",&PDC3Hitx,"PDC3Hitx[nmb]/F");
+    T->Branch("PDC3Hity",&PDC3Hity,"PDC3Hity[nmb]/F");
+    T->Branch("PDC3Hitz",&PDC3Hitz,"PDC3Hitz[nmb]/F");
 
 
 // ===============    Electrons ==============    
@@ -216,6 +234,16 @@ int main(int argc, char **argv){
     auto jX   = c12.getBankOrder(idx_RECScint,"x");
     auto jY = c12.getBankOrder(idx_RECScint,"y");
     auto jZ = c12.getBankOrder(idx_RECScint,"z");
+
+// Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
+    auto idx_Traj = c12.addBank("REC::Traj");
+    auto iPindex = c12.getBankOrder(idx_Traj,"pindex");
+    auto iDetector = c12.getBankOrder(idx_Traj,"detector");
+    auto iLayer = c12.getBankOrder(idx_Traj,"layer");
+    auto iX = c12.getBankOrder(idx_Traj,"x");
+    auto iY = c12.getBankOrder(idx_Traj,"y");
+    auto iZ = c12.getBankOrder(idx_Traj,"z");
+// ========================
 
 
 // MC bank
@@ -336,6 +364,15 @@ int main(int argc, char **argv){
                     PCtofHitz[nmb] = -100000;
                     PCtofTime[nmb] = -100000;
                     PCtofPath[nmb] = -100000;
+                    PDc1Hitx[nmb] = -100000;
+                    PDc1Hity[nmb] = -100000;
+                    PDc1Hitz[nmb] = -100000;
+                    PDc2Hitx[nmb] = -100000;
+                    PDc2Hity[nmb] = -100000;
+                    PDc2Hitz[nmb] = -100000;
+                    PDc3Hitx[nmb] = -100000;
+                    PDc3Hity[nmb] = -100000;
+                    PDc3Hitz[nmb] = -100000;
 
                     // Scintillaror Bank        //
                     for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
@@ -385,6 +422,39 @@ int main(int argc, char **argv){
                                 PCtofPath[nmb] = tempPat;
                             }
 
+                        }
+
+                    // DC Bank (REC::Traj)        //
+                    for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
+
+                        auto tempPnd_dc = c12.getBank(idx_Traj)->getInt(iPindex,ipa2);
+                        auto tempDet_dc = c12.getBank(idx_Traj)->getInt(iDetector,ipa2);    
+                        auto tempLay_dc = c12.getBank(idx_Traj)->getInt(iLayer,ipa2); 
+                        auto tempX_dc = c12.getBank(idx_Traj)->getFloat(iX,ipa2); 
+                        auto tempY_dc = c12.getBank(idx_Traj)->getFloat(iY,ipa2); 
+                        auto tempZ_dc = c12.getBank(idx_Traj)->getFloat(iZ,ipa2);
+
+                        if (tempPnd_dc == Before[ipa]){
+
+                            if (tempDet_dc == 6 ){// ftof{
+                                if (tempLay == 1){
+                                    PDc1Hitx[nmb] = tempX_dc;
+                                    PDc1Hity[nmb] = tempY_dc;
+                                    PDc1Hitz[nmb] = tempZ_dc;
+                                }
+
+                                if (tempLay == 2){
+                                    PDc2Hitx[nmb] = tempX_dc;
+                                    PDc2Hity[nmb] = tempY_dc;
+                                    PDc2Hitz[nmb] = tempZ_dc;
+                                }
+
+                                if (tempLay == 3){
+                                    PDc3Hitx[nmb] = tempX_dc;
+                                    PDc3Hity[nmb] = tempY_dc;
+                                    PDc3Hitz[nmb] = tempZ_dc;
+                                }
+                            }
                         }
                     }
                		nmb++;
