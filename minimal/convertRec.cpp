@@ -66,15 +66,15 @@ int main(int argc, char **argv){
     Float_t PCtofHitz[100];
     Float_t PCtofTime[100];
     Float_t PCtofPath[100];
-    Float_t PDC1Hitx[100];
-    Float_t PDC1Hity[100];
-    Float_t PDC1Hitz[100];
-    Float_t PDC2Hitx[100];
-    Float_t PDC2Hity[100];
-    Float_t PDC2Hitz[100];
-    Float_t PDC3Hitx[100];
-    Float_t PDC3Hity[100];
-    Float_t PDC3Hitz[100];
+    Float_t PDc1Hitx[100];
+    Float_t PDc1Hity[100];
+    Float_t PDc1Hitz[100];
+    Float_t PDc2Hitx[100];
+    Float_t PDc2Hity[100];
+    Float_t PDc2Hitz[100];
+    Float_t PDc3Hitx[100];
+    Float_t PDc3Hity[100];
+    Float_t PDc3Hitz[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
