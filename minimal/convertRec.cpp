@@ -423,6 +423,7 @@ int main(int argc, char **argv){
                             }
 
                         }
+                    }
 
                     // DC Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
