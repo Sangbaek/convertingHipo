@@ -262,6 +262,7 @@ int main(int argc, char **argv){
                 auto tempFtof1aSector = c12.getBank(idx_FILTER)->getInt(iFtof1aSector,ipa);
                 auto tempFtof1bSector = c12.getBank(idx_FILTER)->getInt(iFtof1bSector,ipa);
                 auto tempFtof2Sector = c12.getBank(idx_FILTER)->getInt(iFtof2Sector,ipa);
+                Before[ipa] = val;
                 PcalSector[ipa] = tempPcalSector;
                 Ftof1aSector[ipa] = tempFtof1aSector;
                 Ftof1bSector[ipa] = tempFtof1bSector;
