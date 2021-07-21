@@ -104,6 +104,7 @@ int main(int argc, char **argv){
     Int_t Gstat[100];
     Int_t Gsector[100];
 
+    Int_t Before[100];
     Int_t PcalSector[100];
     Int_t Ftof1aSector[100];
     Int_t Ftof1bSector[100];
