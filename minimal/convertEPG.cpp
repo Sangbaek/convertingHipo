@@ -258,6 +258,7 @@ int main(int argc, char **argv){
             nmg=0;
 
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
+                auto val = c12.getBank(idx_FILTER)->getInt(iInd,ipa);
                 auto tempPcalSector = c12.getBank(idx_FILTER)->getInt(iPcalSector,ipa);
                 auto tempFtof1aSector = c12.getBank(idx_FILTER)->getInt(iFtof1aSector,ipa);
                 auto tempFtof1bSector = c12.getBank(idx_FILTER)->getInt(iFtof1bSector,ipa);
