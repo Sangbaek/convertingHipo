@@ -62,6 +62,13 @@ int main(int argc, char **argv){
     Float_t GenEvx;
     Float_t GenEvy;
     Float_t GenEvz;
+
+    // =====  pion =====
+    Int_t nmpi;
+
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz;
     
     // ==== gammas =====
     Int_t nmg;
@@ -113,6 +120,12 @@ int main(int argc, char **argv){
 //=================  
 
 // MC bank
+// ===============    Pions ================================== 
+    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz/F");
+
+
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
     T->Branch("GenEpz",&GenEpz,"GenEpz/F");
