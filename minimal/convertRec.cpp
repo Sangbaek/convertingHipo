@@ -224,8 +224,6 @@ int main(int argc, char **argv){
             	}
 
                 if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 111  ){  // pions
-		            cout<<" PID Value is: = "<<(c12.getBank(idx_GenPart)->getInt(iGenPid,ipa))<<endl;
-
                     GenPipx = tGenPx;
                     GenPipy = tGenPy;
                     GenPipz = tGenPz;
