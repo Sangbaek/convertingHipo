@@ -62,6 +62,13 @@ int main(int argc, char **argv){
     Float_t GenEvx;
     Float_t GenEvy;
     Float_t GenEvz;
+
+    // =====  pion =====
+    Int_t nmpi;
+
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz;
     
     // ==== gammas =====
     Int_t nmg;
@@ -113,6 +120,12 @@ int main(int argc, char **argv){
 //=================  
 
 // MC bank
+// ===============    Pions ================================== 
+    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz/F");
+
+
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
     T->Branch("GenEpz",&GenEpz,"GenEpz/F");
@@ -192,6 +205,8 @@ int main(int argc, char **argv){
                 auto tGenVx = c12.getBank(idx_GenPart)->getFloat(iGenVx,ipa);
                 auto tGenVy = c12.getBank(idx_GenPart)->getFloat(iGenVy,ipa);
                 auto tGenVz = c12.getBank(idx_GenPart)->getFloat(iGenVz,ipa);
+
+
  
             	if( (c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 11  ){  // electrons
     				GenEpx = tGenPx;
@@ -207,6 +222,13 @@ int main(int argc, char **argv){
             		GenPpy = tGenPy;
             		GenPpz = tGenPz;
             	}
+
+                if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 111  ){  // pions
+                    GenPipx = tGenPx;
+                    GenPipy = tGenPy;
+                    GenPipz = tGenPz;
+                }
+
                     
             	if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 22  ){  // photons
             		GenGpx[nmG] = tGenPx;
