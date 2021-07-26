@@ -206,7 +206,7 @@ int main(int argc, char **argv){
                 auto tGenVy = c12.getBank(idx_GenPart)->getFloat(iGenVy,ipa);
                 auto tGenVz = c12.getBank(idx_GenPart)->getFloat(iGenVz,ipa);
 
-		        cout<<" PID Value is: = "(c12.getBank(idx_GenPart)->getInt(iGenPid,ipa))<<<<endl;
+		        cout<<" PID Value is: = "<<(c12.getBank(idx_GenPart)->getInt(iGenPid,ipa))<<endl;
 
  
             	if( (c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 11  ){  // electrons
