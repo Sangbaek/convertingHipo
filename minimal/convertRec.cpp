@@ -109,6 +109,12 @@ int main(int argc, char **argv){
     Float_t GenGpy[2];
     Float_t GenGpz[2];
 
+    // ==== pi0s =====
+    Int_t nmPi;
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz; 
+
     Int_t Before[100];
     Int_t PcalSector[100];
     Int_t Ftof1aSector[100];
