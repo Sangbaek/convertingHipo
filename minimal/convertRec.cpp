@@ -327,9 +327,9 @@ int main(int argc, char **argv){
                 }
 
                 if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // pi0s
-                    GenGpx[nmPi] = tGenPx;
-                    GenGpy[nmPi] = tGenPy;
-                    GenGpz[nmPi] = tGenPz;
+                    GenPipx[nmPi] = tGenPx;
+                    GenPipy[nmPi] = tGenPy;
+                    GenPipz[nmPi] = tGenPz;
                     nmPi++;
                 }
        	}
