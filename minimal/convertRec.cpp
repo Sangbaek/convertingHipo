@@ -255,12 +255,12 @@ int main(int argc, char **argv){
 
 // Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
     auto ldx_Track = c12.addBank("REC::Track");
-    auto lPindex = c12.getBankOrder(idx_Traj,"pindex");
-    auto lDetector = c12.getBankOrder(idx_Traj,"detector");
-    auto lsector = c12.getBankOrder(idx_Traj,"sector");
-    auto lq = c12.getBankOrder(idx_Traj,"q");
-    auto lchi2 = c12.getBankOrder(idx_Traj,"chi2");
-    auto lNDF = c12.getBankOrder(idx_Traj,"NDF");
+    auto lPindex = c12.getBankOrder(ldx_Track,"pindex");
+    auto lDetector = c12.getBankOrder(ldx_Track,"detector");
+    auto lsector = c12.getBankOrder(ldx_Track,"sector");
+    auto lq = c12.getBankOrder(ldx_Track,"q");
+    auto lchi2 = c12.getBankOrder(ldx_Track,"chi2");
+    auto lNDF = c12.getBankOrder(ldx_Track,"NDF");
 // ========================
 
 // MC bank
