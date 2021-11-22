@@ -193,7 +193,10 @@ int main(int argc, char **argv){
     T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
- 
+    T->Branch("nmPi", &nmPi, "nmPi/I");
+    T->Branch("GenPipx",&GenPipx,"GenPipx[nmPi]/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy[nmPi]/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz[nmPi]/F"); 
     //
     //loop over files
     //
@@ -246,6 +249,16 @@ int main(int argc, char **argv){
 // ========================
 
 
+// Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
+    auto ldx_Track = c12.addBank("REC::Track");
+    auto lPindex = c12.getBankOrder(idx_Traj,"pindex");
+    auto lDetector = c12.getBankOrder(idx_Traj,"detector");
+    auto lsector = c12.getBankOrder(idx_Traj,"sector");
+    auto lq = c12.getBankOrder(idx_Traj,"q");
+    auto lchi2 = c12.getBankOrder(idx_Traj,"chi2");
+    auto lNDF = c12.getBankOrder(idx_Traj,"NDF");
+// ========================
+
 // MC bank
     	auto idx_GenPart = c12.addBank("MC::Particle");
        	auto iGenPid = c12.getBankOrder(idx_GenPart,"pid");
@@ -261,6 +274,7 @@ int main(int argc, char **argv){
 	        nmb=0;
         	nmg=0;
     		nmG=0;
+            nmPi=0;
 
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
                auto val = c12.getBank(idx_FILTER)->getInt(iInd,ipa);
@@ -305,7 +319,14 @@ int main(int argc, char **argv){
             		GenGpz[nmG] = tGenPz;
 				    nmG++;
                 }
-        	}
+
+                if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // pi0s
+                    GenGpx[nmPi] = tGenPx;
+                    GenGpy[nmPi] = tGenPy;
+                    GenGpz[nmPi] = tGenPz;
+                    nmPi++;
+                }
+       	}
 
 
     		for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
