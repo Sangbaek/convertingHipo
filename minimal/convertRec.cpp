@@ -110,7 +110,6 @@ int main(int argc, char **argv){
     Float_t GenGpz[2];
 
     // ==== pi0s =====
-    Int_t nmPi;
     Float_t GenPipx;
     Float_t GenPipy;
     Float_t GenPipz; 
@@ -199,10 +198,9 @@ int main(int argc, char **argv){
     T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
-    T->Branch("nmPi", &nmPi, "nmPi/I");
-    T->Branch("GenPipx",&GenPipx,"GenPipx[nmPi]/F");
-    T->Branch("GenPipy",&GenPipy,"GenPipy[nmPi]/F");
-    T->Branch("GenPipz",&GenPipz,"GenPipz[nmPi]/F"); 
+    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz/F"); 
     //
     //loop over files
     //
@@ -327,10 +325,9 @@ int main(int argc, char **argv){
                 }
 
                 if((c12.getBank(idx_GenPart)->getInt(iGenPid,ipa)) == 111  ){  // pi0s
-                    GenPipx[nmPi] = tGenPx;
-                    GenPipy[nmPi] = tGenPy;
-                    GenPipz[nmPi] = tGenPz;
-                    nmPi++;
+                    GenPipx = tGenPx;
+                    GenPipy = tGenPy;
+                    GenPipz = tGenPz;
                 }
        	}
 
