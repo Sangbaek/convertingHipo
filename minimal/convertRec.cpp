@@ -471,7 +471,7 @@ int main(int argc, char **argv){
                 auto tVy = c12.getBank(idx_RECPart)->getFloat(iVy,ipa);
                 auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
     			auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
-                auto tChi2pid = c12.getBank(idx_RECPart)->getInt(iChi2pid,ipa);
+                auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
 
             	if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
     				Epx = tPx;
