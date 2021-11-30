@@ -84,6 +84,21 @@ int main(int argc, char **argv){
     Float_t PDc3Hitx[100];
     Float_t PDc3Hity[100];
     Float_t PDc3Hitz[100];
+    Float_t PCvt1Hitx[100];
+    Float_t PCvt1Hity[100];
+    Float_t PCvt1Hitz[100];
+    Float_t PCvt2Hitx[100];
+    Float_t PCvt2Hity[100];
+    Float_t PCvt2Hitz[100];
+    Float_t PCvt3Hitx[100];
+    Float_t PCvt3Hity[100];
+    Float_t PCvt3Hitz[100];
+    Float_t PCvt4Hitx[100];
+    Float_t PCvt4Hity[100];
+    Float_t PCvt4Hitz[100];
+    Float_t PCvt5Hitx[100];
+    Float_t PCvt5Hity[100];
+    Float_t PCvt5Hitz[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
@@ -106,6 +121,7 @@ int main(int argc, char **argv){
     Float_t EDc3Hitx;
     Float_t EDc3Hity;
     Float_t EDc3Hitz;
+    Float_t Eedep;
     Float_t Eedep1;
     Float_t Eedep2;
     Float_t Eedep3;
@@ -128,6 +144,7 @@ int main(int argc, char **argv){
     Float_t Gedep1[100];
     Float_t Gedep2[100];
     Float_t Gedep3[100];
+    Float_t Gpath[100];
     Float_t Gtime[100];
 
     Int_t nmG;
@@ -155,6 +172,7 @@ int main(int argc, char **argv){
     T->Branch("Pvz",&Pvz,"Pvz[nmb]/F");
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
+    T->Branch("Pchi2pid",&Pchi2pid,"Pchi2pid[nmb]/F");
     T->Branch("PPcalSector",&PPcalSector,"PPcalSector[nmb]/I");
     T->Branch("PFtof1aSector",&PFtof1aSector,"PFtof1aSector[nmb]/I");
     T->Branch("PFtof1aHitx",&PFtof1aHitx,"PFtof1aHitx[nmb]/F");
@@ -188,6 +206,23 @@ int main(int argc, char **argv){
     T->Branch("PDc3Hitx",&PDc3Hitx,"PDc3Hitx[nmb]/F");
     T->Branch("PDc3Hity",&PDc3Hity,"PDc3Hity[nmb]/F");
     T->Branch("PDc3Hitz",&PDc3Hitz,"PDc3Hitz[nmb]/F");
+    T->Branch("PCvt1Hitx",&PCvt1Hitx,"PCvt1Hitx[nmb]/F");
+    T->Branch("PCvt1Hity",&PCvt1Hity,"PCvt1Hity[nmb]/F");
+    T->Branch("PCvt1Hitz",&PCvt1Hitz,"PCvt1Hitz[nmb]/F");
+    T->Branch("PCvt2Hitx",&PCvt2Hitx,"PCvt2Hitx[nmb]/F");
+    T->Branch("PCvt2Hity",&PCvt2Hity,"PCvt2Hity[nmb]/F");
+    T->Branch("PCvt2Hitz",&PCvt2Hitz,"PCvt2Hitz[nmb]/F");
+    T->Branch("PCvt3Hitx",&PCvt3Hitx,"PCvt3Hitx[nmb]/F");
+    T->Branch("PCvt3Hity",&PCvt3Hity,"PCvt3Hity[nmb]/F");
+    T->Branch("PCvt3Hitz",&PCvt3Hitz,"PCvt3Hitz[nmb]/F");
+    T->Branch("PCvt4Hitx",&PCvt4Hitx,"PCvt4Hitx[nmb]/F");
+    T->Branch("PCvt4Hity",&PCvt4Hity,"PCvt4Hity[nmb]/F");
+    T->Branch("PCvt4Hitz",&PCvt4Hitz,"PCvt4Hitz[nmb]/F");
+    T->Branch("PCvt5Hitx",&PCvt5Hitx,"PCvt5Hitx[nmb]/F");
+    T->Branch("PCvt5Hity",&PCvt5Hity,"PCvt5Hity[nmb]/F");
+    T->Branch("PCvt5Hitz",&PCvt5Hitz,"PCvt5Hitz[nmb]/F");
+    T->Branch("Pchi2track",&Pchi2track,"Pchi2track[nmb]/F");
+    T->Branch("PNDFtrack",&PNDFtrack,"PNDFtrack[nmb]/F");
 
 
 // ===============    Electrons ==============    
@@ -224,6 +259,7 @@ int main(int argc, char **argv){
     T->Branch("Gedep1",&Gedep1,"Gedep1[nmg]/F");
     T->Branch("Gedep2",&Gedep2,"Gedep2[nmg]/F");
     T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
+    T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
     T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
 //=================  
@@ -280,6 +316,7 @@ int main(int argc, char **argv){
     auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
     auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
     auto iStat = c12.getBankOrder(idx_RECPart,"status");
+    auto iChi2pid = c12.getBankOrder(idx_RECPart,"chi2pid");
 //===================
 
 
@@ -314,7 +351,7 @@ int main(int argc, char **argv){
     auto jY = c12.getBankOrder(idx_RECScint,"y");
     auto jZ = c12.getBankOrder(idx_RECScint,"z");
 
-// Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
+// REC::Track 
     auto ldx_Track = c12.addBank("REC::Track");
     auto lPindex = c12.getBankOrder(ldx_Track,"pindex");
     auto lDetector = c12.getBankOrder(ldx_Track,"detector");
@@ -329,7 +366,7 @@ int main(int argc, char **argv){
     auto mPindex = c12.getBankOrder(mdx_Calo,"pindex");
     auto mDetector = c12.getBankOrder(mdx_Calo,"detector");
     auto msector = c12.getBankOrder(mdx_Calo,"sector");
-    auto mlayer = c12.getBankOrder(mdx_Calo,"layer");
+    auto mLayer = c12.getBankOrder(mdx_Calo,"layer");
     auto menergy = c12.getBankOrder(mdx_Calo,"energy");
     auto mtime = c12.getBankOrder(mdx_Calo,"time");
     auto mpath = c12.getBankOrder(mdx_Calo,"path");
@@ -431,6 +468,7 @@ int main(int argc, char **argv){
                 auto tVy = c12.getBank(idx_RECPart)->getFloat(iVy,ipa);
                 auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
     			auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
+                auto tChi2pid = c12.getBank(idx_RECPart)->getInt(iChi2pid,ipa);
 
             	if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
     				Epx = tPx;
@@ -513,6 +551,7 @@ int main(int argc, char **argv){
             		Ppz[nmb] = tPz;
                     Pvz[nmb] = tVz;
     				Pstat[nmb] = tStat;
+                    Pchi2pid[nmb] = tChi2pid;
     				if (Pstat[nmb] >4000) Psector[nmb] = Pstat[nmb];
     				else if (Ftof1aSector[ipa]>0) Psector[nmb] = Ftof1aSector[ipa];	
     				else if (Ftof1bSector[ipa]>0) Psector[nmb] = Ftof1bSector[ipa];	
@@ -551,6 +590,21 @@ int main(int argc, char **argv){
                     PDc3Hitx[nmb] = -100000;
                     PDc3Hity[nmb] = -100000;
                     PDc3Hitz[nmb] = -100000;
+                    PCvt1Hitx[nmb] = -100000;
+                    PCvt1Hity[nmb] = -100000;
+                    PCvt1Hitz[nmb] = -100000;
+                    PCvt2Hitx[nmb] = -100000;
+                    PCvt2Hity[nmb] = -100000;
+                    PCvt2Hitz[nmb] = -100000;
+                    PCvt3Hitx[nmb] = -100000;
+                    PCvt3Hity[nmb] = -100000;
+                    PCvt3Hitz[nmb] = -100000;
+                    PCvt4Hitx[nmb] = -100000;
+                    PCvt4Hity[nmb] = -100000;
+                    PCvt4Hitz[nmb] = -100000;
+                    PCvt5Hitx[nmb] = -100000;
+                    PCvt5Hity[nmb] = -100000;
+                    PCvt5Hitz[nmb] = -100000;
 
                     // Scintillaror Bank        //
                     for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
@@ -603,37 +657,83 @@ int main(int argc, char **argv){
                         }
                     }
 
-                    // DC Bank (REC::Traj)        //
+                    // DC, CVT Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
 
-                        auto tempPnd_dc = c12.getBank(idx_Traj)->getInt(iPindex,ipa2);
-                        auto tempDet_dc = c12.getBank(idx_Traj)->getInt(iDetector,ipa2);    
-                        auto tempLay_dc = c12.getBank(idx_Traj)->getInt(iLayer,ipa2); 
-                        auto tempX_dc = c12.getBank(idx_Traj)->getFloat(iX,ipa2); 
-                        auto tempY_dc = c12.getBank(idx_Traj)->getFloat(iY,ipa2); 
-                        auto tempZ_dc = c12.getBank(idx_Traj)->getFloat(iZ,ipa2);
+                        auto tempPnd_Traj = c12.getBank(idx_Traj)->getInt(iPindex,ipa2);
+                        auto tempDet_Traj = c12.getBank(idx_Traj)->getInt(iDetector,ipa2);    
+                        auto tempLay_Traj = c12.getBank(idx_Traj)->getInt(iLayer,ipa2); 
+                        auto tempX_Traj = c12.getBank(idx_Traj)->getFloat(iX,ipa2); 
+                        auto tempY_Traj = c12.getBank(idx_Traj)->getFloat(iY,ipa2); 
+                        auto tempZ_Traj = c12.getBank(idx_Traj)->getFloat(iZ,ipa2);
 
-                        if (tempPnd_dc == Before[ipa]){
+                        if (tempPnd_Traj == Before[ipa]){
 
-                            if (tempDet_dc == 6 ){// dc{
-                                if (tempLay_dc == 6){ //r1
-                                    PDc1Hitx[nmb] = tempX_dc;
-                                    PDc1Hity[nmb] = tempY_dc;
-                                    PDc1Hitz[nmb] = tempZ_dc;
+                            if (tempDet_Traj == 6 ){// dc
+                                if (tempLay_Traj == 6){ //r1
+                                    PDc1Hitx[nmb] = tempX_Traj;
+                                    PDc1Hity[nmb] = tempY_Traj;
+                                    PDc1Hitz[nmb] = tempZ_Traj;
                                 }
 
-                                if (tempLay_dc == 18){ //r2
-                                    PDc2Hitx[nmb] = tempX_dc;
-                                    PDc2Hity[nmb] = tempY_dc;
-                                    PDc2Hitz[nmb] = tempZ_dc;
+                                if (tempLay_Traj == 18){ //r2
+                                    PDc2Hitx[nmb] = tempX_Traj;
+                                    PDc2Hity[nmb] = tempY_Traj;
+                                    PDc2Hitz[nmb] = tempZ_Traj;
                                 }
 
-                                if (tempLay_dc == 36){ //r3
-                                    PDc3Hitx[nmb] = tempX_dc;
-                                    PDc3Hity[nmb] = tempY_dc;
-                                    PDc3Hitz[nmb] = tempZ_dc;
+                                if (tempLay_Traj == 36){ //r3
+                                    PDc3Hitx[nmb] = tempX_Traj;
+                                    PDc3Hity[nmb] = tempY_Traj;
+                                    PDc3Hitz[nmb] = tempZ_Traj;
                                 }
                             }
+
+                            if (tempDet_Traj == 5 ){// cvt
+                                if (tempLay_Traj == 1){ //svt1
+                                    PCvt1Hitx[nmb] = tempX_Traj;
+                                    PCvt1Hity[nmb] = tempY_Traj;
+                                    PCvt1Hitz[nmb] = tempZ_Traj;
+                                }
+
+                                if (tempLay_Traj == 3){ //svt3
+                                    PCvt2Hitx[nmb] = tempX_Traj;
+                                    PCvt2Hity[nmb] = tempY_Traj;
+                                    PCvt2Hitz[nmb] = tempZ_Traj;
+                                }
+
+                                if (tempLay_Traj == 5){ //svt5
+                                    PCvt3Hitx[nmb] = tempX_Traj;
+                                    PCvt3Hity[nmb] = tempY_Traj;
+                                    PCvt3Hitz[nmb] = tempZ_Traj;
+                                }
+
+                                if (tempLay_Traj == 7){ //bmt1
+                                    PCvt4Hitx[nmb] = tempX_Traj;
+                                    PCvt4Hity[nmb] = tempY_Traj;
+                                    PCvt4Hitz[nmb] = tempZ_Traj;
+                                }
+
+                                if (tempLay_Traj == 12){ //bmt6
+                                    PCvt5Hitx[nmb] = tempX_Traj;
+                                    PCvt5Hity[nmb] = tempY_Traj;
+                                    PCvt5Hitz[nmb] = tempZ_Traj;
+                                }
+                            }
+
+                        }
+                    }
+
+                    // REC::Track       //
+                    for(auto ipa3 = 0; ipa3<c12.getBank(ldx_Track)->getRows();ipa3++){
+
+                        auto tempPnd_Track = c12.getBank(ldx_Track)->getInt(lPindex,ipa3);
+                        auto tempchi2_Track = c12.getBank(ldx_Track)->getFloat(lchi2,ipa3); 
+                        auto tempNDF_Track = c12.getBank(ldx_Track)->getFloat(lNDF,ipa3); 
+
+                        if (tempPnd_Track == Before[ipa]){
+                            Pchi2track[nmb] = tempchi2_Track;
+                            PNDFtrack[nmb] = tempNDF_Track;
                         }
                     }
                		nmb++;
@@ -686,9 +786,9 @@ int main(int argc, char **argv){
                         auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(mpath,ipa3); 
 
                         if (tempPnd_Calo == Before[ipa]){
-                            Gedep[nmg] = tempE_Calo;
-                            Gtime[nmg] = tempTime_Calo;
-                            Gpath[nmg] = tempPath_Calo;
+                            Gedep[nmg] = tempE_FT;
+                            Gtime[nmg] = tempTime_FT;
+                            Gpath[nmg] = tempPath_FT;
                         }
                     }
                		nmg++;
