@@ -88,6 +88,15 @@ int main(int argc, char **argv){
     Float_t Evz;
     Int_t Estat;
     Int_t Esector;
+    Float_t EDc1Hitx;
+    Float_t EDc1Hity;
+    Float_t EDc1Hitz;
+    Float_t EDc2Hitx;
+    Float_t EDc2Hity;
+    Float_t EDc2Hitz;
+    Float_t EDc3Hitx;
+    Float_t EDc3Hity;
+    Float_t EDc3Hitz;
     
     Float_t GenEpx;
     Float_t GenEpy;
@@ -103,6 +112,7 @@ int main(int argc, char **argv){
     Float_t Gpz[100];
     Int_t Gstat[100];
     Int_t Gsector[100];
+    Float_t Gedep[100];
 
     Int_t nmG;
     Float_t GenGpx[2];
@@ -205,42 +215,31 @@ int main(int argc, char **argv){
     //loop over files
     //
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
-        clas12::clas12reader c12{chain.GetFileName(ifile).Data()};
+        clas12::clas12reader c12{chain.GetFileName(ifile).Data()
+    };
 
 
 // main particle bank ========
-    	auto idx_RECPart = c12.addBank("REC::Particle");
-       	auto iPid = c12.getBankOrder(idx_RECPart,"pid");
-    	auto iPx  = c12.getBankOrder(idx_RECPart,"px");
-    	auto iPy  = c12.getBankOrder(idx_RECPart,"py");
-       	auto iPz  = c12.getBankOrder(idx_RECPart,"pz");
-        auto iVx  = c12.getBankOrder(idx_RECPart,"vx");
-        auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
-        auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
-        auto iStat = c12.getBankOrder(idx_RECPart,"status");
+	auto idx_RECPart = c12.addBank("REC::Particle");
+   	auto iPid = c12.getBankOrder(idx_RECPart,"pid");
+	auto iPx  = c12.getBankOrder(idx_RECPart,"px");
+	auto iPy  = c12.getBankOrder(idx_RECPart,"py");
+   	auto iPz  = c12.getBankOrder(idx_RECPart,"pz");
+    auto iVx  = c12.getBankOrder(idx_RECPart,"vx");
+    auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
+    auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
+    auto iStat = c12.getBankOrder(idx_RECPart,"status");
 //===================
 
 
 //  Filter bank created by Sangbaek
-    	auto idx_FILTER = c12.addBank("FILTER::Index");
-        auto iInd = c12.getBankOrder(idx_FILTER,"before");
-    	auto iPcalSector = c12.getBankOrder(idx_FILTER, "pcal_sector");
-    	auto iFtof1aSector = c12.getBankOrder(idx_FILTER, "ftof1a_sector");
-    	auto iFtof1bSector = c12.getBankOrder(idx_FILTER, "ftof1b_sector");
-    	auto iFtof2Sector = c12.getBankOrder(idx_FILTER, "ftof2_sector");
+	auto idx_FILTER = c12.addBank("FILTER::Index");
+    auto iInd = c12.getBankOrder(idx_FILTER,"before");
+	auto iPcalSector = c12.getBankOrder(idx_FILTER, "pcal_sector");
+	auto iFtof1aSector = c12.getBankOrder(idx_FILTER, "ftof1a_sector");
+	auto iFtof1bSector = c12.getBankOrder(idx_FILTER, "ftof1b_sector");
+	auto iFtof2Sector = c12.getBankOrder(idx_FILTER, "ftof2_sector");
 //=========
-
-// Scintillator bank
-    auto idx_RECScint = c12.addBank("REC::Scintillator");
-    auto jPnd = c12.getBankOrder(idx_RECScint,"pindex");
-    auto jDet = c12.getBankOrder(idx_RECScint,"detector");
-    auto jSec = c12.getBankOrder(idx_RECScint,"sector");
-    auto jLay = c12.getBankOrder(idx_RECScint,"layer");
-    auto jTim = c12.getBankOrder(idx_RECScint,"time");
-    auto jPat = c12.getBankOrder(idx_RECScint,"path");
-    auto jX   = c12.getBankOrder(idx_RECScint,"x");
-    auto jY = c12.getBankOrder(idx_RECScint,"y");
-    auto jZ = c12.getBankOrder(idx_RECScint,"z");
 
 // Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
     auto idx_Traj = c12.addBank("REC::Traj");
@@ -252,6 +251,17 @@ int main(int argc, char **argv){
     auto iZ = c12.getBankOrder(idx_Traj,"z");
 // ========================
 
+// Scintillator bank
+    auto idx_RECScint = c12.addBank("REC::Scintillator");
+    auto jPindex = c12.getBankOrder(idx_RECScint,"pindex");
+    auto jDet = c12.getBankOrder(idx_RECScint,"detector");
+    auto jSec = c12.getBankOrder(idx_RECScint,"sector");
+    auto jLay = c12.getBankOrder(idx_RECScint,"layer");
+    auto jTim = c12.getBankOrder(idx_RECScint,"time");
+    auto jPat = c12.getBankOrder(idx_RECScint,"path");
+    auto jX   = c12.getBankOrder(idx_RECScint,"x");
+    auto jY = c12.getBankOrder(idx_RECScint,"y");
+    auto jZ = c12.getBankOrder(idx_RECScint,"z");
 
 // Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
     auto ldx_Track = c12.addBank("REC::Track");
@@ -263,15 +273,40 @@ int main(int argc, char **argv){
     auto lNDF = c12.getBankOrder(ldx_Track,"NDF");
 // ========================
 
+// Read banks: Calorimeter
+    auto mdx_Calo = c12.addBank("REC::Calorimeter");
+    auto mPindex = c12.getBankOrder(mdx_Calo,"pindex");
+    auto mDetector = c12.getBankOrder(mdx_Calo,"detector");
+    auto msector = c12.getBankOrder(mdx_Calo,"sector");
+    auto mlayer = c12.getBankOrder(mdx_Calo,"layer");
+    auto menergy = c12.getBankOrder(mdx_Calo,"energy");
+    auto mchi2 = c12.getBankOrder(mdx_Calo,"chi2");
+    auto mx = c12.getBankOrder(mdx_Calo,"x");
+    auto my = c12.getBankOrder(mdx_Calo,"y");
+    auto mz = c12.getBankOrder(mdx_Calo,"z");
+// ========================
+
+// Read banks: FT
+    auto ndx_FT = c12.addBank("REC::ForwardTagger");
+    auto nPindex = c12.getBankOrder(ndx_FT,"pindex");
+    auto nDetector = c12.getBankOrder(ndx_FT,"detector");
+    auto nlayer = c12.getBankOrder(ndx_FT,"layer");
+    auto nenergy = c12.getBankOrder(ndx_FT,"energy");
+    auto nchi2 = c12.getBankOrder(ndx_FT,"chi2");
+    auto nx = c12.getBankOrder(ndx_FT,"x");
+    auto ny = c12.getBankOrder(ndx_FT,"y");
+    auto nz = c12.getBankOrder(ndx_FT,"z");
+
+// ========================
 // MC bank
-    	auto idx_GenPart = c12.addBank("MC::Particle");
-       	auto iGenPid = c12.getBankOrder(idx_GenPart,"pid");
-    	auto iGenPx  = c12.getBankOrder(idx_GenPart,"px");
-    	auto iGenPy  = c12.getBankOrder(idx_GenPart,"py");
-       	auto iGenPz  = c12.getBankOrder(idx_GenPart,"pz");
-        auto iGenVx  = c12.getBankOrder(idx_GenPart,"vx");
-        auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
-        auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
+	auto idx_GenPart = c12.addBank("MC::Particle");
+   	auto iGenPid = c12.getBankOrder(idx_GenPart,"pid");
+	auto iGenPx  = c12.getBankOrder(idx_GenPart,"px");
+	auto iGenPy  = c12.getBankOrder(idx_GenPart,"py");
+   	auto iGenPz  = c12.getBankOrder(idx_GenPart,"pz");
+    auto iGenVx  = c12.getBankOrder(idx_GenPart,"vx");
+    auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
+    auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
 
         while(c12.next() == true){
 		
@@ -349,6 +384,49 @@ int main(int argc, char **argv){
                     Evy = tVy;
                     Evz = tVz;
     				Esector = PcalSector[ipa];
+                    EDc1Hitx = -100000;
+                    EDc1Hity = -100000;
+                    EDc1Hitz = -100000;
+                    EDc2Hitx = -100000;
+                    EDc2Hity = -100000;
+                    EDc2Hitz = -100000;
+                    EDc3Hitx = -100000;
+                    EDc3Hity = -100000;
+                    EDc3Hitz = -100000;
+
+                    // DC Bank (REC::Traj)        //
+                    for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
+
+                        auto tempPnd_dc = c12.getBank(idx_Traj)->getInt(iPindex,ipa2);
+                        auto tempDet_dc = c12.getBank(idx_Traj)->getInt(iDetector,ipa2);    
+                        auto tempLay_dc = c12.getBank(idx_Traj)->getInt(iLayer,ipa2); 
+                        auto tempX_dc = c12.getBank(idx_Traj)->getFloat(iX,ipa2); 
+                        auto tempY_dc = c12.getBank(idx_Traj)->getFloat(iY,ipa2); 
+                        auto tempZ_dc = c12.getBank(idx_Traj)->getFloat(iZ,ipa2);
+
+                        if (tempPnd_dc == Before[ipa]){
+
+                            if (tempDet_dc == 6 ){// dc{
+                                if (tempLay_dc == 6){ //r1
+                                    EDc1Hitx = tempX_dc;
+                                    EDc1Hity = tempY_dc;
+                                    EDc1Hitz = tempZ_dc;
+                                }
+
+                                if (tempLay_dc == 18){ //r2
+                                    EDc2Hitx = tempX_dc;
+                                    EDc2Hity = tempY_dc;
+                                    EDc2Hitz = tempZ_dc;
+                                }
+
+                                if (tempLay_dc == 36){ //r3
+                                    EDc3Hitx = tempX_dc;
+                                    EDc3Hity = tempY_dc;
+                                    EDc3Hitz = tempZ_dc;
+                                }
+                            }
+                        }
+                    }
             	}
                 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
@@ -400,7 +478,7 @@ int main(int argc, char **argv){
                     // Scintillaror Bank        //
                     for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
 
-                        auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPnd,ipa1);
+                        auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPindex,ipa1);
                         auto tempDet = c12.getBank(idx_RECScint)->getInt(jDet,ipa1);    
                         auto tempLay = c12.getBank(idx_RECScint)->getInt(jLay,ipa1); 
                         auto tempTim = c12.getBank(idx_RECScint)->getFloat(jTim,ipa1); 
@@ -460,20 +538,20 @@ int main(int argc, char **argv){
 
                         if (tempPnd_dc == Before[ipa]){
 
-                            if (tempDet_dc == 6 ){// ftof{
-                                if (tempLay_dc == 6){
+                            if (tempDet_dc == 6 ){// dc{
+                                if (tempLay_dc == 6){ //r1
                                     PDc1Hitx[nmb] = tempX_dc;
                                     PDc1Hity[nmb] = tempY_dc;
                                     PDc1Hitz[nmb] = tempZ_dc;
                                 }
 
-                                if (tempLay_dc == 18){
+                                if (tempLay_dc == 18){ //r2
                                     PDc2Hitx[nmb] = tempX_dc;
                                     PDc2Hity[nmb] = tempY_dc;
                                     PDc2Hitz[nmb] = tempZ_dc;
                                 }
 
-                                if (tempLay_dc == 36){
+                                if (tempLay_dc == 36){ //r3
                                     PDc3Hitx[nmb] = tempX_dc;
                                     PDc3Hity[nmb] = tempY_dc;
                                     PDc3Hitz[nmb] = tempZ_dc;
@@ -492,6 +570,7 @@ int main(int argc, char **argv){
                     Gstat[nmg] = tStat;
     				if (Gstat[nmg]<2000) Gsector[nmg] = Gstat[nmg];
     				else Gsector[nmg] = PcalSector[ipa];
+                    Gedep[nmg] = 
                		nmg++;
                     
             	}
