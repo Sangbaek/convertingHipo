@@ -34,6 +34,15 @@ int main(int argc, char **argv){
     TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
     TTree *T=new TTree("T","Rec");
 
+    Float_t beamQ;
+    Float_t liveTime;
+    Float_t startTime;
+    Float_t RFTime;
+    Int_t   helicity;
+    Int_t   helicityRaw;
+    Long_t  EventNum;
+    Long_t  RunNum;
+
    // =====  proton =====
     Int_t nmb;
     Float_t Ppx[100];
@@ -91,12 +100,15 @@ int main(int argc, char **argv){
     Float_t EDc1Hitx;
     Float_t EDc1Hity;
     Float_t EDc1Hitz;
-    Float_t EDc2Hitx;
-    Float_t EDc2Hity;
-    Float_t EDc2Hitz;
+    // Float_t EDc2Hitx;
+    // Float_t EDc2Hity;
+    // Float_t EDc2Hitz;
     Float_t EDc3Hitx;
     Float_t EDc3Hity;
     Float_t EDc3Hitz;
+    Float_t Eedep1;
+    Float_t Eedep2;
+    Float_t Eedep3;
     
     Float_t GenEpx;
     Float_t GenEpy;
@@ -113,6 +125,10 @@ int main(int argc, char **argv){
     Int_t Gstat[100];
     Int_t Gsector[100];
     Float_t Gedep[100];
+    Float_t Gedep1[100];
+    Float_t Gedep2[100];
+    Float_t Gedep3[100];
+    Float_t Gtime[100];
 
     Int_t nmG;
     Float_t GenGpx[2];
@@ -183,6 +199,19 @@ int main(int argc, char **argv){
     T->Branch("Evz",&Evz,"Evz/F");
     T->Branch("Estat",&Estat,"Estat/I");
     T->Branch("Esector",&Esector,"Esector/I");
+    T->Branch("EDc1Hitx",&EDc1Hitx,"EDc1Hitx/F");
+    T->Branch("EDc1Hity",&EDc1Hity,"EDc1Hity/F");
+    T->Branch("EDc1Hitz",&EDc1Hitz,"EDc1Hitz/F");
+    // T->Branch("EDc2Hitx",&EDc2Hitx,"EDc2Hitx/F");
+    // T->Branch("EDc2Hity",&EDc2Hity,"EDc2Hity/F");
+    // T->Branch("EDc2Hitz",&EDc2Hitz,"EDc2Hitz/F");
+    T->Branch("EDc3Hitx",&EDc3Hitx,"EDc3Hitx/F");
+    T->Branch("EDc3Hity",&EDc3Hity,"EDc3Hity/F");
+    T->Branch("EDc3Hitz",&EDc3Hitz,"EDc3Hitz/F");
+    T->Branch("Eedep",&Eedep,"Eedep/F");
+    T->Branch("Eedep1",&Eedep1,"Eedep1/F");
+    T->Branch("Eedep2",&Eedep2,"Eedep2/F");
+    T->Branch("Eedep3",&Eedep3,"Eedep3/F");
 
 // ================   Gamma  ===============    
     T->Branch("nmg",&nmg,"nmg/I");
@@ -191,8 +220,21 @@ int main(int argc, char **argv){
     T->Branch("Gpz",&Gpz,"Gpz[nmg]/F");
     T->Branch("Gstat",&Gstat,"Gstat[nmg]/I");
     T->Branch("Gsector",&Gsector,"Gsector[nmg]/I");
+    T->Branch("Gedep",&Gedep,"Gedep[nmg]/F");
+    T->Branch("Gedep1",&Gedep1,"Gedep1[nmg]/F");
+    T->Branch("Gedep2",&Gedep2,"Gedep2[nmg]/F");
+    T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
+    T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
 //=================  
+    T->Branch("beamQ",&beamQ,"beamQ/F");
+    T->Branch("liveTime",&liveTime,"liveTime/F");
+    T->Branch("startTime",&startTime,"startTime/F");
+    T->Branch("RFTime",&RFTime,"RFTime/F");
+    T->Branch("helicity",&helicity,"helicity/I");
+    T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
+    T->Branch("EventNum",&EventNum,"EventNum/L");
+    T->Branch("RunNum",&RunNum,"RunNum/L");
 
 // MC bank
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
@@ -218,6 +260,15 @@ int main(int argc, char **argv){
         clas12::clas12reader c12{chain.GetFileName(ifile).Data()
     };
 
+//  Event bank
+//
+    auto idx_RECEv = c12.addBank("REC::Event");
+    auto aBeamQ = c12.getBankOrder(idx_RECEv,"beamCharge");
+    auto aLiveT = c12.getBankOrder(idx_RECEv,"liveTime");
+    auto aStarT = c12.getBankOrder(idx_RECEv,"startTime");
+    auto aRFTim = c12.getBankOrder(idx_RECEv,"RFTime");
+    auto aHelic = c12.getBankOrder(idx_RECEv,"helicity");
+    auto aHeRaw = c12.getBankOrder(idx_RECEv,"helicityRaw");
 
 // main particle bank ========
 	auto idx_RECPart = c12.addBank("REC::Particle");
@@ -280,6 +331,8 @@ int main(int argc, char **argv){
     auto msector = c12.getBankOrder(mdx_Calo,"sector");
     auto mlayer = c12.getBankOrder(mdx_Calo,"layer");
     auto menergy = c12.getBankOrder(mdx_Calo,"energy");
+    auto mtime = c12.getBankOrder(mdx_Calo,"time");
+    auto mpath = c12.getBankOrder(mdx_Calo,"path");
     auto mchi2 = c12.getBankOrder(mdx_Calo,"chi2");
     auto mx = c12.getBankOrder(mdx_Calo,"x");
     auto my = c12.getBankOrder(mdx_Calo,"y");
@@ -292,6 +345,8 @@ int main(int argc, char **argv){
     auto nDetector = c12.getBankOrder(ndx_FT,"detector");
     auto nlayer = c12.getBankOrder(ndx_FT,"layer");
     auto nenergy = c12.getBankOrder(ndx_FT,"energy");
+    auto ntime = c12.getBankOrder(ndx_FT,"time");
+    auto npath = c12.getBankOrder(ndx_FT,"path");
     auto nchi2 = c12.getBankOrder(ndx_FT,"chi2");
     auto nx = c12.getBankOrder(ndx_FT,"x");
     auto ny = c12.getBankOrder(ndx_FT,"y");
@@ -363,9 +418,10 @@ int main(int argc, char **argv){
                     GenPipy = tGenPy;
                     GenPipz = tGenPz;
                 }
-       	}
+       	    }
 
 
+            // REC::Particle
     		for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
                 
             	auto tPx = c12.getBank(idx_RECPart)->getFloat(iPx,ipa);
@@ -387,12 +443,16 @@ int main(int argc, char **argv){
                     EDc1Hitx = -100000;
                     EDc1Hity = -100000;
                     EDc1Hitz = -100000;
-                    EDc2Hitx = -100000;
-                    EDc2Hity = -100000;
-                    EDc2Hitz = -100000;
+                    // EDc2Hitx = -100000;
+                    // EDc2Hity = -100000;
+                    // EDc2Hitz = -100000;
                     EDc3Hitx = -100000;
                     EDc3Hity = -100000;
                     EDc3Hitz = -100000;
+                    Eedep = 0;
+                    Eedep1 = 0;
+                    Eedep2 = 0;
+                    Eedep3 = 0;
 
                     // DC Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
@@ -413,11 +473,11 @@ int main(int argc, char **argv){
                                     EDc1Hitz = tempZ_dc;
                                 }
 
-                                if (tempLay_dc == 18){ //r2
-                                    EDc2Hitx = tempX_dc;
-                                    EDc2Hity = tempY_dc;
-                                    EDc2Hitz = tempZ_dc;
-                                }
+                                // if (tempLay_dc == 18){ //r2
+                                //     EDc2Hitx = tempX_dc;
+                                //     EDc2Hity = tempY_dc;
+                                //     EDc2Hitz = tempZ_dc;
+                                // }
 
                                 if (tempLay_dc == 36){ //r3
                                     EDc3Hitx = tempX_dc;
@@ -427,7 +487,24 @@ int main(int argc, char **argv){
                             }
                         }
                     }
-            	}
+
+                    // EC Bank (REC::Calorimeter)        //
+                    for(auto ipa3 = 0; ipa3<c12.getBank(mdx_Calo)->getRows();ipa3++){
+
+                        auto tempPnd_Calo = c12.getBank(mdx_Calo)->getInt(mPindex,ipa3);
+                        auto tempDet_Calo = c12.getBank(mdx_Calo)->getInt(mDetector,ipa3);    
+                        auto tempLay_Calo = c12.getBank(mdx_Calo)->getInt(mLayer,ipa3); 
+                        auto tempE_Calo = c12.getBank(mdx_Calo)->getFloat(menergy,ipa3); 
+                        auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa3); 
+
+                        if (tempPnd_Calo == Before[ipa]){
+                            if (tempLay_Calo == 1) Eedep1 = tempE_Calo;
+                            if (tempLay_Calo == 4) Eedep2 = tempE_Calo;
+                            if (tempLay_Calo == 7) Eedep3 = tempE_Calo;
+                            Eedep += tempE_Calo;
+                        }
+                    }
+            	}// end of electrons
                 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
          
@@ -515,6 +592,7 @@ int main(int argc, char **argv){
                                     PFtof2Path[nmb] = tempPat;
                                 }
                             }
+
                             if (tempDet == 4 ){// ctof{
                                 PCtofHitx[nmb] = tempX;
                                 PCtofHity[nmb] = tempY;
@@ -522,7 +600,6 @@ int main(int argc, char **argv){
                                 PCtofTime[nmb] = tempTim;
                                 PCtofPath[nmb] = tempPat;
                             }
-
                         }
                     }
 
@@ -568,12 +645,72 @@ int main(int argc, char **argv){
             		Gpy[nmg] = tPy;
             		Gpz[nmg] = tPz;
                     Gstat[nmg] = tStat;
+                    Gedep[nmg] = 0;
+                    Gedep1[nmg] = 0;
+                    Gedep2[nmg] = 0;
+                    Gedep3[nmg] = 0;
+                    Gtime[nmg] = 0;
     				if (Gstat[nmg]<2000) Gsector[nmg] = Gstat[nmg];
     				else Gsector[nmg] = PcalSector[ipa];
-                    Gedep[nmg] = 
+
+                    // EC Bank (REC::Calorimeter)        //
+                    for(auto ipa2 = 0; ipa2<c12.getBank(mdx_Calo)->getRows();ipa2++){
+
+                        auto tempPnd_Calo = c12.getBank(mdx_Calo)->getInt(mPindex,ipa2);
+                        auto tempDet_Calo = c12.getBank(mdx_Calo)->getInt(mDetector,ipa2);    
+                        auto tempLay_Calo = c12.getBank(mdx_Calo)->getInt(mLayer,ipa2); 
+                        auto tempE_Calo = c12.getBank(mdx_Calo)->getFloat(menergy,ipa2); 
+                        auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa2); 
+                        auto tempPath_Calo = c12.getBank(mdx_Calo)->getFloat(mpath,ipa2); 
+
+                        if (tempPnd_Calo == Before[ipa]){
+                            if (tempLay_Calo == 1) {
+                                Gedep1[nmg] = tempE_Calo;
+                                Gtime[nmg] = tempTime_Calo;
+                                Gpath[nmg] = tempPath_Calo;
+                            }
+                            if (tempLay_Calo == 4) Gedep2[nmg] = tempE_Calo;
+                            if (tempLay_Calo == 7) Gedep3[nmg] = tempE_Calo;
+                            Gedep[nmg] += tempE_Calo;
+                        }
+                    }
+
+                    // FT Bank (REC::ForwardTagger)        //
+                    for(auto ipa3 = 0; ipa3<c12.getBank(ndx_FT)->getRows();ipa3++){
+
+                        auto tempPnd_FT = c12.getBank(ndx_FT)->getInt(mPindex,ipa3);
+                        auto tempDet_FT = c12.getBank(ndx_FT)->getInt(mDetector,ipa3);    
+                        auto tempLay_FT = c12.getBank(ndx_FT)->getInt(mLayer,ipa3); 
+                        auto tempE_FT = c12.getBank(ndx_FT)->getFloat(menergy,ipa3); 
+                        auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(mtime,ipa3); 
+                        auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(mpath,ipa3); 
+
+                        if (tempPnd_Calo == Before[ipa]){
+                            Gedep[nmg] = tempE_Calo;
+                            Gtime[nmg] = tempTime_Calo;
+                            Gpath[nmg] = tempPath_Calo;
+                        }
+                    }
                		nmg++;
-                    
             	}
+            } //end of REC::Particle
+
+            // event bank ====
+            //
+            for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
+                auto tempB = c12.getBank(idx_RECEv)->getFloat(aBeamQ,ipa1);
+                auto tempL = c12.getBank(idx_RECEv)->getDouble(aLiveT,ipa1);
+                auto tempS = c12.getBank(idx_RECEv)->getFloat(aStarT,ipa1);
+                auto tempR = c12.getBank(idx_RECEv)->getFloat(aRFTim,ipa1);
+                auto tempH = c12.getBank(idx_RECEv)->getInt(aHelic,ipa1);
+                auto tempHR = c12.getBank(idx_RECEv)->getInt(aHeRaw,ipa1);
+
+                beamQ = tempB;
+                liveTime = tempL;
+                startTime = tempS;
+                RFTime = tempR;
+                helicity = tempH;
+                helicityRaw = tempHR;
             }
 
             bool condition = (nmb>0) && (nmg>0) && (nmG>0);
