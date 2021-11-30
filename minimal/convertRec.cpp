@@ -383,7 +383,7 @@ int main(int argc, char **argv){
     auto ndx_FT = c12.addBank("REC::ForwardTagger");
     auto nPindex = c12.getBankOrder(ndx_FT,"pindex");
     auto nDetector = c12.getBankOrder(ndx_FT,"detector");
-    auto nlayer = c12.getBankOrder(ndx_FT,"layer");
+    auto nLayer = c12.getBankOrder(ndx_FT,"layer");
     auto nenergy = c12.getBankOrder(ndx_FT,"energy");
     auto ntime = c12.getBankOrder(ndx_FT,"time");
     auto npath = c12.getBankOrder(ndx_FT,"path");
