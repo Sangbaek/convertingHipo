@@ -51,6 +51,7 @@ int main(int argc, char **argv){
     Float_t Pvz[100];
     Int_t Pstat[100];
     Int_t Psector[100];
+    Int_t Pchi2pid[100];
     Int_t PPcalSector[100];
     Int_t PFtof1aSector[100];
     Float_t PFtof1aHitx[100];
@@ -99,6 +100,8 @@ int main(int argc, char **argv){
     Float_t PCvt5Hitx[100];
     Float_t PCvt5Hity[100];
     Float_t PCvt5Hitz[100];
+    Float_t PNDFtrack[100];
+    Float_t Pchi2track[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
@@ -785,7 +788,7 @@ int main(int argc, char **argv){
                         auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(mtime,ipa3); 
                         auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(mpath,ipa3); 
 
-                        if (tempPnd_Calo == Before[ipa]){
+                        if (tempPnd_FT == Before[ipa]){
                             Gedep[nmg] = tempE_FT;
                             Gtime[nmg] = tempTime_FT;
                             Gpath[nmg] = tempPath_FT;
