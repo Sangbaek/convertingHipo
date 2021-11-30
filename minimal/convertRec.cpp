@@ -781,12 +781,12 @@ int main(int argc, char **argv){
                     // FT Bank (REC::ForwardTagger)        //
                     for(auto ipa3 = 0; ipa3<c12.getBank(ndx_FT)->getRows();ipa3++){
 
-                        auto tempPnd_FT = c12.getBank(ndx_FT)->getInt(mPindex,ipa3);
-                        auto tempDet_FT = c12.getBank(ndx_FT)->getInt(mDetector,ipa3);    
-                        auto tempLay_FT = c12.getBank(ndx_FT)->getInt(mLayer,ipa3); 
-                        auto tempE_FT = c12.getBank(ndx_FT)->getFloat(menergy,ipa3); 
-                        auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(mtime,ipa3); 
-                        auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(mpath,ipa3); 
+                        auto tempPnd_FT = c12.getBank(ndx_FT)->getInt(nPindex,ipa3);
+                        auto tempDet_FT = c12.getBank(ndx_FT)->getInt(nDetector,ipa3);    
+                        auto tempLay_FT = c12.getBank(ndx_FT)->getInt(nLayer,ipa3); 
+                        auto tempE_FT = c12.getBank(ndx_FT)->getFloat(nenergy,ipa3); 
+                        auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(ntime,ipa3); 
+                        auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(npath,ipa3); 
 
                         if (tempPnd_FT == Before[ipa]){
                             Gedep[nmg] = tempE_FT;
