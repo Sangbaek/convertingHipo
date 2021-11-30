@@ -51,7 +51,7 @@ int main(int argc, char **argv){
     Float_t Pvz[100];
     Int_t Pstat[100];
     Int_t Psector[100];
-    Int_t Pchi2pid[100];
+    Float_t Pchi2pid[100];
     Int_t PPcalSector[100];
     Int_t PFtof1aSector[100];
     Float_t PFtof1aHitx[100];
