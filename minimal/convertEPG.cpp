@@ -269,6 +269,11 @@ int main(int argc, char **argv){
         auto aHelic = c12.getBankOrder(idx_RECEv,"helicity");
         auto aHeRaw = c12.getBankOrder(idx_RECEv,"helicityRaw");
 
+        //  Config Bank
+        auto idx_RUNCon = c12.addBank("RUN::config");
+        auto brun = c12.getBankOrder(idx_RUNCon,"run");
+        auto bevent = c12.getBankOrder(idx_RUNCon,"event");
+
         // main particle bank ========
         auto idx_RECPart = c12.addBank("REC::Particle");
         auto iPid = c12.getBankOrder(idx_RECPart,"pid");
@@ -365,7 +370,6 @@ int main(int argc, char **argv){
 
             nmb=0;
             nmg=0;
-            nmG=0;
 
             //FILTER::Index
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
