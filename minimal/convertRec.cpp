@@ -40,8 +40,6 @@ int main(int argc, char **argv){
     Float_t RFTime;
     Int_t   helicity;
     Int_t   helicityRaw;
-    Long_t  EventNum;
-    Long_t  RunNum;
 
     // =====  proton =====
     Int_t nmb;
@@ -224,8 +222,7 @@ int main(int argc, char **argv){
     T->Branch("PCvt12Hity",&PCvt12Hity,"PCvt12Hity[nmb]/F");
     T->Branch("PCvt12Hitz",&PCvt12Hitz,"PCvt12Hitz[nmb]/F");
     T->Branch("Pchi2track",&Pchi2track,"Pchi2track[nmb]/F");
-    T->Branch("PNDFtrack",&PNDFtrack,"PNDFtrack[nmb]/F");
-
+    T->Branch("PNDFtrack",&PNDFtrack,"PNDFtrack[nmb]/I");
 
     // ===============    Electrons ==============    
     T->Branch("Epx",&Epx,"Epx/F");
@@ -271,8 +268,7 @@ int main(int argc, char **argv){
     T->Branch("RFTime",&RFTime,"RFTime/F");
     T->Branch("helicity",&helicity,"helicity/I");
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
-    T->Branch("EventNum",&EventNum,"EventNum/L");
-    T->Branch("RunNum",&RunNum,"RunNum/L");
+
 
     // MC bank
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
