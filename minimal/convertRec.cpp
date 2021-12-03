@@ -98,7 +98,7 @@ int main(int argc, char **argv){
     Float_t PCvt12Hitx[100];
     Float_t PCvt12Hity[100];
     Float_t PCvt12Hitz[100];
-    Float_t PNDFtrack[100];
+    Int_t PNDFtrack[100];
     Float_t Pchi2track[100];
 
     Float_t GenPpx;
@@ -713,7 +713,7 @@ int main(int argc, char **argv){
 
                         auto tempPnd_Track = c12.getBank(ldx_Track)->getInt(lPindex,ipa3);
                         auto tempchi2_Track = c12.getBank(ldx_Track)->getFloat(lchi2,ipa3); 
-                        auto tempNDF_Track = c12.getBank(ldx_Track)->getFloat(lNDF,ipa3); 
+                        auto tempNDF_Track = c12.getBank(ldx_Track)->getInt(lNDF,ipa3); 
 
                         if (tempPnd_Track == Before[ipa]){
                             Pchi2track[nmb] = tempchi2_Track;
