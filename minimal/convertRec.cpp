@@ -88,18 +88,18 @@ int main(int argc, char **argv){
     Float_t PCvt1Hitx[100];
     Float_t PCvt1Hity[100];
     Float_t PCvt1Hitz[100];
-    Float_t PCvt2Hitx[100];
-    Float_t PCvt2Hity[100];
-    Float_t PCvt2Hitz[100];
     Float_t PCvt3Hitx[100];
     Float_t PCvt3Hity[100];
     Float_t PCvt3Hitz[100];
-    Float_t PCvt4Hitx[100];
-    Float_t PCvt4Hity[100];
-    Float_t PCvt4Hitz[100];
     Float_t PCvt5Hitx[100];
     Float_t PCvt5Hity[100];
     Float_t PCvt5Hitz[100];
+    Float_t PCvt7Hitx[100];
+    Float_t PCvt7Hity[100];
+    Float_t PCvt7Hitz[100];
+    Float_t PCvt12Hitx[100];
+    Float_t PCvt12Hity[100];
+    Float_t PCvt12Hitz[100];
     Float_t PNDFtrack[100];
     Float_t Pchi2track[100];
 
@@ -211,18 +211,18 @@ int main(int argc, char **argv){
     T->Branch("PCvt1Hitx",&PCvt1Hitx,"PCvt1Hitx[nmb]/F");
     T->Branch("PCvt1Hity",&PCvt1Hity,"PCvt1Hity[nmb]/F");
     T->Branch("PCvt1Hitz",&PCvt1Hitz,"PCvt1Hitz[nmb]/F");
-    T->Branch("PCvt2Hitx",&PCvt2Hitx,"PCvt2Hitx[nmb]/F");
-    T->Branch("PCvt2Hity",&PCvt2Hity,"PCvt2Hity[nmb]/F");
-    T->Branch("PCvt2Hitz",&PCvt2Hitz,"PCvt2Hitz[nmb]/F");
     T->Branch("PCvt3Hitx",&PCvt3Hitx,"PCvt3Hitx[nmb]/F");
     T->Branch("PCvt3Hity",&PCvt3Hity,"PCvt3Hity[nmb]/F");
     T->Branch("PCvt3Hitz",&PCvt3Hitz,"PCvt3Hitz[nmb]/F");
-    T->Branch("PCvt4Hitx",&PCvt4Hitx,"PCvt4Hitx[nmb]/F");
-    T->Branch("PCvt4Hity",&PCvt4Hity,"PCvt4Hity[nmb]/F");
-    T->Branch("PCvt4Hitz",&PCvt4Hitz,"PCvt4Hitz[nmb]/F");
     T->Branch("PCvt5Hitx",&PCvt5Hitx,"PCvt5Hitx[nmb]/F");
     T->Branch("PCvt5Hity",&PCvt5Hity,"PCvt5Hity[nmb]/F");
     T->Branch("PCvt5Hitz",&PCvt5Hitz,"PCvt5Hitz[nmb]/F");
+    T->Branch("PCvt7Hitx",&PCvt7Hitx,"PCvt7Hitx[nmb]/F");
+    T->Branch("PCvt7Hity",&PCvt7Hity,"PCvt7Hity[nmb]/F");
+    T->Branch("PCvt7Hitz",&PCvt7Hitz,"PCvt7Hitz[nmb]/F");
+    T->Branch("PCvt12Hitx",&PCvt12Hitx,"PCvt12Hitx[nmb]/F");
+    T->Branch("PCvt12Hity",&PCvt12Hity,"PCvt12Hity[nmb]/F");
+    T->Branch("PCvt12Hitz",&PCvt12Hitz,"PCvt12Hitz[nmb]/F");
     T->Branch("Pchi2track",&Pchi2track,"Pchi2track[nmb]/F");
     T->Branch("PNDFtrack",&PNDFtrack,"PNDFtrack[nmb]/F");
 
@@ -589,18 +589,18 @@ int main(int argc, char **argv){
                     PCvt1Hitx[nmb] = -100000;
                     PCvt1Hity[nmb] = -100000;
                     PCvt1Hitz[nmb] = -100000;
-                    PCvt2Hitx[nmb] = -100000;
-                    PCvt2Hity[nmb] = -100000;
-                    PCvt2Hitz[nmb] = -100000;
                     PCvt3Hitx[nmb] = -100000;
                     PCvt3Hity[nmb] = -100000;
                     PCvt3Hitz[nmb] = -100000;
-                    PCvt4Hitx[nmb] = -100000;
-                    PCvt4Hity[nmb] = -100000;
-                    PCvt4Hitz[nmb] = -100000;
                     PCvt5Hitx[nmb] = -100000;
                     PCvt5Hity[nmb] = -100000;
                     PCvt5Hitz[nmb] = -100000;
+                    PCvt7Hitx[nmb] = -100000;
+                    PCvt7Hity[nmb] = -100000;
+                    PCvt7Hitz[nmb] = -100000;
+                    PCvt12Hitx[nmb] = -100000;
+                    PCvt12Hity[nmb] = -100000;
+                    PCvt12Hitz[nmb] = -100000;
 
                     // Scintillaror Bank        //
                     for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
@@ -689,24 +689,24 @@ int main(int argc, char **argv){
                                     PCvt1Hitz[nmb] = tempZ_Traj;
                                 }
                                 if (tempLay_Traj == 3){ //svt3
-                                    PCvt2Hitx[nmb] = tempX_Traj;
-                                    PCvt2Hity[nmb] = tempY_Traj;
-                                    PCvt2Hitz[nmb] = tempZ_Traj;
-                                }
-                                if (tempLay_Traj == 5){ //svt5
                                     PCvt3Hitx[nmb] = tempX_Traj;
                                     PCvt3Hity[nmb] = tempY_Traj;
                                     PCvt3Hitz[nmb] = tempZ_Traj;
                                 }
-                                if (tempLay_Traj == 7){ //bmt1
-                                    PCvt4Hitx[nmb] = tempX_Traj;
-                                    PCvt4Hity[nmb] = tempY_Traj;
-                                    PCvt4Hitz[nmb] = tempZ_Traj;
-                                }
-                                if (tempLay_Traj == 12){ //bmt6
+                                if (tempLay_Traj == 5){ //svt5
                                     PCvt5Hitx[nmb] = tempX_Traj;
                                     PCvt5Hity[nmb] = tempY_Traj;
                                     PCvt5Hitz[nmb] = tempZ_Traj;
+                                }
+                                if (tempLay_Traj == 7){ //bmt1
+                                    PCvt7Hitx[nmb] = tempX_Traj;
+                                    PCvt7Hity[nmb] = tempY_Traj;
+                                    PCvt7Hitz[nmb] = tempZ_Traj;
+                                }
+                                if (tempLay_Traj == 12){ //bmt6
+                                    PCvt12Hitx[nmb] = tempX_Traj;
+                                    PCvt12Hity[nmb] = tempY_Traj;
+                                    PCvt12Hitz[nmb] = tempZ_Traj;
                                 }
                             }
                         }
