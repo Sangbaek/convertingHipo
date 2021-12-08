@@ -30,11 +30,11 @@ int main(int argc, char **argv){
     TFile *rFile = TFile::Open("genOnly.root","RECREATE");
     TTree *T=new TTree("T","Gen");
 
-   // =====  proton =====
     Float_t xB;
     Float_t Q2;
     Float_t t2;
     Float_t phi2;
+    Int_t nmG;
 
 // ===============    xB ==============    
     T->Branch("xB",&xB,"xB/F");
@@ -70,13 +70,13 @@ int main(int argc, char **argv){
               }
             
               if( ipa == 1 ){  // protons
-                  phi2 = (M_PI-tLifetime)*180.0/M_PI;
-                
-              } // if for protons
+                  phi2 = (M_PI-tLifetime)*180.0/M_PI; 
+              }
+              nmG++;
 
           }
 
-          T->Fill();
+          (if nmG>0) T->Fill();
 
         }
 
