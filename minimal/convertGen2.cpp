@@ -57,7 +57,7 @@ int main(int argc, char **argv){
 
         while(c12.next() == true){
 
-          nmG=0
+          nmG=0;
     
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
