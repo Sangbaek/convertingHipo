@@ -56,6 +56,8 @@ int main(int argc, char **argv){
       auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
 
         while(c12.next() == true){
+
+          nmG=0
     
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
@@ -76,7 +78,7 @@ int main(int argc, char **argv){
 
           }
 
-          (if nmG>0) T->Fill();
+          if (nmG>0) T->Fill();
 
         }
 
