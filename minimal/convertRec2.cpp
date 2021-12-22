@@ -164,6 +164,11 @@ int main(int argc, char **argv){
     Int_t Ftof1bSector[100];
     Int_t Ftof2Sector[100];
 
+    Float_t GenxB;
+    Float_t GenQ2;
+    Float_t Gent2;
+    Float_t Genphi2;
+
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
@@ -288,6 +293,10 @@ int main(int argc, char **argv){
     T->Branch("GenPipy",&GenPipy,"GenPipy/F");
     T->Branch("GenPipz",&GenPipz,"GenPipz/F"); 
 
+    T->Branch("GenxB",&GenxB,"GenxB/F");
+    T->Branch("GenQ2",&GenQ2,"GenQ2/F");
+    T->Branch("Gent2",&Gent2,"Gent2/F");
+    T->Branch("Genphi2",&Genphi2,"Genphi2/F");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -394,6 +403,12 @@ int main(int argc, char **argv){
         auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
         auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
 
+        auto idx_GenLund = c12.addBank("MC::Lund");
+        auto iInd = c12.getBankOrder(idx_GenLund,"index");
+        auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
+        auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
+        auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
+
         while(c12.next() == true){
 
             nmb=0;
@@ -452,6 +467,24 @@ int main(int argc, char **argv){
                 }
             }
 
+            for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
+
+                auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
+                auto tEnergy = c12.getBank(idx_GenLund)->getFloat(iEnergy,ipa);
+                auto tMass = c12.getBank(idx_GenLund)->getFloat(iMass,ipa);
+
+                if( ipa == 0 ){  // electrons
+                    GenxB = tLifetime;
+                    GenQ2 = tEnergy;
+                    Gent2 = tMass;
+                }
+
+                if( ipa == 1 ){  // protons
+                    Genphi2 = (M_PI-tLifetime)*180.0/M_PI; 
+                }
+
+            }
+            
             // REC::Particle
             for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
 
