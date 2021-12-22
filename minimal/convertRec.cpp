@@ -30,7 +30,7 @@ int main(int argc, char **argv){
     TString mode = "pi0";
     bool dvcsrad = false; 
     if (argc==2) mode = argv[1];
-    if (argc==3) dvcsrad = true;
+    if (mode=="dvcsrad") dvcsrad = true;
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
     TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
@@ -170,6 +170,11 @@ int main(int argc, char **argv){
     Float_t GenQ2;
     Float_t Gent2;
     Float_t Genphi2;
+
+    Float_t xB;
+    Float_t Q2;
+    Float_t t2;
+    Float_t phi2;
 
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
