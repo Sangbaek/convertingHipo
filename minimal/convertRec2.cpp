@@ -404,7 +404,7 @@ int main(int argc, char **argv){
         auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
 
         auto idx_GenLund = c12.addBank("MC::Lund");
-        auto iInd = c12.getBankOrder(idx_GenLund,"index");
+        // auto iInd = c12.getBankOrder(idx_GenLund,"index");
         auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
         auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
         auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
