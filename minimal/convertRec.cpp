@@ -171,11 +171,6 @@ int main(int argc, char **argv){
     Float_t Gent2;
     Float_t Genphi2;
 
-    Float_t xB;
-    Float_t Q2;
-    Float_t t2;
-    Float_t phi2;
-
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
@@ -412,15 +407,6 @@ int main(int argc, char **argv){
         auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
         auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
 
-        if (dvcsrad){
-            // MC particle bank ========
-            auto idx_GenLund = c12.addBank("MC::Lund");
-            auto iInd = c12.getBankOrder(idx_GenLund,"index");
-            auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
-            auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
-            auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
-        }
-
         while(c12.next() == true){
 
             nmb=0;
@@ -480,6 +466,11 @@ int main(int argc, char **argv){
             }
 
             if (dvcsrad){
+                auto idx_GenLund = c12.addBank("MC::Lund");
+                auto iInd = c12.getBankOrder(idx_GenLund,"index");
+                auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
+                auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
+                auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
                 for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
 
                     auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
