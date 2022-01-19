@@ -139,6 +139,8 @@ int main(int argc, char **argv){
     Float_t Gedep1[100];
     Float_t Gedep2[100];
     Float_t Gedep3[100];
+    Float_t GcX[100];
+    Float_t GcY[100];
     Float_t Gpath[100];
     Float_t Gtime[100];
 
@@ -243,6 +245,8 @@ int main(int argc, char **argv){
     T->Branch("Gedep1",&Gedep1,"Gedep1[nmg]/F");
     T->Branch("Gedep2",&Gedep2,"Gedep2[nmg]/F");
     T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
+    T->Branch("GcX",&GcX,"GcX[nmg]/F");
+    T->Branch("GcY",&GcY,"GcY[nmg]/F");
     T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
     T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
@@ -666,7 +670,10 @@ int main(int argc, char **argv){
                     Gedep1[nmg] = 0;
                     Gedep2[nmg] = 0;
                     Gedep3[nmg] = 0;
+                    GcX[nmg] = 0;
+                    GcY[nmg] = 0;
                     Gtime[nmg] = 0;
+                    Gpath[nmg] = 0;
                     if (Gstat[nmg]<2000) Gsector[nmg] = Gstat[nmg];
                     else Gsector[nmg] = PcalSector[ipa];
 
@@ -677,12 +684,16 @@ int main(int argc, char **argv){
                         auto tempDet_Calo = c12.getBank(mdx_Calo)->getInt(mDetector,ipa2);    
                         auto tempLay_Calo = c12.getBank(mdx_Calo)->getInt(mLayer,ipa2); 
                         auto tempE_Calo = c12.getBank(mdx_Calo)->getFloat(menergy,ipa2); 
+                        auto tempX_Calo = c12.getBank(mdx_Calo)->getFloat(mx,ipa2); 
+                        auto tempY_Calo = c12.getBank(mdx_Calo)->getFloat(my,ipa2); 
                         auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa2); 
                         auto tempPath_Calo = c12.getBank(mdx_Calo)->getFloat(mpath,ipa2); 
 
                         if (tempPnd_Calo == Before[ipa]){
                             if (tempLay_Calo == 1) {
                                 Gedep1[nmg] = tempE_Calo;
+                                GcX[nmg] = tempX_Calo;
+                                GcY[nmg] = tempY_Calo;
                                 Gtime[nmg] = tempTime_Calo;
                                 Gpath[nmg] = tempPath_Calo;
                             }
