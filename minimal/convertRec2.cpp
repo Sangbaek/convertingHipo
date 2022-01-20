@@ -479,7 +479,7 @@ int main(int argc, char **argv){
                 auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
                 auto tEnergy = c12.getBank(idx_GenLund)->getFloat(iEnergy,ipa);
                 auto tMass = c12.getBank(idx_GenLund)->getFloat(iMass,ipa);
-                auto tMode = c12.getBank(idx_GenLund)->getFloat(iMode,ipa);
+                auto tMode = c12.getBank(idx_GenLund)->getInt(iMode,ipa);
 
                 if( ipa == 0 ){  // electrons
                     GenxB = tLifetime;
