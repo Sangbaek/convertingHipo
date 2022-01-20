@@ -170,6 +170,7 @@ int main(int argc, char **argv){
     Float_t GenQ2;
     Float_t Gent2;
     Float_t Genphi2;
+    Int_t radMode;
 
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
@@ -301,6 +302,7 @@ int main(int argc, char **argv){
     T->Branch("GenQ2",&GenQ2,"GenQ2/F");
     T->Branch("Gent2",&Gent2,"Gent2/F");
     T->Branch("Genphi2",&Genphi2,"Genphi2/F");
+    T->Branch("radMode",&radMode,"radMode/I");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -412,6 +414,7 @@ int main(int argc, char **argv){
         auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
         auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
         auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
+        auto iMode  = c12.getBankOrder(idx_GenLund,"daugther");
 
         while(c12.next() == true){
 
@@ -476,11 +479,13 @@ int main(int argc, char **argv){
                 auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
                 auto tEnergy = c12.getBank(idx_GenLund)->getFloat(iEnergy,ipa);
                 auto tMass = c12.getBank(idx_GenLund)->getFloat(iMass,ipa);
+                auto tMode = c12.getBank(idx_GenLund)->getFloat(iMode,ipa);
 
                 if( ipa == 0 ){  // electrons
                     GenxB = tLifetime;
                     GenQ2 = tEnergy;
                     Gent2 = tMass;
+                    radMode = tMode;
                 }
 
                 if( ipa == 1 ){  // protons
