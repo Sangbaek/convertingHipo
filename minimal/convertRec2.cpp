@@ -414,7 +414,7 @@ int main(int argc, char **argv){
         auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
         auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
         auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
-        auto iMode  = c12.getBankOrder(idx_GenLund,"daugther");
+        auto iMode  = c12.getBankOrder(idx_GenLund,"daughter");
 
         while(c12.next() == true){
 
