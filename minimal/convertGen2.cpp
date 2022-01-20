@@ -35,12 +35,14 @@ int main(int argc, char **argv){
     Float_t t2;
     Float_t phi2;
     Int_t nmG;
+    Int_t radMode;
 
 // ===============    xB ==============    
     T->Branch("xB",&xB,"xB/F");
     T->Branch("Q2",&Q2,"Q2/F");
     T->Branch("t2",&t2,"t2/F");
     T->Branch("phi2",&phi2,"phi2/F");
+    T->Branch("radMode",&radMode,"radMod/I");
 
   //
   //loop over files
@@ -54,6 +56,7 @@ int main(int argc, char **argv){
       auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
       auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
       auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
+      auto iMode  = c12.getBankOrder(idx_GenLund,"daugther");
 
         while(c12.next() == true){
 
@@ -64,11 +67,13 @@ int main(int argc, char **argv){
               auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
               auto tEnergy = c12.getBank(idx_GenLund)->getFloat(iEnergy,ipa);
               auto tMass = c12.getBank(idx_GenLund)->getFloat(iMass,ipa);
+              auto tMode = c12.getBank(idx_GenLund)->getFloat(iMode,ipa);
 
               if( ipa == 0 ){  // electrons
                   xB = tLifetime;
                   Q2 = tEnergy;
                   t2 = tMass;
+                  radMode = tMode;
               }
             
               if( ipa == 1 ){  // protons
