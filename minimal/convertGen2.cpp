@@ -42,7 +42,7 @@ int main(int argc, char **argv){
     T->Branch("Q2",&Q2,"Q2/F");
     T->Branch("t2",&t2,"t2/F");
     T->Branch("phi2",&phi2,"phi2/F");
-    T->Branch("radMode",&radMode,"radMod/I");
+    T->Branch("radMode",&radMode,"radMode/I");
 
   //
   //loop over files
