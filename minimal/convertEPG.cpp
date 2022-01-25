@@ -136,6 +136,7 @@ int main(int argc, char **argv){
     Int_t Gstat[100];
     Int_t Gsector[100];
     Float_t Gedep[100];
+    Float_t Gradius[100];
     Float_t Gedep1[100];
     Float_t Gedep2[100];
     Float_t Gedep3[100];
@@ -242,6 +243,7 @@ int main(int argc, char **argv){
     T->Branch("Gstat",&Gstat,"Gstat[nmg]/I");
     T->Branch("Gsector",&Gsector,"Gsector[nmg]/I");
     T->Branch("Gedep",&Gedep,"Gedep[nmg]/F");
+    T->Branch("Gradius",&Gradius,"Gradius[nmg]/F");
     T->Branch("Gedep1",&Gedep1,"Gedep1[nmg]/F");
     T->Branch("Gedep2",&Gedep2,"Gedep2[nmg]/F");
     T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
@@ -356,19 +358,10 @@ int main(int argc, char **argv){
         auto ntime = c12.getBankOrder(ndx_FT,"time");
         auto npath = c12.getBankOrder(ndx_FT,"path");
         auto nchi2 = c12.getBankOrder(ndx_FT,"chi2");
+        auto nradius = c12.getBankOrder(ndx_FT,"radius");
         auto nx = c12.getBankOrder(ndx_FT,"x");
         auto ny = c12.getBankOrder(ndx_FT,"y");
         auto nz = c12.getBankOrder(ndx_FT,"z");
-
-        // MC bank
-        auto idx_GenPart = c12.addBank("MC::Particle");
-        auto iGenPid = c12.getBankOrder(idx_GenPart,"pid");
-        auto iGenPx  = c12.getBankOrder(idx_GenPart,"px");
-        auto iGenPy  = c12.getBankOrder(idx_GenPart,"py");
-        auto iGenPz  = c12.getBankOrder(idx_GenPart,"pz");
-        auto iGenVx  = c12.getBankOrder(idx_GenPart,"vx");
-        auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
-        auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
 
         while(c12.next() == true){
 
@@ -667,6 +660,7 @@ int main(int argc, char **argv){
                     Gpz[nmg] = tPz;
                     Gstat[nmg] = tStat;
                     Gedep[nmg] = 0;
+                    Gradius[nmg] = 0;
                     Gedep1[nmg] = 0;
                     Gedep2[nmg] = 0;
                     Gedep3[nmg] = 0;
@@ -710,11 +704,13 @@ int main(int argc, char **argv){
                         auto tempDet_FT = c12.getBank(ndx_FT)->getInt(nDetector,ipa3);    
                         auto tempLay_FT = c12.getBank(ndx_FT)->getInt(nLayer,ipa3); 
                         auto tempE_FT = c12.getBank(ndx_FT)->getFloat(nenergy,ipa3); 
+                        auto tempR_FT = c12.getBank(ndx_FT)->getFloat(nradius,ipa3); 
                         auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(ntime,ipa3); 
                         auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(npath,ipa3); 
 
                         if (tempPnd_FT == Before[ipa]){
                             Gedep[nmg] = tempE_FT;
+                            Gradius[nmg] = tempR_FT;
                             Gtime[nmg] = tempTime_FT;
                             Gpath[nmg] = tempPath_FT;
                         }
