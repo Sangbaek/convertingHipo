@@ -819,8 +819,8 @@ int main(int argc, char **argv){
                         auto tempDet_FT = c12.getBank(ndx_FT)->getInt(nDetector,ipa3);    
                         auto tempLay_FT = c12.getBank(ndx_FT)->getInt(nLayer,ipa3); 
                         auto tempE_FT = c12.getBank(ndx_FT)->getFloat(nenergy,ipa3); 
-                        auto tempX_FT = c12.getBank(ndx_FT)->getFloat(nx,ipa2); 
-                        auto tempY_FT = c12.getBank(ndx_FT)->getFloat(ny,ipa2); 
+                        auto tempX_FT = c12.getBank(ndx_FT)->getFloat(nx,ipa3); 
+                        auto tempY_FT = c12.getBank(ndx_FT)->getFloat(ny,ipa3); 
                         auto tempR_FT = c12.getBank(ndx_FT)->getFloat(nradius,ipa3); 
                         auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(ntime,ipa3); 
                         auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(npath,ipa3); 
