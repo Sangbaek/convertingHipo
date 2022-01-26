@@ -142,7 +142,6 @@ int main(int argc, char **argv){
     Int_t Gstat[100];
     Int_t Gsector[100];
     Float_t Gedep[100];
-    Float_t Gradius[100];
     Float_t Gedep1[100];
     Float_t Gedep2[100];
     Float_t Gedep3[100];
@@ -264,7 +263,6 @@ int main(int argc, char **argv){
     T->Branch("Gstat",&Gstat,"Gstat[nmg]/I");
     T->Branch("Gsector",&Gsector,"Gsector[nmg]/I");
     T->Branch("Gedep",&Gedep,"Gedep[nmg]/F");
-    T->Branch("Gradius",&Gradius,"Gradius[nmg]/F");
     T->Branch("Gedep1",&Gedep1,"Gedep1[nmg]/F");
     T->Branch("Gedep2",&Gedep2,"Gedep2[nmg]/F");
     T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
@@ -775,7 +773,6 @@ int main(int argc, char **argv){
                     Gpz[nmg] = tPz;
                     Gstat[nmg] = tStat;
                     Gedep[nmg] = 0;
-                    Gradius[nmg] = 0;
                     Gedep1[nmg] = 0;
                     Gedep2[nmg] = 0;
                     Gedep3[nmg] = 0;
@@ -821,7 +818,6 @@ int main(int argc, char **argv){
                         auto tempE_FT = c12.getBank(ndx_FT)->getFloat(nenergy,ipa3); 
                         auto tempX_FT = c12.getBank(ndx_FT)->getFloat(nx,ipa3); 
                         auto tempY_FT = c12.getBank(ndx_FT)->getFloat(ny,ipa3); 
-                        auto tempR_FT = c12.getBank(ndx_FT)->getFloat(nradius,ipa3); 
                         auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(ntime,ipa3); 
                         auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(npath,ipa3); 
 
@@ -829,7 +825,6 @@ int main(int argc, char **argv){
                             Gedep[nmg] = tempE_FT;
                             GcX[nmg] = tempX_FT;
                             GcY[nmg] = tempY_FT;
-                            Gradius[nmg] = tempR_FT;
                             Gtime[nmg] = tempTime_FT;
                             Gpath[nmg] = tempPath_FT;
                         }
