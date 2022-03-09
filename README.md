@@ -25,8 +25,10 @@ i.e.,
 where the mode can be "pi0" and "dvcs" for now.
 
 ## all
-
-discontinued as of Mar. 9.
+saves all possible vars. (depreciated as of Mar. 9.)
 
 ## minimal
-Saves all rec/ pid vars for dvcs and dvpi0p research.
+Saves all rec/ pid vars required for dvcs and dvpi0p research.
+
+## nonfid
+Saves rec vars only useful for dvcs dvpi0p research
