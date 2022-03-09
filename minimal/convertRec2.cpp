@@ -173,8 +173,9 @@ int main(int argc, char **argv){
 
     Float_t GenxB;
     Float_t GenQ2;
-    Float_t Gent2;
-    Float_t Genphi2;
+    Float_t Gent;
+    Float_t Genphi;
+    Float_t GenWeight;
     Int_t radMode;
 
     ///   protons ================================== 
@@ -310,8 +311,9 @@ int main(int argc, char **argv){
 
     T->Branch("GenxB",&GenxB,"GenxB/F");
     T->Branch("GenQ2",&GenQ2,"GenQ2/F");
-    T->Branch("Gent2",&Gent2,"Gent2/F");
-    T->Branch("Genphi2",&Genphi2,"Genphi2/F");
+    T->Branch("Gent",&Gent,"Gent/F");
+    T->Branch("Genphi",&Genphi,"Genphi/F");
+    T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
 
     //loop over files
@@ -436,6 +438,10 @@ int main(int argc, char **argv){
         auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
         auto iMode  = c12.getBankOrder(idx_GenLund,"daughter");
 
+        auto idx_GenEvent = c12.addBank("MC::Event");
+        // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
+        auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
+
         while(c12.next() == true){
 
             nmb=0;
@@ -504,14 +510,22 @@ int main(int argc, char **argv){
                 if( ipa == 0 ){  // electrons
                     GenxB = tLifetime;
                     GenQ2 = tEnergy;
-                    Gent2 = tMass;
+                    Gent = tMass;
                     radMode = tMode;
                 }
 
                 if( ipa == 1 ){  // protons
-                    Genphi2 = (M_PI-tLifetime)*180.0/M_PI; 
+                    Genphi = (M_PI-tLifetime)*180.0/M_PI; 
                 }
 
+            }
+            for(auto ipa=0;ipa<c12.getBank(idx_GenEvent)->getRows();ipa++){
+
+                auto tWeight = c12.getBank(idx_GenEvent)->getFloat(iWeight,ipa);
+
+                if( ipa == 0 ){  
+                    GenWeight = tWeight; //diff x-sec
+                }
             }
             
             // REC::Particle
