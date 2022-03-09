@@ -570,7 +570,7 @@ int main(int argc, char **argv){
                     for(auto ipa4 = 0; ipa4<c12.getBank(hdx_Cherenkov)->getRows();ipa4++){
                         auto tempPnd_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hPindex,ipa4);
                         auto tempDet_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hDetector,ipa4);    
-                        auto tempNphe_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hnphe,ipa4);    
+                        auto tempNphe_Cherenkov = c12.getBank(hdx_Cherenkov)->getFloat(hnphe,ipa4);    
                         if (tempPnd_Cherenkov == Before[ipa]){
                             if (tempDet_Cherenkov == 15){ //HTCC
                                 Enphe = tempNphe_Cherenkov;
