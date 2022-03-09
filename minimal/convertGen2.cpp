@@ -30,20 +30,21 @@ int main(int argc, char **argv){
     TFile *rFile = TFile::Open("genOnly.root","RECREATE");
     TTree *T=new TTree("T","Gen");
 
-    Float_t xB;
-    Float_t Q2;
-    Float_t t2;
-    Float_t phi2;
+    Float_t GenxB;
+    Float_t GenQ2;
+    Float_t Gent;
+    Float_t Genphi;
+    Float_t GenWeight;
     Int_t nmG;
     Int_t radMode;
 
 // ===============    xB ==============    
-    T->Branch("xB",&xB,"xB/F");
-    T->Branch("Q2",&Q2,"Q2/F");
-    T->Branch("t2",&t2,"t2/F");
-    T->Branch("phi2",&phi2,"phi2/F");
+    T->Branch("GenxB",&GenxB,"GenxB/F");
+    T->Branch("GenQ2",&GenQ2,"GenQ2/F");
+    T->Branch("Gent",&Gent,"Gent/F");
+    T->Branch("Genphi",&Genphi,"Genphi/F");
+    T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
-
   //
   //loop over files
   //
@@ -58,6 +59,10 @@ int main(int argc, char **argv){
       auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
       auto iMode  = c12.getBankOrder(idx_GenLund,"daughter");
 
+      auto idx_GenEvent = c12.addBank("MC::Event");
+      // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
+      auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
+
         while(c12.next() == true){
 
           nmG=0;
@@ -70,17 +75,25 @@ int main(int argc, char **argv){
               auto tMode = c12.getBank(idx_GenLund)->getInt(iMode,ipa);
 
               if( ipa == 0 ){  // electrons
-                  xB = tLifetime;
-                  Q2 = tEnergy;
-                  t2 = tMass;
+                  GenxB = tLifetime;
+                  GenQ2 = tEnergy;
+                  Gent = tMass;
                   radMode = tMode;
               }
             
               if( ipa == 1 ){  // protons
-                  phi2 = (M_PI-tLifetime)*180.0/M_PI; 
+                  Genphi = (M_PI-tLifetime)*180.0/M_PI; 
               }
               nmG++;
 
+          }
+          for(auto ipa=0;ipa<c12.getBank(idx_GenEvent)->getRows();ipa++){
+
+              auto tWeight = c12.getBank(idx_GenEvent)->getFloat(iWeight,ipa);
+
+              if( ipa == 0 ){  
+                  GenWeight = tWeight; //diff x-sec
+              }
           }
 
           if (nmG>0) T->Fill();
