@@ -390,9 +390,9 @@ int main(int argc, char **argv){
 
         // Read banks: Cherenkov (HTCC)
         auto hdx_Cherenkov = c12.addBank("REC::Cherenkov");
-        auto hPindex = c12.getBankOrder(hdx_Chrenkov,"pindex");
-        auto hDetector = c12.getBankOrder(hdx_Chrenkov,"detector");
-        auto hnphe = c12.getBankOrder(hdx_Chrenkov,"nphe");
+        auto hPindex = c12.getBankOrder(hdx_Cherenkov,"pindex");
+        auto hDetector = c12.getBankOrder(hdx_Cherenkov,"detector");
+        auto hnphe = c12.getBankOrder(hdx_Cherenkov,"nphe");
 
         // Read banks: FT
         auto ndx_FT = c12.addBank("REC::ForwardTagger");
