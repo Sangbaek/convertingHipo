@@ -239,8 +239,8 @@ int main(int argc, char **argv){
     T->Branch("Eedep2",&Eedep2,"Eedep2/F");
     T->Branch("Eedep3",&Eedep3,"Eedep3/F");
     T->Branch("EcalU1",&EcalU1,"EcalU1/F");
-    T->Branch("EcalU2",&EcalU2,"EcalU2/F");
-    T->Branch("EcalU3",&EcalU3,"EcalU3/F");
+    T->Branch("EcalV1",&EcalV1,"EcalV1/F");
+    T->Branch("EcalW1",&EcalW1,"EcalW1/F");
 
     T->Branch("Enphe",&Enphe,"Enphe/F");
 
@@ -361,10 +361,10 @@ int main(int argc, char **argv){
         auto mw = c12.getBankOrder(mdx_Calo,"lw");
 
         // Read banks: Cherenkov (HTCC)
-        auto hdx_Chrenkov = c12.addBank("REC::Cherenkov");
-        auto hPindex = c12.getBankOrder(hdx_Chrenkov,"pindex");
-        auto hDetector = c12.getBankOrder(hdx_Chrenkov,"detector");
-        auto hnphe = c12.getBankOrder(hdx_Chrenkov,"nphe");
+        auto hdx_Cherenkov = c12.addBank("REC::Cherenkov");
+        auto hPindex = c12.getBankOrder(hdx_Cherenkov,"pindex");
+        auto hDetector = c12.getBankOrder(hdx_Cherenkov,"detector");
+        auto hnphe = c12.getBankOrder(hdx_Cherenkov,"nphe");
 
         // Read banks: FT
         auto ndx_FT = c12.addBank("REC::ForwardTagger");
@@ -473,9 +473,9 @@ int main(int argc, char **argv){
                         auto tempLay_Calo = c12.getBank(mdx_Calo)->getInt(mLayer,ipa3); 
                         auto tempE_Calo = c12.getBank(mdx_Calo)->getFloat(menergy,ipa3); 
                         auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa3); 
-                        auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa2); 
-                        auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa2); 
-                        auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa2); 
+                        auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa3); 
+                        auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa3); 
+                        auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa3); 
                         if (tempPnd_Calo == Before[ipa]){
                             if (tempLay_Calo == 1){ 
                                 Eedep1 = tempE_Calo;
