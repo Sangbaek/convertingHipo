@@ -126,6 +126,11 @@ int main(int argc, char **argv){
     Float_t Eedep1;
     Float_t Eedep2;
     Float_t Eedep3;
+    Float_t EcalU1;
+    Float_t EcalV1;
+    Float_t EcalW1;
+
+    Float_t Enphe;
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -248,6 +253,11 @@ int main(int argc, char **argv){
     T->Branch("Eedep1",&Eedep1,"Eedep1/F");
     T->Branch("Eedep2",&Eedep2,"Eedep2/F");
     T->Branch("Eedep3",&Eedep3,"Eedep3/F");
+    T->Branch("EcalU1",&EcalU1,"EcalU1/F");
+    T->Branch("EcalU2",&EcalU2,"EcalU2/F");
+    T->Branch("EcalU3",&EcalU3,"EcalU3/F");
+
+    T->Branch("Enphe",&Enphe,"Enphe/F");
 
     // ================   Gamma  ===============    
     T->Branch("nmg",&nmg,"nmg/I");
@@ -374,6 +384,15 @@ int main(int argc, char **argv){
         auto mx = c12.getBankOrder(mdx_Calo,"x");
         auto my = c12.getBankOrder(mdx_Calo,"y");
         auto mz = c12.getBankOrder(mdx_Calo,"z");
+        auto mu = c12.getBankOrder(mdx_Calo,"lu");
+        auto mv = c12.getBankOrder(mdx_Calo,"lv");
+        auto mw = c12.getBankOrder(mdx_Calo,"lw");
+
+        // Read banks: Cherenkov (HTCC)
+        auto hdx_Chrenkov = c12.addBank("REC::Cherenkov");
+        auto hPindex = c12.getBankOrder(hdx_Chrenkov,"pindex");
+        auto hDetector = c12.getBankOrder(hdx_Chrenkov,"detector");
+        auto hnphe = c12.getBankOrder(hdx_Chrenkov,"nphe");
 
         // Read banks: FT
         auto ndx_FT = c12.addBank("REC::ForwardTagger");
@@ -531,13 +550,33 @@ int main(int argc, char **argv){
                         auto tempLay_Calo = c12.getBank(mdx_Calo)->getInt(mLayer,ipa3); 
                         auto tempE_Calo = c12.getBank(mdx_Calo)->getFloat(menergy,ipa3); 
                         auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa3); 
+                        auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa2); 
+                        auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa2); 
+                        auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa2); 
                         if (tempPnd_Calo == Before[ipa]){
-                            if (tempLay_Calo == 1) Eedep1 = tempE_Calo;
+                            if (tempLay_Calo == 1){ 
+                                Eedep1 = tempE_Calo;
+                                EcalU1 = tempU_Calo;
+                                EcalV1 = tempV_Calo;
+                                EcalW1 = tempW_Calo;
+                            }
                             if (tempLay_Calo == 4) Eedep2 = tempE_Calo;
                             if (tempLay_Calo == 7) Eedep3 = tempE_Calo;
                             Eedep += tempE_Calo;
                         }
                     }//end of EC
+
+                    // Cherenkov Bank (REC::Cherenkov)        //
+                    for(auto ipa4 = 0; ipa4<c12.getBank(hdx_Cherenkov)->getRows();ipa4++){
+                        auto tempPnd_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hPindex,ipa4);
+                        auto tempDet_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hDetector,ipa4);    
+                        auto tempNphe_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hnphe,ipa4);    
+                        if (tempPnd_Cherenkov == Before[ipa]){
+                            if (tempDet_Cherenkov == 15){ //HTCC
+                                Enphe = tempNphe_Cherenkov;
+                            }
+                        }
+                    }//end of Cherenkov
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
