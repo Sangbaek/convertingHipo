@@ -44,6 +44,7 @@ int main(int argc, char **argv){
     Int_t   helicityRaw;
     Long_t  EventNum;
     Long_t  RunNum;
+    Long_t  TriggerBit;
 
     // =====  proton =====
     Int_t nmb;
@@ -277,6 +278,7 @@ int main(int argc, char **argv){
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
     T->Branch("EventNum",&EventNum,"EventNum/L");
     T->Branch("RunNum",&RunNum,"RunNum/L");
+    T->Branch("TriggerBit",&TriggerBit,"TriggerBit/L");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -295,6 +297,7 @@ int main(int argc, char **argv){
         auto idx_RUNCon = c12.addBank("RUN::config");
         auto brun = c12.getBankOrder(idx_RUNCon,"run");
         auto bevent = c12.getBankOrder(idx_RUNCon,"event");
+        auto btrigger = c12.getBankOrder(idx_RUNCon,"trigger");
 
         // main particle bank ========
         auto idx_RECPart = c12.addBank("REC::Particle");
@@ -800,9 +803,11 @@ int main(int argc, char **argv){
             for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
                 auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
                 auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
+                auto tempT = c12.getBank(idx_RUNCon)->getInt(btrigger,ipa1);
                 
                 EventNum = tempE;
                 RunNum = tempR;
+                TriggerBit = tempT;
             }
 
             bool condition = (nmb>0) && (nmg>0);
