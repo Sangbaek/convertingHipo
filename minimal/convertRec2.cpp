@@ -152,6 +152,9 @@ int main(int argc, char **argv){
     Float_t Gedep3[100];
     Float_t GcX[100];
     Float_t GcY[100];
+    Float_t GcalU1[100];
+    Float_t GcalV1[100];
+    Float_t GcalW1[100];
     Float_t Gpath[100];
     Float_t Gtime[100];
 
@@ -279,6 +282,9 @@ int main(int argc, char **argv){
     T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
     T->Branch("GcX",&GcX,"GcX[nmg]/F");
     T->Branch("GcY",&GcY,"GcY[nmg]/F");
+    T->Branch("GcalU1",&GcalU1,"GcalU1[nmg]/F");
+    T->Branch("GcalV1",&GcalV1,"GcalV1[nmg]/F");
+    T->Branch("GcalW1",&GcalW1,"GcalW1[nmg]/F");
     T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
     T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
@@ -831,6 +837,9 @@ int main(int argc, char **argv){
                     Gedep3[nmg] = 0;
                     GcX[nmg] = 0;
                     GcY[nmg] = 0;
+                    GcalU1[nmg] = 0;
+                    GcalV1[nmg] = 0;
+                    GcalW1[nmg] = 0;
                     Gtime[nmg] = 0;
                     Gpath[nmg] = 0;
                     if (Gstat[nmg]<2000) Gsector[nmg] = Gstat[nmg];
@@ -847,12 +856,18 @@ int main(int argc, char **argv){
                         auto tempY_Calo = c12.getBank(mdx_Calo)->getFloat(my,ipa2); 
                         auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa2); 
                         auto tempPath_Calo = c12.getBank(mdx_Calo)->getFloat(mpath,ipa2); 
+                        auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa2); 
+                        auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa2); 
+                        auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa2); 
 
                         if (tempPnd_Calo == Before[ipa]){
                             if (tempLay_Calo == 1) {
                                 Gedep1[nmg] = tempE_Calo;
                                 GcX[nmg] = tempX_Calo;
                                 GcY[nmg] = tempY_Calo;
+                                GcalU1[nmg] = tempU_Calo;
+                                GcalV1[nmg] = tempV_Calo;
+                                GcalW1[nmg] = tempW_Calo;
                                 Gtime[nmg] = tempTime_Calo;
                                 Gpath[nmg] = tempPath_Calo;
                             }
