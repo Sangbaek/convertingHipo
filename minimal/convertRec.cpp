@@ -144,6 +144,7 @@ int main(int argc, char **argv){
     Float_t Gpx[100];
     Float_t Gpy[100];
     Float_t Gpz[100];
+    Float_t Gbeta[100];
     Int_t Gstat[100];
     Int_t Gsector[100];
     Float_t Gedep[100];
@@ -267,6 +268,7 @@ int main(int argc, char **argv){
     T->Branch("Gpx",&Gpx,"Gpx[nmg]/F");
     T->Branch("Gpy",&Gpy,"Gpy[nmg]/F");
     T->Branch("Gpz",&Gpz,"Gpz[nmg]/F");
+    T->Branch("Gbeta",&Gbeta,"Gbeta[nmg]/F");
     T->Branch("Gstat",&Gstat,"Gstat[nmg]/I");
     T->Branch("Gsector",&Gsector,"Gsector[nmg]/I");
     T->Branch("Gedep",&Gedep,"Gedep[nmg]/F");
@@ -331,6 +333,7 @@ int main(int argc, char **argv){
         auto iVx  = c12.getBankOrder(idx_RECPart,"vx");
         auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
         auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
+        auto iB  = c12.getBankOrder(idx_RECPart,"beta");
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
         auto iChi2pid = c12.getBankOrder(idx_RECPart,"chi2pid");
         //===================
@@ -491,6 +494,7 @@ int main(int argc, char **argv){
                 auto tVx = c12.getBank(idx_RECPart)->getFloat(iVx,ipa);
                 auto tVy = c12.getBank(idx_RECPart)->getFloat(iVy,ipa);
                 auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
+                auto tB = c12.getBank(idx_RECPart)->getFloat(iB,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
 
@@ -778,6 +782,7 @@ int main(int argc, char **argv){
                     Gpx[nmg] = tPx;
                     Gpy[nmg] = tPy;
                     Gpz[nmg] = tPz;
+                    Gbeta[nmg] = tB;
                     Gstat[nmg] = tStat;
                     Gedep[nmg] = 0;
                     Gedep1[nmg] = 0;
