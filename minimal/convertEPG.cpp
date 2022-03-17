@@ -803,7 +803,7 @@ int main(int argc, char **argv){
             for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
                 auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
                 auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
-                auto tempT = c12.getBank(idx_RUNCon)->getInt(btrigger,ipa1);
+                auto tempT = c12.getBank(idx_RUNCon)->getLong(btrigger,ipa1);
                 
                 EventNum = tempE;
                 RunNum = tempR;
