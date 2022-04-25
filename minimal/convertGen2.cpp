@@ -53,10 +53,6 @@ int main(int argc, char **argv){
   for(int ifile=0; ifile<chain.GetNFiles();++ifile){
       clas12::clas12reader c12{chain.GetFileName(ifile).Data()};
       
-      //  Event bank
-      auto idx_RECEv = c12.addBank("REC::Event");
-      auto aHelic = c12.getBankOrder(idx_RECEv,"helicity");
-
       // MC particle bank ========
       auto idx_GenLund = c12.addBank("MC::Lund");
       auto iInd = c12.getBankOrder(idx_GenLund,"index");
@@ -68,6 +64,7 @@ int main(int argc, char **argv){
       auto idx_GenEvent = c12.addBank("MC::Event");
       // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
       auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
+      auto iHelic = c12.getBankOrder(idx_GenEvent,"pbeam");
 
         while(c12.next() == true){
 
@@ -103,9 +100,11 @@ int main(int argc, char **argv){
           for(auto ipa=0;ipa<c12.getBank(idx_GenEvent)->getRows();ipa++){
 
               auto tWeight = c12.getBank(idx_GenEvent)->getFloat(iWeight,ipa);
+              auto tHelic = c12.getBank(idx_GenEvent)->getFloat(iHelic,ipa);
 
               if( ipa == 0 ){  
                   GenWeight = tWeight; //diff x-sec
+                  int helicity = (int) tHelic; //pol.
               }
           }
 
