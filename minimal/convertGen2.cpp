@@ -96,7 +96,7 @@ int main(int argc, char **argv){
                   Genphi = (M_PI-tLifetime)*180.0/M_PI; 
               }
               if( ipa == 2 ){  // protons
-                  BornWeight = tEnergy;
+                  BornWeight = tMass;
               }
               nmG++;
 
