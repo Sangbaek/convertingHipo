@@ -38,7 +38,7 @@ int main(int argc, char **argv){
     Float_t BornWeight;
     Int_t nmG;
     Int_t radMode;
-    Int_t helicity;
+    Float_t helicity;
 
     Int_t crossRef;
 
@@ -50,7 +50,7 @@ int main(int argc, char **argv){
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("BornWeight",&GenWeight,"BornWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
-    T->Branch("helicity",&helicity,"helicity/I");
+    T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("crossRef",&crossRef,"crossRef/I");
   //
   //loop over files
@@ -70,6 +70,8 @@ int main(int argc, char **argv){
       // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
       auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
       auto iHelic = c12.getBankOrder(idx_GenEvent,"pbeam");
+
+      crossRef = 0;
 
         while(c12.next() == true){
 
@@ -106,7 +108,7 @@ int main(int argc, char **argv){
 
               if( ipa == 0 ){  
                   GenWeight = tWeight; //diff x-sec
-                  int helicity = (int) tHelic; //pol.
+                  helicity = tHelic; //pol.
               }
           }
 

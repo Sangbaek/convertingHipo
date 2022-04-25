@@ -455,6 +455,8 @@ int main(int argc, char **argv){
         // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
         auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
 
+        crossRef = 0;
+
         while(c12.next() == true){
 
             nmb=0;
