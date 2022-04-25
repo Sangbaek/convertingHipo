@@ -48,7 +48,7 @@ int main(int argc, char **argv){
     T->Branch("Gent",&Gent,"Gent/F");
     T->Branch("Genphi",&Genphi,"Genphi/F");
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
-    T->Branch("BornWeight",&GenWeight,"BornWeight/F");
+    T->Branch("BornWeight",&BornWeight,"BornWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
     T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("crossRef",&crossRef,"crossRef/I");
