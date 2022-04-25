@@ -37,6 +37,7 @@ int main(int argc, char **argv){
     Float_t GenWeight;
     Int_t nmG;
     Int_t radMode;
+    Int_t helicity;
 
 // ===============    xB ==============    
     T->Branch("GenxB",&GenxB,"GenxB/F");
@@ -45,12 +46,17 @@ int main(int argc, char **argv){
     T->Branch("Genphi",&Genphi,"Genphi/F");
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
+    T->Branch("helicity",&helicity,"helicity/I");
   //
   //loop over files
   //
   for(int ifile=0; ifile<chain.GetNFiles();++ifile){
       clas12::clas12reader c12{chain.GetFileName(ifile).Data()};
       
+      //  Event bank
+      auto idx_RECEv = c12.addBank("REC::Event");
+      auto aHelic = c12.getBankOrder(idx_RECEv,"helicity");
+
       // MC particle bank ========
       auto idx_GenLund = c12.addBank("MC::Lund");
       auto iInd = c12.getBankOrder(idx_GenLund,"index");
@@ -67,6 +73,13 @@ int main(int argc, char **argv){
 
           nmG=0;
     
+          // event bank ====
+          for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
+              auto tempH = c12.getBank(idx_RECEv)->getInt(aHelic,ipa1);
+              helicity = tempH;
+              helicity = -1 * helicity;
+          }
+
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
               auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
