@@ -70,13 +70,6 @@ int main(int argc, char **argv){
 
           nmG=0;
     
-          // event bank ====
-          for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
-              auto tempH = c12.getBank(idx_RECEv)->getInt(aHelic,ipa1);
-              helicity = tempH;
-              helicity = -1 * helicity;
-          }
-
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
               auto tLifetime = c12.getBank(idx_GenLund)->getFloat(iLifetime,ipa);
