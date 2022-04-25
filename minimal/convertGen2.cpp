@@ -35,9 +35,12 @@ int main(int argc, char **argv){
     Float_t Gent;
     Float_t Genphi;
     Float_t GenWeight;
+    Float_t BornWeight;
     Int_t nmG;
     Int_t radMode;
     Int_t helicity;
+
+    Int_t crossRef;
 
 // ===============    xB ==============    
     T->Branch("GenxB",&GenxB,"GenxB/F");
@@ -45,8 +48,10 @@ int main(int argc, char **argv){
     T->Branch("Gent",&Gent,"Gent/F");
     T->Branch("Genphi",&Genphi,"Genphi/F");
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
+    T->Branch("BornWeight",&GenWeight,"BornWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
     T->Branch("helicity",&helicity,"helicity/I");
+    T->Branch("crossRef",&crossRef,"crossRef/I");
   //
   //loop over files
   //
@@ -69,6 +74,7 @@ int main(int argc, char **argv){
         while(c12.next() == true){
 
           nmG=0;
+          crossRef++;
     
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
@@ -86,6 +92,9 @@ int main(int argc, char **argv){
             
               if( ipa == 1 ){  // protons
                   Genphi = (M_PI-tLifetime)*180.0/M_PI; 
+              }
+              if( ipa == 2 ){  // protons
+                  BornWeight = tEnergy;
               }
               nmG++;
 

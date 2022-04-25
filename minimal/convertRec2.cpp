@@ -182,6 +182,8 @@ int main(int argc, char **argv){
     Float_t GenWeight;
     Int_t radMode;
 
+    Int_t crossRef;
+
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
@@ -324,6 +326,8 @@ int main(int argc, char **argv){
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
 
+    T->Branch("crossRef",&crossRef,"crossRef/I");
+
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
         clas12::clas12reader c12{chain.GetFileName(ifile).Data()};
@@ -456,6 +460,7 @@ int main(int argc, char **argv){
             nmb=0;
             nmg=0;
             nmG=0;
+            crossRef++;
 
             //FILTER::Index
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
