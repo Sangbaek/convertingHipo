@@ -464,7 +464,7 @@ int main(int argc, char **argv){
 
         crossRef = 0;
         EventNumPre = 0;
-        crossRef = 0;
+        nFile = 0;
 
         while(c12.next() == true){
 
