@@ -74,6 +74,10 @@ int main(int argc, char **argv){
       auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
       auto iHelic = c12.getBankOrder(idx_GenEvent,"pbeam");
 
+      //  Config Bank
+      auto idx_RUNCon = c12.addBank("RUN::config");
+      auto bevent = c12.getBankOrder(idx_RUNCon,"event");
+
       nFile = 0;
       EventNumPre = 0;
       crossRef = 0;
@@ -119,9 +123,7 @@ int main(int argc, char **argv){
 
           // Run config bank
           for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
-              auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
               auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
-              auto tempT = c12.getBank(idx_RUNCon)->getLong(btrigger,ipa1);
               
               EventNumCur = tempE;
           }
