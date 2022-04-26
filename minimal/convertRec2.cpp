@@ -182,7 +182,10 @@ int main(int argc, char **argv){
     Float_t GenWeight;
     Int_t radMode;
 
-    Int_t crossRef;
+    Long_t crossRef;
+    Long_t nFile;
+    Long_t EventNumPre;
+    Long_t EventNumCur;
 
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
@@ -326,7 +329,7 @@ int main(int argc, char **argv){
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
 
-    T->Branch("crossRef",&crossRef,"crossRef/I");
+    T->Branch("crossRef",&crossRef,"crossRef/L");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -455,6 +458,12 @@ int main(int argc, char **argv){
         // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
         auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
 
+        //  Config Bank
+        auto idx_RUNCon = c12.addBank("RUN::config");
+        auto bevent = c12.getBankOrder(idx_RUNCon,"event");
+
+        crossRef = 0;
+        EventNumPre = 0;
         crossRef = 0;
 
         while(c12.next() == true){
@@ -462,7 +471,6 @@ int main(int argc, char **argv){
             nmb=0;
             nmg=0;
             nmG=0;
-            crossRef++;
 
             //FILTER::Index
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
@@ -929,6 +937,18 @@ int main(int argc, char **argv){
                 helicity = tempH;
                 helicityRaw = tempHR;
             }
+
+            // Run config bank
+            for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
+                auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
+
+                EventNumCur = tempE;
+            }
+
+            if (EventNumCur<EventNumPre)  nFile++;
+            crossRef = nFile * 10000 + EventNumCur;
+            EventNumPre = EventNumCur;
+
 
             bool condition = (nmb>0) && (nmg>0) && (nmG>0);
             if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nmG>0);
