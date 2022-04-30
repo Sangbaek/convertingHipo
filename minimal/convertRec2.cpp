@@ -38,7 +38,7 @@ int main(int argc, char **argv){
     Float_t liveTime;
     Float_t startTime;
     Float_t RFTime;
-    Int_t   helicity;
+    Float_t   helicity;
     Int_t   helicityRaw;
 
     // =====  proton =====
@@ -300,7 +300,7 @@ int main(int argc, char **argv){
     T->Branch("liveTime",&liveTime,"liveTime/F");
     T->Branch("startTime",&startTime,"startTime/F");
     T->Branch("RFTime",&RFTime,"RFTime/F");
-    T->Branch("helicity",&helicity,"helicity/I");
+    T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
 
 
@@ -457,6 +457,7 @@ int main(int argc, char **argv){
         auto idx_GenEvent = c12.addBank("MC::Event");
         // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
         auto iWeight  = c12.getBankOrder(idx_GenEvent,"weight");
+        auto iHelic = c12.getBankOrder(idx_GenEvent,"pbeam");
 
         //  Config Bank
         auto idx_RUNCon = c12.addBank("RUN::config");
@@ -934,9 +935,19 @@ int main(int argc, char **argv){
                 liveTime = tempL;
                 startTime = tempS;
                 RFTime = tempR;
-                helicity = tempH;
+                // helicity = tempH;
                 helicityRaw = tempHR;
             }
+          for(auto ipa=0;ipa<c12.getBank(idx_GenEvent)->getRows();ipa++){
+
+              auto tWeight = c12.getBank(idx_GenEvent)->getFloat(iWeight,ipa);
+              auto tHelic = c12.getBank(idx_GenEvent)->getFloat(iHelic,ipa);
+
+              if( ipa == 0 ){  
+                  GenWeight = tWeight; //diff x-sec
+                  helicity = tHelic; //pol.
+              }
+          }
 
             // Run config bank
             for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
