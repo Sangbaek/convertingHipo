@@ -180,6 +180,7 @@ int main(int argc, char **argv){
     Float_t Gent;
     Float_t Genphi;
     Float_t GenWeight;
+    Float_t BornWeight;
     Int_t radMode;
 
     Long_t crossRef;
@@ -327,6 +328,7 @@ int main(int argc, char **argv){
     T->Branch("Gent",&Gent,"Gent/F");
     T->Branch("Genphi",&Genphi,"Genphi/F");
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
+    T->Branch("BornWeight",&BornWeight,"BornWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
 
     T->Branch("crossRef",&crossRef,"crossRef/L");
@@ -542,14 +544,19 @@ int main(int argc, char **argv){
                 if( ipa == 1 ){  // protons
                     Genphi = (M_PI-tLifetime)*180.0/M_PI; 
                 }
+                if( ipa == 2 ){  // protons
+                    BornWeight = tMass;
+                }
 
             }
             for(auto ipa=0;ipa<c12.getBank(idx_GenEvent)->getRows();ipa++){
 
                 auto tWeight = c12.getBank(idx_GenEvent)->getFloat(iWeight,ipa);
+                auto tHelic = c12.getBank(idx_GenEvent)->getFloat(iHelic,ipa);
 
                 if( ipa == 0 ){  
                     GenWeight = tWeight; //diff x-sec
+                    helicity = tHelic; //pol.
                 }
             }
             
@@ -938,16 +945,6 @@ int main(int argc, char **argv){
                 // helicity = tempH;
                 helicityRaw = tempHR;
             }
-          for(auto ipa=0;ipa<c12.getBank(idx_GenEvent)->getRows();ipa++){
-
-              auto tWeight = c12.getBank(idx_GenEvent)->getFloat(iWeight,ipa);
-              auto tHelic = c12.getBank(idx_GenEvent)->getFloat(iHelic,ipa);
-
-              if( ipa == 0 ){  
-                  GenWeight = tWeight; //diff x-sec
-                  helicity = tHelic; //pol.
-              }
-          }
 
             // Run config bank
             for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
