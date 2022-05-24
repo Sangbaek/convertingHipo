@@ -45,6 +45,22 @@ int main(int argc, char **argv){
     Long_t EventNumPre;
     Long_t EventNumCur;
 
+    Long_t config;
+
+   // =====  proton =====
+    Float_t GenPpx;
+    Float_t GenPpy;
+    Float_t GenPpz;
+    
+    // ==== gammas =====
+    Int_t nmG;
+    Float_t GenGpx;
+    Float_t GenGpy;
+    Float_t GenGpz;
+
+    Float_t GenPtheta;
+    Float_t GenGtheta;
+
 // ===============    xB ==============    
     T->Branch("GenxB",&GenxB,"GenxB/F");
     T->Branch("GenQ2",&GenQ2,"GenQ2/F");
@@ -55,6 +71,7 @@ int main(int argc, char **argv){
     T->Branch("radMode",&radMode,"radMode/I");
     T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("crossRef",&crossRef,"crossRef/L");
+    T->Branch("config",&config,"config/L");
   //
   //loop over files
   //
@@ -68,6 +85,10 @@ int main(int argc, char **argv){
       auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
       auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
       auto iMode  = c12.getBankOrder(idx_GenLund,"daughter");
+      auto iPid = c12.getBankOrder(idx_GenPart,"pid");
+      auto iPx  = c12.getBankOrder(idx_GenPart,"px");
+      auto iPy  = c12.getBankOrder(idx_GenPart,"py");
+      auto iPz  = c12.getBankOrder(idx_GenPart,"pz");
 
       auto idx_GenEvent = c12.addBank("MC::Event");
       // auto iInd = c12.getBankOrder(idx_GenEvent,"index");
@@ -86,6 +107,34 @@ int main(int argc, char **argv){
 
           nmG=0;
           crossRef++;
+
+          for(auto ipa=1;ipa<3;ipa++){
+            
+              auto tPx = c12.getBank(idx_GenPart)->getFloat(iPx,ipa);
+              auto tPy = c12.getBank(idx_GenPart)->getFloat(iPy,ipa);
+              auto tPz = c12.getBank(idx_GenPart)->getFloat(iPz,ipa);
+            
+              if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 2212  ){  // protons
+                  GenPpx = tPx;
+                  GenPpy = tPy;
+                  GenPpz = tPz;
+              }
+                
+              if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 22  ){  // photons
+                  GenGpx = tPx;
+                  GenGpy = tPy;
+                  GenGpz = tPz;
+              }
+          }
+
+          GenPtheta = TMath::ATan2(TMath::Sqrt(GenPpx**2+GenPpy**2),GenPpz);
+          GenGtheta = TMath::ATan2(TMath::Sqrt(GenGpx**2+GenGpy**2),GenGpz);
+
+          if (GenPtheta<40 && GenGtheta<5) config = 0; // FDFT
+          else if (GenPtheta<40 && (GenGtheta>=5)) config = 1; //FDFD
+          else if (GenPtheta>=40 && (GenGtheta>=5)) config = 2; //CDFD
+          else if ((GenPtheta>=40) && (GenGtheta<5)) config = 3; //CDFT
+          else config = -1;//errorneous bit
     
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
