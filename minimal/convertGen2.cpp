@@ -130,8 +130,8 @@ int main(int argc, char **argv){
               }
           }
 
-          GenPtheta = TMath::ATan2(TMath::Sqrt(GenPpx*GenPpx+GenPpy*GenPpy),GenPpz);
-          GenGtheta = TMath::ATan2(TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy),GenGpz);
+          GenPtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenPpx*GenPpx+GenPpy*GenPpy),GenPpz);
+          GenGtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy),GenGpz);
 
           if (GenPtheta<40 && GenGtheta<5) config = 0; // FDFT
           else if (GenPtheta<40 && (GenGtheta>=5)) config = 1; //FDFD
