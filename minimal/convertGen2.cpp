@@ -53,7 +53,6 @@ int main(int argc, char **argv){
     Float_t GenPpz;
     
     // ==== gammas =====
-    Int_t nmG;
     Float_t GenGpx;
     Float_t GenGpy;
     Float_t GenGpz;
@@ -78,13 +77,17 @@ int main(int argc, char **argv){
   for(int ifile=0; ifile<chain.GetNFiles();++ifile){
       clas12::clas12reader c12{chain.GetFileName(ifile).Data()};
       
-      // MC particle bank ========
+      // MC Lund bank ========
       auto idx_GenLund = c12.addBank("MC::Lund");
       auto iInd = c12.getBankOrder(idx_GenLund,"index");
       auto iLifetime  = c12.getBankOrder(idx_GenLund,"lifetime");
       auto iEnergy  = c12.getBankOrder(idx_GenLund,"energy");
       auto iMass  = c12.getBankOrder(idx_GenLund,"mass");
       auto iMode  = c12.getBankOrder(idx_GenLund,"daughter");
+
+
+      // MC particle bank ========
+      auto idx_GenPart = c12.addBank("MC::Particle");
       auto iPid = c12.getBankOrder(idx_GenPart,"pid");
       auto iPx  = c12.getBankOrder(idx_GenPart,"px");
       auto iPy  = c12.getBankOrder(idx_GenPart,"py");
