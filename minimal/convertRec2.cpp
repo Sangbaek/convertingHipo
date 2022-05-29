@@ -129,8 +129,17 @@ int main(int argc, char **argv){
     Float_t EcalU1;
     Float_t EcalV1;
     Float_t EcalW1;
+    Float_t EcalU2;
+    Float_t EcalV2;
+    Float_t EcalW2;
+    Float_t EcalU3;
+    Float_t EcalV3;
+    Float_t EcalW3;
 
     Float_t Enphe;
+    Float_t EhtccX;
+    Float_t EhtccY;
+    Float_t EhtccZ;
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -156,6 +165,12 @@ int main(int argc, char **argv){
     Float_t GcalU1[100];
     Float_t GcalV1[100];
     Float_t GcalW1[100];
+    Float_t GcalU2[100];
+    Float_t GcalV2[100];
+    Float_t GcalW2[100];
+    Float_t GcalU3[100];
+    Float_t GcalV3[100];
+    Float_t GcalW3[100];
     Float_t Gpath[100];
     Float_t Gtime[100];
 
@@ -273,6 +288,12 @@ int main(int argc, char **argv){
     T->Branch("EcalU1",&EcalU1,"EcalU1/F");
     T->Branch("EcalV1",&EcalV1,"EcalV1/F");
     T->Branch("EcalW1",&EcalW1,"EcalW1/F");
+    T->Branch("EcalU2",&EcalU2,"EcalU2/F");
+    T->Branch("EcalV2",&EcalV2,"EcalV2/F");
+    T->Branch("EcalW2",&EcalW2,"EcalW2/F");
+    T->Branch("EcalU3",&EcalU3,"EcalU3/F");
+    T->Branch("EcalV3",&EcalV3,"EcalV3/F");
+    T->Branch("EcalW3",&EcalW3,"EcalW3/F");
 
     T->Branch("Enphe",&Enphe,"Enphe/F");
 
@@ -293,6 +314,12 @@ int main(int argc, char **argv){
     T->Branch("GcalU1",&GcalU1,"GcalU1[nmg]/F");
     T->Branch("GcalV1",&GcalV1,"GcalV1[nmg]/F");
     T->Branch("GcalW1",&GcalW1,"GcalW1[nmg]/F");
+    T->Branch("GcalU2",&GcalU2,"GcalU2[nmg]/F");
+    T->Branch("GcalV2",&GcalV2,"GcalV2[nmg]/F");
+    T->Branch("GcalW2",&GcalW2,"GcalW2[nmg]/F");
+    T->Branch("GcalU3",&GcalU3,"GcalU3[nmg]/F");
+    T->Branch("GcalV3",&GcalV3,"GcalV3[nmg]/F");
+    T->Branch("GcalW3",&GcalW3,"GcalW3[nmg]/F");
     T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
     T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
@@ -424,6 +451,9 @@ int main(int argc, char **argv){
         auto hPindex = c12.getBankOrder(hdx_Cherenkov,"pindex");
         auto hDetector = c12.getBankOrder(hdx_Cherenkov,"detector");
         auto hnphe = c12.getBankOrder(hdx_Cherenkov,"nphe");
+        auto hX = c12.getBankOrder(hdx_Cherenkov,"x");
+        auto hY = c12.getBankOrder(hdx_Cherenkov,"y");
+        auto hZ = c12.getBankOrder(hdx_Cherenkov,"z");
 
         // Read banks: FT
         auto ndx_FT = c12.addBank("REC::ForwardTagger");
@@ -594,6 +624,15 @@ int main(int argc, char **argv){
                     Eedep1 = 0;
                     Eedep2 = 0;
                     Eedep3 = 0;
+                    EcalU1 = 0;
+                    EcalV1 = 0;
+                    EcalW1 = 0;
+                    EcalU2 = 0;
+                    EcalV2 = 0;
+                    EcalW2 = 0;
+                    EcalU3 = 0;
+                    EcalV3 = 0;
+                    EcalW3 = 0;
 
                     // DC Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
@@ -645,8 +684,18 @@ int main(int argc, char **argv){
                                 EcalV1 = tempV_Calo;
                                 EcalW1 = tempW_Calo;
                             }
-                            if (tempLay_Calo == 4) Eedep2 = tempE_Calo;
-                            if (tempLay_Calo == 7) Eedep3 = tempE_Calo;
+                            if (tempLay_Calo == 4){
+                                Eedep2 = tempE_Calo;
+                                EcalU2 = tempU_Calo;
+                                EcalV2 = tempV_Calo;
+                                EcalW2 = tempW_Calo;
+                            }
+                            if (tempLay_Calo == 7){
+                                Eedep3 = tempE_Calo;
+                                EcalU3 = tempU_Calo;
+                                EcalV3 = tempV_Calo;
+                                EcalW3 = tempW_Calo;
+                            }
                             Eedep += tempE_Calo;
                         }
                     }//end of EC
@@ -656,9 +705,15 @@ int main(int argc, char **argv){
                         auto tempPnd_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hPindex,ipa4);
                         auto tempDet_Cherenkov = c12.getBank(hdx_Cherenkov)->getInt(hDetector,ipa4);    
                         auto tempNphe_Cherenkov = c12.getBank(hdx_Cherenkov)->getFloat(hnphe,ipa4);    
+                        auto tempX_Cherenkov = c12.getBank(hdx_Cherenkov)->getFloat(hX,ipa4);    
+                        auto tempY_Cherenkov = c12.getBank(hdx_Cherenkov)->getFloat(hY,ipa4);    
+                        auto tempZ_Cherenkov = c12.getBank(hdx_Cherenkov)->getFloat(hZ,ipa4);    
                         if (tempPnd_Cherenkov == Before[ipa]){
                             if (tempDet_Cherenkov == 15){ //HTCC
                                 Enphe = tempNphe_Cherenkov;
+                                EhtccX = tempX_Cherenkov;
+                                EhtccY = tempY_Cherenkov;
+                                EhtccZ = tempZ_Cherenkov;
                             }
                         }
                     }//end of Cherenkov
@@ -868,6 +923,12 @@ int main(int argc, char **argv){
                     GcalU1[nmg] = 0;
                     GcalV1[nmg] = 0;
                     GcalW1[nmg] = 0;
+                    GcalU2[nmg] = 0;
+                    GcalV2[nmg] = 0;
+                    GcalW2[nmg] = 0;
+                    GcalU3[nmg] = 0;
+                    GcalV3[nmg] = 0;
+                    GcalW3[nmg] = 0;
                     Gtime[nmg] = 0;
                     Gpath[nmg] = 0;
                     if (Gstat[nmg]<2000) Gsector[nmg] = Gstat[nmg];
@@ -899,8 +960,18 @@ int main(int argc, char **argv){
                                 Gtime[nmg] = tempTime_Calo;
                                 Gpath[nmg] = tempPath_Calo;
                             }
-                            if (tempLay_Calo == 4) Gedep2[nmg] = tempE_Calo;
-                            if (tempLay_Calo == 7) Gedep3[nmg] = tempE_Calo;
+                            if (tempLay_Calo == 4) {
+                                Gedep2[nmg] = tempE_Calo;
+                                GcalU2[nmg] = tempU_Calo;
+                                GcalV2[nmg] = tempV_Calo;
+                                GcalW2[nmg] = tempW_Calo;
+                            }
+                            if (tempLay_Calo == 7) {
+                                Gedep3[nmg] = tempE_Calo;
+                                GcalU3[nmg] = tempU_Calo;
+                                GcalV3[nmg] = tempV_Calo;
+                                GcalW3[nmg] = tempW_Calo;
+                            }
                             Gedep[nmg] += tempE_Calo;
                         }
                     } // end of EC bank
