@@ -296,6 +296,9 @@ int main(int argc, char **argv){
     T->Branch("EcalW3",&EcalW3,"EcalW3/F");
 
     T->Branch("Enphe",&Enphe,"Enphe/F");
+    T->Branch("EhtccX",&EhtccX,"EhtccX/F");
+    T->Branch("EhtccY",&EhtccY,"EhtccY/F");
+    T->Branch("EhtccZ",&EhtccZ,"EhtccZ/F");
 
     // ================   Gamma  ===============    
     T->Branch("nmg",&nmg,"nmg/I");
