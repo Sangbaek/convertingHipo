@@ -45,6 +45,14 @@ int main(int argc, char **argv){
     Float_t GenGpy[2];
     Float_t GenGpz[2];
 
+    // =====  pion =====
+    Int_t nmpi;
+
+    Float_t GenPipx;
+    Float_t GenPipy;
+    Float_t GenPipz;
+    
+
 // ===============    Electrons ==============    
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
@@ -55,13 +63,20 @@ int main(int argc, char **argv){
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
 
+// ===============    Pions ================================== 
+    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
+    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
+    T->Branch("GenPipz",&GenPipz,"GenPipz/F");
+
+
 
 // ================   Gammas  ===============    
     T->Branch("nmG",&nmG,"nmG/I");
     T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
-    
+
+
   //
   //loop over files
   //
@@ -80,10 +95,12 @@ int main(int argc, char **argv){
           nmG=0;
 
           for(auto ipa=0;ipa<c12.getBank(idx_GenPart)->getRows();ipa++){
+
             
               auto tPx = c12.getBank(idx_GenPart)->getFloat(iPx,ipa);
               auto tPy = c12.getBank(idx_GenPart)->getFloat(iPy,ipa);
               auto tPz = c12.getBank(idx_GenPart)->getFloat(iPz,ipa);
+
 
               if( (c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 11  ){  // electrons
                   GenEpx = tPx;
@@ -95,6 +112,13 @@ int main(int argc, char **argv){
                   GenPpx = tPx;
                   GenPpy = tPy;
                   GenPpz = tPz;
+
+            	}
+
+              if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 111  ){  // pions
+                  GenPipx = tPx;
+                  GenPipy = tPy;
+                  GenPipz = tPz;
                 
               } // if for protons
                 
