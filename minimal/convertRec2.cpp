@@ -575,7 +575,8 @@ int main(int argc, char **argv){
                 }
 
                 if( ipa == 1 ){  // protons
-                    Genphi = (M_PI-tLifetime)*180.0/M_PI; 
+                    // Genphi = (M_PI-tLifetime)*180.0/M_PI; 
+                    Genphi = 180.0*tLifetime/3.1415926536;
                 }
                 if( ipa == 2 ){  // protons
                     BornWeight = tMass;
