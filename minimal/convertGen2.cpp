@@ -47,6 +47,11 @@ int main(int argc, char **argv){
 
     Long_t config;
 
+   // =====  electron =====
+    Float_t GenEpx;
+    Float_t GenEpy;
+    Float_t GenEpz;
+
    // =====  proton =====
     Float_t GenPpx;
     Float_t GenPpy;
@@ -57,6 +62,8 @@ int main(int argc, char **argv){
     Float_t GenGpy;
     Float_t GenGpz;
 
+    Float_t coneAngle;
+    Float_t GenEtheta;
     Float_t GenPtheta;
     Float_t GenGtheta;
 
@@ -71,6 +78,7 @@ int main(int argc, char **argv){
     T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("crossRef",&crossRef,"crossRef/L");
     T->Branch("config",&config,"config/L");
+    T->Branch("coneAngle",&coneAngle,"coneAngle/F");
   //
   //loop over files
   //
@@ -111,12 +119,18 @@ int main(int argc, char **argv){
           nmG=0;
           crossRef++;
 
-          for(auto ipa=1;ipa<3;ipa++){
+          for(auto ipa=0;ipa<3;ipa++){
             
               auto tPx = c12.getBank(idx_GenPart)->getFloat(iPx,ipa);
               auto tPy = c12.getBank(idx_GenPart)->getFloat(iPy,ipa);
               auto tPz = c12.getBank(idx_GenPart)->getFloat(iPz,ipa);
             
+              if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 11  ){  // electrons
+                  GenEpx = tPx;
+                  GenEpy = tPy;
+                  GenEpz = tPz;
+              }
+
               if((c12.getBank(idx_GenPart)->getInt(iPid,ipa)) == 2212  ){  // protons
                   GenPpx = tPx;
                   GenPpy = tPy;
@@ -130,6 +144,8 @@ int main(int argc, char **argv){
               }
           }
 
+          coneAngle = (180.0/TMath::Pi())*TMath::ACos(GenEpx*GenGpx+GenEpy*GenGpy+GenEpz*GenGpz,TMath::Sqrt(GenEpx*GenEpx+GenEpy*GenEpy+GenEpz*GenEpz) * TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy+GenGpz*GenGpz));
+          GenEtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenEpx*GenEpx+GenEpy*GenEpy),GenEpz);
           GenPtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenPpx*GenPpx+GenPpy*GenPpy),GenPpz);
           GenGtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy),GenGpz);
 
@@ -138,6 +154,10 @@ int main(int argc, char **argv){
           else if (GenPtheta>=40 && (GenGtheta>=5)) config = 2; //CDFD
           else if ((GenPtheta>=40) && (GenGtheta<5)) config = 3; //CDFT
           else config = -1;//errorneous bit
+
+          if (config == 3 && coneAngle < -0.000382*GenEtheta**2 + 0.777*GenEtheta + 0.867){
+            config = 4;
+          }
     
           for(auto ipa=0;ipa<c12.getBank(idx_GenLund)->getRows();ipa++){
             
