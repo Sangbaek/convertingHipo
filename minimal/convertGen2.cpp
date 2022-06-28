@@ -155,7 +155,7 @@ int main(int argc, char **argv){
           else if ((GenPtheta>=40) && (GenGtheta<5)) config = 3; //CDFT
           else config = -1;//errorneous bit
 
-          if (config == 3 && coneAngle < -0.000382*GenEtheta**2 + 0.777*GenEtheta + 0.867){
+          if (config == 3 && coneAngle < -0.000382*GenEtheta*GenEtheta + 0.777*GenEtheta + 0.867){
             config = 4;
           }
     
