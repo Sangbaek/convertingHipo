@@ -144,7 +144,7 @@ int main(int argc, char **argv){
               }
           }
 
-          coneAngle = (180.0/TMath::Pi())*TMath::ACos(GenEpx*GenGpx+GenEpy*GenGpy+GenEpz*GenGpz,TMath::Sqrt(GenEpx*GenEpx+GenEpy*GenEpy+GenEpz*GenEpz) * TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy+GenGpz*GenGpz));
+          coneAngle = (180.0/TMath::Pi())*TMath::ACos((GenEpx*GenGpx+GenEpy*GenGpy+GenEpz*GenGpz)/TMath::Sqrt(GenEpx*GenEpx+GenEpy*GenEpy+GenEpz*GenEpz)/TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy+GenGpz*GenGpz));
           GenEtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenEpx*GenEpx+GenEpy*GenEpy),GenEpz);
           GenPtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenPpx*GenPpx+GenPpy*GenPpy),GenPpz);
           GenGtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy),GenGpz);
