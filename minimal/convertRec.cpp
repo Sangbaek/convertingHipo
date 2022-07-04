@@ -116,9 +116,9 @@ int main(int argc, char **argv){
     Float_t EDc1Hitx;
     Float_t EDc1Hity;
     Float_t EDc1Hitz;
-    // Float_t EDc2Hitx;
-    // Float_t EDc2Hity;
-    // Float_t EDc2Hitz;
+    Float_t EDc2Hitx;
+    Float_t EDc2Hity;
+    Float_t EDc2Hitz;
     Float_t EDc3Hitx;
     Float_t EDc3Hity;
     Float_t EDc3Hitz;
@@ -262,9 +262,9 @@ int main(int argc, char **argv){
     T->Branch("EDc1Hitx",&EDc1Hitx,"EDc1Hitx/F");
     T->Branch("EDc1Hity",&EDc1Hity,"EDc1Hity/F");
     T->Branch("EDc1Hitz",&EDc1Hitz,"EDc1Hitz/F");
-    // T->Branch("EDc2Hitx",&EDc2Hitx,"EDc2Hitx/F");
-    // T->Branch("EDc2Hity",&EDc2Hity,"EDc2Hity/F");
-    // T->Branch("EDc2Hitz",&EDc2Hitz,"EDc2Hitz/F");
+    T->Branch("EDc2Hitx",&EDc2Hitx,"EDc2Hitx/F");
+    T->Branch("EDc2Hity",&EDc2Hity,"EDc2Hity/F");
+    T->Branch("EDc2Hitz",&EDc2Hitz,"EDc2Hitz/F");
     T->Branch("EDc3Hitx",&EDc3Hitx,"EDc3Hitx/F");
     T->Branch("EDc3Hity",&EDc3Hity,"EDc3Hity/F");
     T->Branch("EDc3Hitz",&EDc3Hitz,"EDc3Hitz/F");
@@ -580,11 +580,11 @@ int main(int argc, char **argv){
                                     EDc1Hitz = tempZ_dc;
                                 }
 
-                                // if (tempLay_dc == 18){ //r2
-                                //     EDc2Hitx = tempX_dc;
-                                //     EDc2Hity = tempY_dc;
-                                //     EDc2Hitz = tempZ_dc;
-                                // }
+                                if (tempLay_dc == 18){ //r2
+                                    EDc2Hitx = tempX_dc;
+                                    EDc2Hity = tempY_dc;
+                                    EDc2Hitz = tempZ_dc;
+                                }
 
                                 if (tempLay_dc == 36){ //r3
                                     EDc3Hitx = tempX_dc;
