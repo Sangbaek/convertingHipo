@@ -542,9 +542,9 @@ int main(int argc, char **argv){
                     EDc1Hitx = -100000;
                     EDc1Hity = -100000;
                     EDc1Hitz = -100000;
-                    // EDc2Hitx = -100000;
-                    // EDc2Hity = -100000;
-                    // EDc2Hitz = -100000;
+                    EDc2Hitx = -100000;
+                    EDc2Hity = -100000;
+                    EDc2Hitz = -100000;
                     EDc3Hitx = -100000;
                     EDc3Hity = -100000;
                     EDc3Hitz = -100000;
