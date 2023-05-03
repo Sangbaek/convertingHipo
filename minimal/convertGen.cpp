@@ -85,37 +85,37 @@ int main(int argc, char **argv){
     Float_t GenPiphi;
     
 
-    T->Branch("GenxB",&GenxB,"GenxB/F");
-    T->Branch("GenQ2",&GenQ2,"GenQ2/F");
-    T->Branch("Gent",&Gent,"Gent/F");
-    T->Branch("Genphi",&Genphi,"Genphi/F");
+    // T->Branch("GenxB",&GenxB,"GenxB/F");
+    // T->Branch("GenQ2",&GenQ2,"GenQ2/F");
+    // T->Branch("Gent",&Gent,"Gent/F");
+    // T->Branch("Genphi",&Genphi,"Genphi/F");
 
 // ===============    Electrons ==============    
     T->Branch("GenEpx",&GenEpx,"GenEpx/F");
     T->Branch("GenEpy",&GenEpy,"GenEpy/F");
     T->Branch("GenEpz",&GenEpz,"GenEpz/F");
 
-    T->Branch("GenEp",&GenEp,"GenEp/F");
-    T->Branch("GenEtheta",&GenEtheta,"GenEtheta/F");
-    T->Branch("GenEphi",&GenEphi,"GenEphi/F");
+    // T->Branch("GenEp",&GenEp,"GenEp/F");
+    // T->Branch("GenEtheta",&GenEtheta,"GenEtheta/F");
+    // T->Branch("GenEphi",&GenEphi,"GenEphi/F");
 
 // ===============    Protons ================================== 
     T->Branch("GenPpx",&GenPpx,"GenPpx/F");
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
 
-    T->Branch("GenPp",&GenPp,"GenPp/F");
-    T->Branch("GenPtheta",&GenPtheta,"GenPtheta/F");
-    T->Branch("GenPphi",&GenPphi,"GenPphi/F");
+    // T->Branch("GenPp",&GenPp,"GenPp/F");
+    // T->Branch("GenPtheta",&GenPtheta,"GenPtheta/F");
+    // T->Branch("GenPphi",&GenPphi,"GenPphi/F");
 
 // ===============    Pions ================================== 
     T->Branch("GenPipx",&GenPipx,"GenPipx/F");
     T->Branch("GenPipy",&GenPipy,"GenPipy/F");
     T->Branch("GenPipz",&GenPipz,"GenPipz/F");
 
-    T->Branch("GenPip",&GenPip,"GenPip/F");
-    T->Branch("GenPitheta",&GenPitheta,"GenPitheta/F");
-    T->Branch("GenPiphi",&GenPiphi,"GenPiphi/F");
+    // T->Branch("GenPip",&GenPip,"GenPip/F");
+    // T->Branch("GenPitheta",&GenPitheta,"GenPitheta/F");
+    // T->Branch("GenPiphi",&GenPiphi,"GenPiphi/F");
 
 
 // ================   Gammas  ===============    
@@ -124,9 +124,9 @@ int main(int argc, char **argv){
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
 
-    T->Branch("GenGp",&GenGp,"GenGp[nmG]/F");
-    T->Branch("GenGtheta",&GenGtheta,"GenGtheta[nmG]/F");
-    T->Branch("GenGphi",&GenGphi,"GenGphi[nmG]/F");
+    // T->Branch("GenGp",&GenGp,"GenGp[nmG]/F");
+    // T->Branch("GenGtheta",&GenGtheta,"GenGtheta[nmG]/F");
+    // T->Branch("GenGphi",&GenGphi,"GenGphi[nmG]/F");
 
   //
   //loop over files
