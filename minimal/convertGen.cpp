@@ -196,8 +196,8 @@ int main(int argc, char **argv){
               }
           }
 
-          ele.setXYZ(GenEpx, GenEpy, GenEpz);
-          pro.setXYZ(GenPpx, GenPpy, GenPpz);
+          ele.SetXYZ(GenEpx, GenEpy, GenEpz);
+          pro.SetXYZ(GenPpx, GenPpy, GenPpz);
           VGS.SetXYZ(-GenEpx, -GenEpy, 10.604 - GenEpz);
 
           nu     = 10.604 - TMath::Sqrt(GenEp*GenEp + me*me);
