@@ -209,9 +209,9 @@ int main(int argc, char **argv){
           v3h = pro.Cross(VGS);
           Genphi = v3l.Angle(v3h);
           if (v3l.Dot(pro) > 0) {
-            GenPhi = 2*TMath::Pi() - GenPhi;
+            Genphi = 2*TMath::Pi() - Genphi;
           }
-          GenPhi = (180.0/TMath::Pi())*GenPhi;
+          Genphi = (180.0/TMath::Pi())*Genphi;
 
           if (nmG>0) T->Fill();
         }
