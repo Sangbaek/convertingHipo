@@ -30,12 +30,12 @@ int main(int argc, char **argv){
     TTree *T=new TTree("T","Gen");
 
    // === xB, Q2, t, phi====
-    TVector3* beam = new TVector3(0, 0, 10.604);
-    TVector3* ele = new TVector3();
-    TVector3* pro = new TVector3();
-    TVector3* v3l = new TVector3();
-    TVector3* v3h = new TVector3();
-    TVector3* VGS = new TVector3();
+    TVector3 beam(0, 0, 10.604);
+    TVector3 ele;
+    TVector3 pro;
+    TVector3 v3l;
+    TVector3 v3h;
+    TVector3 VGS;
     Float_t nu;
 
     Float_t me = 0.5109989461 * 0.001;
