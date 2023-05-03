@@ -30,12 +30,12 @@ int main(int argc, char **argv){
     TTree *T=new TTree("T","Gen");
 
    // === xB, Q2, t, phi====
-    T3Vector* beam = new T3Vector(0, 0, 10.604);
-    T3Vector* ele = new T3Vector();
-    T3Vector* pro = new T3Vector();
-    T3Vector* v3l = new T3Vector();
-    T3Vector* v3h = new T3Vector();
-    T3Vector* VGS = new T3Vector();
+    TVector3* beam = new TVector3(0, 0, 10.604);
+    TVector3* ele = new TVector3();
+    TVector3* pro = new TVector3();
+    TVector3* v3l = new TVector3();
+    TVector3* v3h = new TVector3();
+    TVector3* VGS = new TVector3();
     Float_t nu;
 
     Float_t me = 0.5109989461 * 0.001;
@@ -202,7 +202,7 @@ int main(int argc, char **argv){
 
           nu     = 10.604 - TMath::Sqrt(GenEp*GenEp + me*me);
           GenQ2  = -(nu*nu - VGS.Mag2());
-          GenxB  = Q2 / 2.0 / M / nu;
+          GenxB  = GenQ2 / 2.0 / M / nu;
           Gent   = 2 * M * (TMath::Sqrt(GenPp*GenPp+M*M) - M);
 
           v3l = beam.Cross(ele);
