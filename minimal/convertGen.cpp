@@ -70,7 +70,7 @@ int main(int argc, char **argv){
     Float_t GenGpz[2];
 
     Float_t GenGp[2];
-    Float_t GenGptheta[2];
+    Float_t GenGtheta[2];
     Float_t GenGphi[2];
 
     // =====  pion =====
