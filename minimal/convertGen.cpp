@@ -124,9 +124,9 @@ int main(int argc, char **argv){
     T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
     T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
 
-    T->Branch("GenGp",&GenGp,"GenGp/F");
-    T->Branch("GenGtheta",&GenGtheta,"GenGtheta/F");
-    T->Branch("GenGphi",&GenGphi,"GenGphi/F");
+    T->Branch("GenGp",&GenGp,"GenGp[nmG]/F");
+    T->Branch("GenGtheta",&GenGtheta,"GenGtheta[nmG]/F");
+    T->Branch("GenGphi",&GenGphi,"GenGphi[nmG]/F");
 
   //
   //loop over files
