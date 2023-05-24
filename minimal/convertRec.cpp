@@ -175,9 +175,9 @@ int main(int argc, char **argv){
     Float_t GcalW3[100];
 
     Int_t nmG;
-    Float_t GenGpx[2];
-    Float_t GenGpy[2];
-    Float_t GenGpz[2];
+    Float_t GenGpx[100];
+    Float_t GenGpy[100];
+    Float_t GenGpz[100];
 
     // ==== pi0s =====
     Float_t GenPipx;
