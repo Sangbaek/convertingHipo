@@ -190,6 +190,9 @@ int main(int argc, char **argv){
     Int_t Ftof1bSector[100];
     Int_t Ftof2Sector[100];
 
+    Int_t nmp;
+    Int_t GenPid[100];
+
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
@@ -339,6 +342,7 @@ int main(int argc, char **argv){
     T->Branch("GenPipx",&GenPipx,"GenPipx/F");
     T->Branch("GenPipy",&GenPipy,"GenPipy/F");
     T->Branch("GenPipz",&GenPipz,"GenPipz/F"); 
+    T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
 
 
     //loop over files
@@ -516,6 +520,8 @@ int main(int argc, char **argv){
                     GenPipy = tGenPy;
                     GenPipz = tGenPz;
                 }
+                GenPid[ipa] = iGenPid;
+                nmp++;
             }
 
             // REC::Particle
