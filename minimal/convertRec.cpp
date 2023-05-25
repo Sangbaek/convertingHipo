@@ -342,6 +342,7 @@ int main(int argc, char **argv){
     T->Branch("GenPipx",&GenPipx,"GenPipx/F");
     T->Branch("GenPipy",&GenPipy,"GenPipy/F");
     T->Branch("GenPipz",&GenPipz,"GenPipz/F"); 
+    T->Branch("nmp",&nmp,"nmp/I"); 
     T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
 
 
