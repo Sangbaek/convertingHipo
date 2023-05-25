@@ -470,6 +470,7 @@ int main(int argc, char **argv){
             nmb=0;
             nmg=0;
             nmG=0;
+            nmp=0;
 
             //FILTER::Index
             for(auto ipa = 0;ipa<c12.getBank(idx_FILTER)->getRows();ipa++){
