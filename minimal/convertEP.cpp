@@ -8,7 +8,7 @@
 #include "HipoChain.h"
 #include "clas12reader.h"
 #include <fstream>
-#include <math.h>
+
 
 using namespace std;
 
@@ -19,20 +19,22 @@ int main(int argc, char **argv){
     system("ls -1 *.hipo > dataFiles.txt");
     ifstream in("dataFiles.txt", ios::in);
     if(!in){
-    	cerr<< "File Not Opened!" <<endl;
-    	exit(1);
+        cerr<< "File Not Opened!" <<endl;
+        exit(1);
     }
     while( in >> File){
-    	cout<<" File Name = "<<File<<endl;
-    	chain.Add(File);	
+        cout<<" File Name = "<<File<<endl;
+        chain.Add(File);    
     }
 
-    TString mode = "pi0";
+    TString mode = "ep";
+    TString ext = ".root";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
-    TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
-    TTree *T=new TTree("T","Rec");
+
+    TFile *rFile = TFile::Open(mode + ext,"RECREATE");
+    TTree *T=new TTree("T", mode);
 
     Float_t beamQ;
     Float_t liveTime;
@@ -40,6 +42,9 @@ int main(int argc, char **argv){
     Float_t RFTime;
     Int_t   helicity;
     Int_t   helicityRaw;
+    Long_t  EventNum;
+    Long_t  RunNum;
+    Long_t  TriggerBit;
 
     // =====  proton =====
     Int_t nmb;
@@ -101,9 +106,6 @@ int main(int argc, char **argv){
     Int_t PNDFtrack[100];
     Float_t Pchi2track[100];
 
-    Float_t GenPpx;
-    Float_t GenPpy;
-    Float_t GenPpz;
     // ==== electron =====
     Float_t Epx;
     Float_t Epy;
@@ -141,58 +143,12 @@ int main(int argc, char **argv){
     Float_t EhtccY;
     Float_t EhtccZ;
 
-    Float_t GenEpx;
-    Float_t GenEpy;
-    Float_t GenEpz;
-    Float_t GenEvx;
-    Float_t GenEvy;
-    Float_t GenEvz;
-
-    // ==== gammas =====
-    Int_t nmg;
-    Float_t Gpx[100];
-    Float_t Gpy[100];
-    Float_t Gpz[100];
-    Float_t Gbeta[100];
-    Int_t Gstat[100];
-    Int_t Gsector[100];
-    Float_t Gedep[100];
-    Float_t Gedep1[100];
-    Float_t Gedep2[100];
-    Float_t Gedep3[100];
-    Float_t GcX[100];
-    Float_t GcY[100];
-    Float_t Gpath[100];
-    Float_t Gtime[100];
-    Float_t GcalU1[100];
-    Float_t GcalV1[100];
-    Float_t GcalW1[100];
-    Float_t GcalU2[100];
-    Float_t GcalV2[100];
-    Float_t GcalW2[100];
-    Float_t GcalU3[100];
-    Float_t GcalV3[100];
-    Float_t GcalW3[100];
-
-    Int_t nmG;
-    Float_t GenGpx[100];
-    Float_t GenGpy[100];
-    Float_t GenGpz[100];
-
-    // ==== pi0s =====
-    Float_t GenPipx;
-    Float_t GenPipy;
-    Float_t GenPipz; 
-
     Int_t PcalSector;
     Int_t Ftof1aSector;
     Int_t Ftof1bSector;
     Int_t Ftof2Sector;
 
-    Int_t nmp;
-    Int_t GenPid[100];
-
-    ///   protons ================================== 
+ ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
@@ -252,6 +208,7 @@ int main(int argc, char **argv){
     T->Branch("Pchi2track",&Pchi2track,"Pchi2track[nmb]/F");
     T->Branch("PNDFtrack",&PNDFtrack,"PNDFtrack[nmb]/I");
 
+
     // ===============    Electrons ==============    
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
@@ -289,32 +246,6 @@ int main(int argc, char **argv){
     T->Branch("EhtccY",&EhtccY,"EhtccY/F");
     T->Branch("EhtccZ",&EhtccZ,"EhtccZ/F");
 
-    // ================   Gamma  ===============    
-    T->Branch("nmg",&nmg,"nmg/I");
-    T->Branch("Gpx",&Gpx,"Gpx[nmg]/F");
-    T->Branch("Gpy",&Gpy,"Gpy[nmg]/F");
-    T->Branch("Gpz",&Gpz,"Gpz[nmg]/F");
-    T->Branch("Gbeta",&Gbeta,"Gbeta[nmg]/F");
-    T->Branch("Gstat",&Gstat,"Gstat[nmg]/I");
-    T->Branch("Gsector",&Gsector,"Gsector[nmg]/I");
-    T->Branch("Gedep",&Gedep,"Gedep[nmg]/F");
-    T->Branch("Gedep1",&Gedep1,"Gedep1[nmg]/F");
-    T->Branch("Gedep2",&Gedep2,"Gedep2[nmg]/F");
-    T->Branch("Gedep3",&Gedep3,"Gedep3[nmg]/F");
-    T->Branch("GcX",&GcX,"GcX[nmg]/F");
-    T->Branch("GcY",&GcY,"GcY[nmg]/F");
-    T->Branch("GcalU1",&GcalU1,"GcalU1[nmg]/F");
-    T->Branch("GcalV1",&GcalV1,"GcalV1[nmg]/F");
-    T->Branch("GcalW1",&GcalW1,"GcalW1[nmg]/F");
-    T->Branch("GcalU2",&GcalU2,"GcalU2[nmg]/F");
-    T->Branch("GcalV2",&GcalV2,"GcalV2[nmg]/F");
-    T->Branch("GcalW2",&GcalW2,"GcalW2[nmg]/F");
-    T->Branch("GcalU3",&GcalU3,"GcalU3[nmg]/F");
-    T->Branch("GcalV3",&GcalV3,"GcalV3[nmg]/F");
-    T->Branch("GcalW3",&GcalW3,"GcalW3[nmg]/F");
-    T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
-    T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
-
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
     T->Branch("liveTime",&liveTime,"liveTime/F");
@@ -322,28 +253,9 @@ int main(int argc, char **argv){
     T->Branch("RFTime",&RFTime,"RFTime/F");
     T->Branch("helicity",&helicity,"helicity/I");
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
-
-
-    // MC bank
-    T->Branch("GenEpx",&GenEpx,"GenEpx/F");
-    T->Branch("GenEpy",&GenEpy,"GenEpy/F");
-    T->Branch("GenEpz",&GenEpz,"GenEpz/F");
-    T->Branch("GenEvx",&GenEvx,"GenEvx/F");
-    T->Branch("GenEvy",&GenEvy,"GenEvy/F");
-    T->Branch("GenEvz",&GenEvz,"GenEvz/F");
-    T->Branch("GenPpx",&GenPpx,"GenPpx/F");
-    T->Branch("GenPpy",&GenPpy,"GenPpy/F");
-    T->Branch("GenPpz",&GenPpz,"GenPpz/F");
-    T->Branch("nmG", &nmG, "nmG/I");
-    T->Branch("GenGpx",&GenGpx,"GenGpx[nmG]/F");
-    T->Branch("GenGpy",&GenGpy,"GenGpy[nmG]/F");
-    T->Branch("GenGpz",&GenGpz,"GenGpz[nmG]/F");
-    T->Branch("GenPipx",&GenPipx,"GenPipx/F");
-    T->Branch("GenPipy",&GenPipy,"GenPipy/F");
-    T->Branch("GenPipz",&GenPipz,"GenPipz/F"); 
-    T->Branch("nmp",&nmp,"nmp/I"); 
-    T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
-
+    T->Branch("EventNum",&EventNum,"EventNum/L");
+    T->Branch("RunNum",&RunNum,"RunNum/L");
+    T->Branch("TriggerBit",&TriggerBit,"TriggerBit/L");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -358,6 +270,12 @@ int main(int argc, char **argv){
         auto aHelic = c12.getBankOrder(idx_RECEv,"helicity");
         auto aHeRaw = c12.getBankOrder(idx_RECEv,"helicityRaw");
 
+        //  Config Bank
+        auto idx_RUNCon = c12.addBank("RUN::config");
+        auto brun = c12.getBankOrder(idx_RUNCon,"run");
+        auto bevent = c12.getBankOrder(idx_RUNCon,"event");
+        auto btrigger = c12.getBankOrder(idx_RUNCon,"trigger");
+
         // main particle bank ========
         auto idx_RECPart = c12.addBank("REC::Particle");
         auto iPid = c12.getBankOrder(idx_RECPart,"pid");
@@ -371,7 +289,6 @@ int main(int argc, char **argv){
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
         auto iChi2pid = c12.getBankOrder(idx_RECPart,"chi2pid");
         //===================
-
 
         // Read banks: with DC, CVT, FTOF, LTCC, HTCC, ECAL, CTOF, CND 
         auto idx_Traj = c12.addBank("REC::Traj");
@@ -445,63 +362,9 @@ int main(int argc, char **argv){
         auto ny = c12.getBankOrder(ndx_FT,"y");
         auto nz = c12.getBankOrder(ndx_FT,"z");
 
-        // MC bank
-        auto idx_GenPart = c12.addBank("MC::Particle");
-        auto iGenPid = c12.getBankOrder(idx_GenPart,"pid");
-        auto iGenPx  = c12.getBankOrder(idx_GenPart,"px");
-        auto iGenPy  = c12.getBankOrder(idx_GenPart,"py");
-        auto iGenPz  = c12.getBankOrder(idx_GenPart,"pz");
-        auto iGenVx  = c12.getBankOrder(idx_GenPart,"vx");
-        auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
-        auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
-
         while(c12.next() == true){
 
             nmb=0;
-            nmg=0;
-            nmG=0;
-            nmp=0;
-
-            //MC::Particle
-            for(auto ipa=0;ipa<c12.getBank(idx_GenPart)->getRows();ipa++){
-                auto tGenPx = c12.getBank(idx_GenPart)->getFloat(iGenPx,ipa);
-                auto tGenPy = c12.getBank(idx_GenPart)->getFloat(iGenPy,ipa);
-                auto tGenPz = c12.getBank(idx_GenPart)->getFloat(iGenPz,ipa);
-                auto tGenVx = c12.getBank(idx_GenPart)->getFloat(iGenVx,ipa);
-                auto tGenVy = c12.getBank(idx_GenPart)->getFloat(iGenVy,ipa);
-                auto tGenVz = c12.getBank(idx_GenPart)->getFloat(iGenVz,ipa);
-                auto tGenPid= c12.getBank(idx_GenPart)->getInt(iGenPid,ipa);
-
-                if( tGenPid == 11  ){  // electrons
-                    GenEpx = tGenPx;
-                    GenEpy = tGenPy;
-                    GenEpz = tGenPz;
-                    GenEvx = tGenVx;
-                    GenEvy = tGenVy;
-                    GenEvz = tGenVz;
-                }
-
-                if( tGenPid == 2212  ){  // protons
-                    GenPpx = tGenPx;
-                    GenPpy = tGenPy;
-                    GenPpz = tGenPz;
-                }
-                        
-                if( tGenPid == 22  ){  // photons
-                    GenGpx[nmG] = tGenPx;
-                    GenGpy[nmG] = tGenPy;
-                    GenGpz[nmG] = tGenPz;
-                nmG++;
-                }
-
-                if( tGenPid == 111  ){  // pi0s
-                    GenPipx = tGenPx;
-                    GenPipy = tGenPy;
-                    GenPipz = tGenPz;
-                }
-                GenPid[ipa] = tGenPid;
-                nmp++;
-            }
 
             // REC::Particle
             for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
@@ -821,105 +684,11 @@ int main(int argc, char **argv){
                     PFtof1aSector[nmb] = Ftof1aSector;
                     PFtof1bSector[nmb] = Ftof1bSector;
                     PFtof2Sector[nmb] = Ftof2Sector;
-                
+
                     nmb++;
                 } // end of protons
-                        
-                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 22  ){  // photons
-
-                    Gpx[nmg] = tPx;
-                    Gpy[nmg] = tPy;
-                    Gpz[nmg] = tPz;
-                    Gbeta[nmg] = tB;
-                    Gstat[nmg] = tStat;
-                    Gedep[nmg] = 0;
-                    Gedep1[nmg] = 0;
-                    Gedep2[nmg] = 0;
-                    Gedep3[nmg] = 0;
-                    GcX[nmg] = 0;
-                    GcY[nmg] = 0;
-                    GcalU1[nmg] = 0;
-                    GcalV1[nmg] = 0;
-                    GcalW1[nmg] = 0;
-                    GcalU2[nmg] = 0;
-                    GcalV2[nmg] = 0;
-                    GcalW2[nmg] = 0;
-                    GcalU3[nmg] = 0;
-                    GcalV3[nmg] = 0;
-                    GcalW3[nmg] = 0;
-                    Gtime[nmg] = 0;
-                    Gpath[nmg] = 0;
-
-                    // EC Bank (REC::Calorimeter)        //
-                    for(auto ipa2 = 0; ipa2<c12.getBank(mdx_Calo)->getRows();ipa2++){
-
-                        auto tempPnd_Calo = c12.getBank(mdx_Calo)->getInt(mPindex,ipa2);
-                        auto tempDet_Calo = c12.getBank(mdx_Calo)->getInt(mDetector,ipa2);    
-                        auto tempSec_Calo = c12.getBank(mdx_Calo)->getInt(msector,ipa2);    
-                        auto tempLay_Calo = c12.getBank(mdx_Calo)->getInt(mLayer,ipa2); 
-                        auto tempE_Calo = c12.getBank(mdx_Calo)->getFloat(menergy,ipa2); 
-                        auto tempX_Calo = c12.getBank(mdx_Calo)->getFloat(mx,ipa2); 
-                        auto tempY_Calo = c12.getBank(mdx_Calo)->getFloat(my,ipa2); 
-                        auto tempTime_Calo = c12.getBank(mdx_Calo)->getFloat(mtime,ipa2); 
-                        auto tempPath_Calo = c12.getBank(mdx_Calo)->getFloat(mpath,ipa2); 
-                        auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa2); 
-                        auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa2); 
-                        auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa2); 
-
-                        if (tempPnd_Calo == ipa){
-                            if (tempLay_Calo == 1) {
-                                Gedep1[nmg] = tempE_Calo;
-                                GcX[nmg] = tempX_Calo;
-                                GcY[nmg] = tempY_Calo;
-                                GcalU1[nmg] = tempU_Calo;
-                                GcalV1[nmg] = tempV_Calo;
-                                GcalW1[nmg] = tempW_Calo;
-                                Gtime[nmg] = tempTime_Calo;
-                                Gpath[nmg] = tempPath_Calo;
-                                PcalSector = tempSec_Calo;
-                            }
-                            if (tempLay_Calo == 4) {
-                                Gedep2[nmg] = tempE_Calo;
-                                GcalU2[nmg] = tempU_Calo;
-                                GcalV2[nmg] = tempV_Calo;
-                                GcalW2[nmg] = tempW_Calo;
-                            }
-                            if (tempLay_Calo == 7) {
-                                Gedep3[nmg] = tempE_Calo;
-                                GcalU3[nmg] = tempU_Calo;
-                                GcalV3[nmg] = tempV_Calo;
-                                GcalW3[nmg] = tempW_Calo;
-                            }
-                            Gedep[nmg] += tempE_Calo;
-                        }
-                    } // end of EC bank
-
-                    // FT Bank (REC::ForwardTagger)        //
-                    for(auto ipa3 = 0; ipa3<c12.getBank(ndx_FT)->getRows();ipa3++){
-
-                        auto tempPnd_FT = c12.getBank(ndx_FT)->getInt(nPindex,ipa3);
-                        auto tempDet_FT = c12.getBank(ndx_FT)->getInt(nDetector,ipa3);    
-                        auto tempLay_FT = c12.getBank(ndx_FT)->getInt(nLayer,ipa3); 
-                        auto tempE_FT = c12.getBank(ndx_FT)->getFloat(nenergy,ipa3); 
-                        auto tempX_FT = c12.getBank(ndx_FT)->getFloat(nx,ipa3); 
-                        auto tempY_FT = c12.getBank(ndx_FT)->getFloat(ny,ipa3); 
-                        auto tempTime_FT = c12.getBank(ndx_FT)->getFloat(ntime,ipa3); 
-                        auto tempPath_FT = c12.getBank(ndx_FT)->getFloat(npath,ipa3); 
-
-                        if (tempPnd_FT == ipa){
-                            Gedep[nmg] = tempE_FT;
-                            GcX[nmg] = tempX_FT;
-                            GcY[nmg] = tempY_FT;
-                            Gtime[nmg] = tempTime_FT;
-                            Gpath[nmg] = tempPath_FT;
-                        }
-                    } // end of FT bank
-                    if (Gstat[nmg]<2000) Gsector[nmg] = Gstat[nmg];
-                    else Gsector[nmg] = PcalSector;
-
-                    nmg++;
-                } //end of photons
             } //end of REC::Particle
+
 
             // event bank ====
             for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
@@ -938,15 +707,27 @@ int main(int argc, char **argv){
                 helicityRaw = tempHR;
             }
 
-            bool condition = (nmb>0) && (nmg>0) && (nmG>0);
-            if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nmG>0);
-            if (mode == "ep") condition = (nmb>0);
+
+            // Run config bank
+            for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
+                auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
+                auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
+                auto tempT = c12.getBank(idx_RUNCon)->getLong(btrigger,ipa1);
+                
+                EventNum = tempE;
+                RunNum = tempR;
+                TriggerBit = tempT;
+            }
+
+            bool condition = (nmb>0);
             if (condition) T->Fill();
+
         }
+
     }
 
-	rFile->Write();
-	rFile->Close();
+    rFile->Write();
+    rFile->Close();
 
     return 1;
 }
