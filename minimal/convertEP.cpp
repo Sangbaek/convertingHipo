@@ -548,6 +548,10 @@ int main(int argc, char **argv){
                     PCvt12Hity[nmb] = -100000;
                     PCvt12Hitz[nmb] = -100000;
 
+                    Ftof1aSector = 0;
+                    Ftof1bSector = 0;
+                    Ftof2Sector  = 0;
+
                     // Scintillaror Bank        //
                     for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
 
