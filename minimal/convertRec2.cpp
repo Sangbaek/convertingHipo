@@ -590,7 +590,7 @@ int main(int argc, char **argv){
                     Evx = tVx;
                     Evy = tVy;
                     Evz = tVz;
-                    Esector = PcalSector[ipa];
+                    Esector = PcalSector;
                     EDc1Hitx = -100000;
                     EDc1Hity = -100000;
                     EDc1Hitz = -100000;
