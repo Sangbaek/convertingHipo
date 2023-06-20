@@ -55,7 +55,6 @@ int main(int argc, char **argv){
     Int_t Pstat[100];
     Int_t Psector[100];
     Float_t Pchi2pid[100];
-    Int_t PPcalSector[100];
     Int_t PFtof1aSector[100];
     Float_t PFtof1aHitx[100];
     Float_t PFtof1aHity[100];
@@ -183,7 +182,6 @@ int main(int argc, char **argv){
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
     T->Branch("Pchi2pid",&Pchi2pid,"Pchi2pid[nmb]/F");
-    T->Branch("PPcalSector",&PPcalSector,"PPcalSector[nmb]/I");
     T->Branch("PFtof1aSector",&PFtof1aSector,"PFtof1aSector[nmb]/I");
     T->Branch("PFtof1aHitx",&PFtof1aHitx,"PFtof1aHitx[nmb]/F");
     T->Branch("PFtof1aHity",&PFtof1aHity,"PFtof1aHity[nmb]/F");
@@ -647,6 +645,9 @@ int main(int argc, char **argv){
                             }
 
                             if (tempDet == 4 ){// ctof{
+                                Ftof1aSector   = Pstat[nmb];
+                                Ftof1bSector   = Pstat[nmb];
+                                Ftof2Sector    = Pstat[nmb];
                                 PCtofHitx[nmb] = tempX;
                                 PCtofHity[nmb] = tempY;
                                 PCtofHitz[nmb] = tempZ;

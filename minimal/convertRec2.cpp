@@ -50,7 +50,6 @@ int main(int argc, char **argv){
     Int_t Pstat[100];
     Int_t Psector[100];
     Float_t Pchi2pid[100];
-    Int_t PPcalSector[100];
     Int_t PFtof1aSector[100];
     Float_t PFtof1aHitx[100];
     Float_t PFtof1aHity[100];
@@ -211,7 +210,6 @@ int main(int argc, char **argv){
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
     T->Branch("Psector",&Psector,"Psector[nmb]/I");
     T->Branch("Pchi2pid",&Pchi2pid,"Pchi2pid[nmb]/F");
-    T->Branch("PPcalSector",&PPcalSector,"PPcalSector[nmb]/I");
     T->Branch("PFtof1aSector",&PFtof1aSector,"PFtof1aSector[nmb]/I");
     T->Branch("PFtof1aHitx",&PFtof1aHitx,"PFtof1aHitx[nmb]/F");
     T->Branch("PFtof1aHity",&PFtof1aHity,"PFtof1aHity[nmb]/F");
@@ -878,7 +876,15 @@ int main(int argc, char **argv){
                             PNDFtrack[nmb] = tempNDF_Track;
                         }
                     }//end of REC::Track
-                
+
+                    if (Pstat[nmb] >4000) Psector[nmb] = Pstat[nmb];
+                    else if (Ftof1aSector>0) Psector[nmb] = Ftof1aSector; 
+                    else if (Ftof1bSector>0) Psector[nmb] = Ftof1bSector; 
+                    else if (Ftof2Sector>0) Psector[nmb] = Ftof2Sector;   
+                    PFtof1aSector[nmb] = Ftof1aSector;
+                    PFtof1bSector[nmb] = Ftof1bSector;
+                    PFtof2Sector[nmb] = Ftof2Sector;
+
                     nmb++;
                 } // end of protons
                         
