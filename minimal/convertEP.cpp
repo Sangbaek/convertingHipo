@@ -729,7 +729,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nmb>0);
+            bool condition = (nmb>0) && (triggered>0);
             if (condition) T->Fill();
 
         }
