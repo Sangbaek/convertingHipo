@@ -147,6 +147,8 @@ int main(int argc, char **argv){
     Int_t Ftof1bSector;
     Int_t Ftof2Sector;
 
+    Int_t  triggered;
+
  ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
@@ -363,6 +365,7 @@ int main(int argc, char **argv){
         while(c12.next() == true){
 
             nmb=0;
+            triggered = 0;
 
             // REC::Particle
             for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
@@ -384,6 +387,7 @@ int main(int argc, char **argv){
                     Evx = tVx;
                     Evy = tVy;
                     Evz = tVz;
+                    Estat = tStat;
                     EDc1Hitx = -100000;
                     EDc1Hity = -100000;
                     EDc1Hitz = -100000;
@@ -492,6 +496,7 @@ int main(int argc, char **argv){
                             }
                         }
                     }//end of Cherenkov
+                    if (Estat<0) triggered = 1;
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
