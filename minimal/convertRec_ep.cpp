@@ -60,6 +60,8 @@ int main(int argc, char **argv){
     Float_t GenEpz;
 
     Int_t nmp;
+    Int_t nmebar;
+    Int_t nmEBAR;
     Int_t GenPid[100];
 
     Int_t  triggered;
@@ -94,6 +96,8 @@ int main(int argc, char **argv){
     T->Branch("nmp",&nmp,"nmp/I"); 
     T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
 
+    T->Branch("nmebar",&nmebar,"nmebar/I");
+    T->Branch("nmEBAR",&nmEBAR,"nmEBAR/I");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -136,6 +140,8 @@ int main(int argc, char **argv){
 
             nmb=0;
             nmp=0;
+            nmebar=0;
+            nmEBAR=0;
             triggered = 0;
 
             //MC::Particle
@@ -158,6 +164,9 @@ int main(int argc, char **argv){
                     GenPpx = tGenPx;
                     GenPpy = tGenPy;
                     GenPpz = tGenPz;
+                }
+                if( tGenPid == -11  ){  // positrons
+                    nmEBAR++;
                 }
                 GenPid[ipa] = tGenPid;
                 nmp++;
@@ -190,6 +199,9 @@ int main(int argc, char **argv){
                     Ppz[nmb] = tPz;
                     nmb++;
                 } // end of protons                    
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
+                    nmebar++;
+                }
             } //end of REC::Particle
 
             // event bank ====
