@@ -27,7 +27,7 @@ int main(int argc, char **argv){
         chain.Add(File);    
     }
 
-    TString mode = "ep";
+    TString mode = "epebar";
     TString ext = ".root";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
@@ -57,6 +57,12 @@ int main(int argc, char **argv){
     Float_t Epy;
     Float_t Epz;
 
+    // ==== positron =====
+    Int_t nmebar;
+    Float_t Ebarpx[100];
+    Float_t Ebarpy[100];
+    Float_t Ebarpz[100];
+
     Int_t  triggered;
 
  ///   protons ================================== 
@@ -69,6 +75,12 @@ int main(int argc, char **argv){
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
+
+    // ===============    Positrons ==============    
+    T->Branch("nmebar",&nmebar,"nmebar/I");
+    T->Branch("Ebarpx",&Ebarpx,"Ebarpx[nmebar]/F");
+    T->Branch("Ebarpy",&Ebarpy,"Ebarpy[nmebar]/F");
+    T->Branch("Ebarpz",&Ebarpz,"Ebarpz[nmebar]/F");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -117,6 +129,7 @@ int main(int argc, char **argv){
         while(c12.next() == true){
 
             nmb=0;
+            nmebar=0;
             triggered = 0;
 
             // REC::Particle
@@ -147,6 +160,15 @@ int main(int argc, char **argv){
 
                     nmb++;
                 } // end of protons
+
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
+
+                    Ebarpx[nmebar] = tPx;
+                    Ebarpy[nmebar] = tPy;
+                    Ebarpz[nmebar] = tPz;
+
+                    nmebar++;
+                } // end of positrons
             } //end of REC::Particle
 
 

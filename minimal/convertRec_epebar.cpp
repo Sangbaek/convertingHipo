@@ -8,7 +8,7 @@
 #include "HipoChain.h"
 #include "clas12reader.h"
 #include <fstream>
-
+#include <math.h>
 
 using namespace std;
 
@@ -19,22 +19,20 @@ int main(int argc, char **argv){
     system("ls -1 *.hipo > dataFiles.txt");
     ifstream in("dataFiles.txt", ios::in);
     if(!in){
-        cerr<< "File Not Opened!" <<endl;
-        exit(1);
+    	cerr<< "File Not Opened!" <<endl;
+    	exit(1);
     }
     while( in >> File){
-        cout<<" File Name = "<<File<<endl;
-        chain.Add(File);    
+    	cout<<" File Name = "<<File<<endl;
+    	chain.Add(File);	
     }
 
-    TString mode = "ep";
-    TString ext = ".root";
+    TString mode = "epebar";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
 
-
-    TFile *rFile = TFile::Open(mode + ext,"RECREATE");
-    TTree *T=new TTree("T", mode);
+    TFile *rFile = TFile::Open("recwithgen.root","RECREATE");
+    TTree *T=new TTree("T","Rec");
 
     Float_t beamQ;
     Float_t liveTime;
@@ -42,9 +40,6 @@ int main(int argc, char **argv){
     Float_t RFTime;
     Int_t   helicity;
     Int_t   helicityRaw;
-    Long_t  EventNum;
-    Long_t  RunNum;
-    Long_t  TriggerBit;
 
     // =====  proton =====
     Int_t nmb;
@@ -52,14 +47,36 @@ int main(int argc, char **argv){
     Float_t Ppy[100];
     Float_t Ppz[100];
 
+    Float_t GenPpx;
+    Float_t GenPpy;
+    Float_t GenPpz;
     // ==== electron =====
     Float_t Epx;
     Float_t Epy;
     Float_t Epz;
 
+    Float_t GenEpx;
+    Float_t GenEpy;
+    Float_t GenEpz;
+
+    // ==== positron =====
+    Int_t nmebar;
+    Float_t Ebarpx[100];
+    Float_t Ebarpy[100];
+    Float_t Ebarpz[100];
+
+    Int_t nmEBAR;
+
+    Float_t GenEbarpx[100];
+    Float_t GenEbarpy[100];
+    Float_t GenEbarpz[100];
+
+    Int_t nmp;
+    Int_t GenPid[100];
+
     Int_t  triggered;
 
- ///   protons ================================== 
+    ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
@@ -77,9 +94,21 @@ int main(int argc, char **argv){
     T->Branch("RFTime",&RFTime,"RFTime/F");
     T->Branch("helicity",&helicity,"helicity/I");
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
-    T->Branch("EventNum",&EventNum,"EventNum/L");
-    T->Branch("RunNum",&RunNum,"RunNum/L");
-    T->Branch("TriggerBit",&TriggerBit,"TriggerBit/L");
+
+
+    // MC bank
+    T->Branch("GenEpx",&GenEpx,"GenEpx/F");
+    T->Branch("GenEpy",&GenEpy,"GenEpy/F");
+    T->Branch("GenEpz",&GenEpz,"GenEpz/F");
+    T->Branch("GenPpx",&GenPpx,"GenPpx/F");
+    T->Branch("GenPpy",&GenPpy,"GenPpy/F");
+    T->Branch("GenPpz",&GenPpz,"GenPpz/F");
+    T->Branch("GenEbarpx",&GenEbarpx,"GenEbarpx[nmEBAR]/F");
+    T->Branch("GenEbarpy",&GenEbarpy,"GenEbarpy[nmEBAR]/F");
+    T->Branch("GenEbarpz",&GenEbarpz,"GenEbarpz[nmEBAR]/F");
+    T->Branch("nmp",&nmp,"nmp/I"); 
+    T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
+
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -93,12 +122,6 @@ int main(int argc, char **argv){
         auto aRFTim = c12.getBankOrder(idx_RECEv,"RFTime");
         auto aHelic = c12.getBankOrder(idx_RECEv,"helicity");
         auto aHeRaw = c12.getBankOrder(idx_RECEv,"helicityRaw");
-
-        //  Config Bank
-        auto idx_RUNCon = c12.addBank("RUN::config");
-        auto brun = c12.getBankOrder(idx_RUNCon,"run");
-        auto bevent = c12.getBankOrder(idx_RUNCon,"event");
-        auto btrigger = c12.getBankOrder(idx_RUNCon,"trigger");
 
         // main particle bank ========
         auto idx_RECPart = c12.addBank("REC::Particle");
@@ -114,10 +137,54 @@ int main(int argc, char **argv){
         auto iChi2pid = c12.getBankOrder(idx_RECPart,"chi2pid");
         //===================
 
+        // MC bank
+        auto idx_GenPart = c12.addBank("MC::Particle");
+        auto iGenPid = c12.getBankOrder(idx_GenPart,"pid");
+        auto iGenPx  = c12.getBankOrder(idx_GenPart,"px");
+        auto iGenPy  = c12.getBankOrder(idx_GenPart,"py");
+        auto iGenPz  = c12.getBankOrder(idx_GenPart,"pz");
+        auto iGenVx  = c12.getBankOrder(idx_GenPart,"vx");
+        auto iGenVy  = c12.getBankOrder(idx_GenPart,"vy");
+        auto iGenVz  = c12.getBankOrder(idx_GenPart,"vz");
+
         while(c12.next() == true){
 
             nmb=0;
+            nmp=0;
+            nmebar=0;
+            nmEBAR=0;
             triggered = 0;
+
+            //MC::Particle
+            for(auto ipa=0;ipa<c12.getBank(idx_GenPart)->getRows();ipa++){
+                auto tGenPx = c12.getBank(idx_GenPart)->getFloat(iGenPx,ipa);
+                auto tGenPy = c12.getBank(idx_GenPart)->getFloat(iGenPy,ipa);
+                auto tGenPz = c12.getBank(idx_GenPart)->getFloat(iGenPz,ipa);
+                auto tGenVx = c12.getBank(idx_GenPart)->getFloat(iGenVx,ipa);
+                auto tGenVy = c12.getBank(idx_GenPart)->getFloat(iGenVy,ipa);
+                auto tGenVz = c12.getBank(idx_GenPart)->getFloat(iGenVz,ipa);
+                auto tGenPid= c12.getBank(idx_GenPart)->getInt(iGenPid,ipa);
+
+                if( tGenPid == 11  ){  // electrons
+                    GenEpx = tGenPx;
+                    GenEpy = tGenPy;
+                    GenEpz = tGenPz;
+                }
+
+                if( tGenPid == 2212  ){  // protons
+                    GenPpx = tGenPx;
+                    GenPpy = tGenPy;
+                    GenPpz = tGenPz;
+                }
+                if( tGenPid == -11  ){  // positrons
+                    GenEbarpx[nmEBAR] = tGenPx;
+                    GenEbarpy[nmEBAR] = tGenPy;
+                    GenEbarpz[nmEBAR] = tGenPz;
+                    nmEBAR++;
+                }
+                GenPid[ipa] = tGenPid;
+                nmp++;
+            }
 
             // REC::Particle
             for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
@@ -144,11 +211,18 @@ int main(int argc, char **argv){
                     Ppx[nmb] = tPx;
                     Ppy[nmb] = tPy;
                     Ppz[nmb] = tPz;
-
                     nmb++;
-                } // end of protons
-            } //end of REC::Particle
+                } // end of protons                    
 
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
+
+                    Ebarpx[nmebar] = tPx;
+                    Ebarpy[nmebar] = tPy;
+                    Ebarpz[nmebar] = tPz;
+
+                    nmebar++;
+                } // end of positrons
+            } //end of REC::Particle
 
             // event bank ====
             for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECEv)->getRows();ipa1++){
@@ -167,27 +241,13 @@ int main(int argc, char **argv){
                 helicityRaw = tempHR;
             }
 
-
-            // Run config bank
-            for(auto ipa1 = 0; ipa1<c12.getBank(idx_RUNCon)->getRows();ipa1++){
-                auto tempR = c12.getBank(idx_RUNCon)->getInt(brun,ipa1);
-                auto tempE = c12.getBank(idx_RUNCon)->getInt(bevent,ipa1);
-                auto tempT = c12.getBank(idx_RUNCon)->getLong(btrigger,ipa1);
-                
-                EventNum = tempE;
-                RunNum = tempR;
-                TriggerBit = tempT;
-            }
-
             bool condition = (nmb>0) && (triggered>0);
             if (condition) T->Fill();
-
         }
-
     }
 
-    rFile->Write();
-    rFile->Close();
+	rFile->Write();
+	rFile->Close();
 
     return 1;
 }
