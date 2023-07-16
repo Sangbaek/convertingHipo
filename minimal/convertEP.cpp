@@ -56,6 +56,7 @@ int main(int argc, char **argv){
     Float_t Epx;
     Float_t Epy;
     Float_t Epz;
+    Int_t Estat;
 
     Int_t nmebar;
 
@@ -71,6 +72,7 @@ int main(int argc, char **argv){
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
+    T->Branch("Estat",&Estat,"Estat/I");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -141,7 +143,8 @@ int main(int argc, char **argv){
                     Epx = tPx;
                     Epy = tPy;
                     Epz = tPz;
-                    if (tStat<0) triggered = 1;
+                    Estat = tStat;
+                    if (Estat<0) triggered = 1;
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
