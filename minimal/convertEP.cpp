@@ -54,10 +54,11 @@ int main(int argc, char **argv){
     Int_t Pstat[100];
 
     // ==== electron =====
-    Float_t Epx;
-    Float_t Epy;
-    Float_t Epz;
-    Int_t Estat;
+    Int_t nml;
+    Float_t Epx[100];
+    Float_t Epy[100];
+    Float_t Epz[100];
+    Int_t Estat[100];
 
     Int_t nmLBAR;
 

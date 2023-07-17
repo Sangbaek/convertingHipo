@@ -882,8 +882,8 @@ int main(int argc, char **argv){
             }
 
             bool condition = (nml>0) && (nmb>0) && (nmg>0) && (nml>0);
-            if (mode == "pi0") condition = nmb>0 && nmg>1;
-            if (mode == "elas") condition = nmb>0;
+            if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nml>0);
+            if (mode == "elas") condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();
 
         }

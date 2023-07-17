@@ -52,10 +52,11 @@ int main(int argc, char **argv){
     Float_t GenPpy;
     Float_t GenPpz;
     // ==== electron =====
-    Float_t Epx;
-    Float_t Epy;
-    Float_t Epz;
-    Int_t Estat;
+    Int_t nml;
+    Float_t Epx[100];
+    Float_t Epy[100];
+    Float_t Epz[100];
+    Int_t Estat[100];
 
     Float_t GenEpx;
     Float_t GenEpy;

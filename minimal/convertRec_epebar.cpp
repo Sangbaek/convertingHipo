@@ -51,9 +51,10 @@ int main(int argc, char **argv){
     Float_t GenPpy;
     Float_t GenPpz;
     // ==== electron =====
-    Float_t Epx;
-    Float_t Epy;
-    Float_t Epz;
+    Int_t nml;
+    Float_t Epx[100];
+    Float_t Epy[100];
+    Float_t Epz[100];
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -200,10 +201,11 @@ int main(int argc, char **argv){
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
-                    Epx = tPx;
-                    Epy = tPy;
-                    Epz = tPz;
-                    if (tStat<0) triggered = 1;
+                    Epx[nml] = tPx;
+                    Epy[nml] = tPy;
+                    Epz[nml] = tPz;
+                    if (EStat[nml]<0) triggered = 1;
+                    nml++;
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
