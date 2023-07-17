@@ -55,6 +55,7 @@ int main(int argc, char **argv){
     Float_t Epx[100];
     Float_t Epy[100];
     Float_t Epz[100];
+    Int_t Estat[100];
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -84,9 +85,11 @@ int main(int argc, char **argv){
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
 
     // ===============    Electrons ==============    
-    T->Branch("Epx",&Epx,"Epx/F");
-    T->Branch("Epy",&Epy,"Epy/F");
-    T->Branch("Epz",&Epz,"Epz/F");
+    T->Branch("nml",&nml,"nml/I");
+    T->Branch("Epx",&Epx,"Epx[nml]/F");
+    T->Branch("Epy",&Epy,"Epy[nml]/F");
+    T->Branch("Epz",&Epz,"Epz[nml]/F");
+    T->Branch("Estat",&Estat,"Estat[nml]/I");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -150,6 +153,7 @@ int main(int argc, char **argv){
 
         while(c12.next() == true){
 
+            nml=0;
             nmb=0;
             nmp=0;
             nmlbar=0;

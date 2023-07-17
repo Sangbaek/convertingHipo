@@ -496,6 +496,7 @@ int main(int argc, char **argv){
 
         while(c12.next() == true){
 
+            nml=0;
             nmb=0;
             nmg=0;
             nmG=0;
