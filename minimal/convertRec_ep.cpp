@@ -46,6 +46,7 @@ int main(int argc, char **argv){
     Float_t Ppx[100];
     Float_t Ppy[100];
     Float_t Ppz[100];
+    Int_t Pstat[100];
 
     Float_t GenPpx;
     Float_t GenPpy;
@@ -54,6 +55,7 @@ int main(int argc, char **argv){
     Float_t Epx;
     Float_t Epy;
     Float_t Epz;
+    Int_t Estat;
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -71,11 +73,13 @@ int main(int argc, char **argv){
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
+    T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
 
     // ===============    Electrons ==============    
     T->Branch("Epx",&Epx,"Epx/F");
     T->Branch("Epy",&Epy,"Epy/F");
     T->Branch("Epz",&Epz,"Epz/F");
+    T->Branch("Estat",&Estat,"Estat/I");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -189,7 +193,8 @@ int main(int argc, char **argv){
                     Epx = tPx;
                     Epy = tPy;
                     Epz = tPz;
-                    if (tStat<0) triggered = 1;
+                    Estat = tStat;
+                    if (Estat<0) triggered = 1;
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
@@ -197,6 +202,8 @@ int main(int argc, char **argv){
                     Ppx[nmb] = tPx;
                     Ppy[nmb] = tPy;
                     Ppz[nmb] = tPz;
+                    Pstat[nmb] = tStat;
+
                     nmb++;
                 } // end of protons                    
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
