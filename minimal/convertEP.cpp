@@ -60,7 +60,7 @@ int main(int argc, char **argv){
     Float_t Epz[100];
     Int_t Estat[100];
 
-    Int_t nmLBAR;
+    Int_t nmlbar;
 
     Int_t  triggered;
 
@@ -89,7 +89,7 @@ int main(int argc, char **argv){
     T->Branch("RunNum",&RunNum,"RunNum/L");
     T->Branch("TriggerBit",&TriggerBit,"TriggerBit/L");
 
-    T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
+    T->Branch("nmlbar",&nmlbar,"nmlbar/I");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -128,7 +128,7 @@ int main(int argc, char **argv){
 
             nml=0;
             nmb=0;
-            nmLBAR=0;
+            nmlbar=0;
             triggered = 0;
 
             // REC::Particle
@@ -163,7 +163,7 @@ int main(int argc, char **argv){
                     nmb++;
                 } // end of protons
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
-                    nmLBAR++;
+                    nmlbar++;
                 }
             } //end of REC::Particle
 
