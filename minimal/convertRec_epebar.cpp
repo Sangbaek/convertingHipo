@@ -208,7 +208,7 @@ int main(int argc, char **argv){
                     Epx[nml] = tPx;
                     Epy[nml] = tPy;
                     Epz[nml] = tPz;
-                    if (EStat[nml]<0) triggered = 1;
+                    if (Estat[nml]<0) triggered = 1;
                     nml++;
                 }// end of electrons
                     

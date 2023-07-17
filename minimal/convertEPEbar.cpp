@@ -57,7 +57,7 @@ int main(int argc, char **argv){
     Float_t Epx[100];
     Float_t Epy[100];
     Float_t Epz[100];
-    Int_t Epz[100];
+    Int_t Estat[100];
 
     // ==== positron =====
     Int_t nmLBAR;
