@@ -58,7 +58,7 @@ int main(int argc, char **argv){
     Float_t Epz;
 
     // ==== positron =====
-    Int_t nmebar;
+    Int_t nmLBAR;
     Float_t Ebarpx[100];
     Float_t Ebarpy[100];
     Float_t Ebarpz[100];
@@ -77,10 +77,10 @@ int main(int argc, char **argv){
     T->Branch("Epz",&Epz,"Epz/F");
 
     // ===============    Positrons ==============    
-    T->Branch("nmebar",&nmebar,"nmebar/I");
-    T->Branch("Ebarpx",&Ebarpx,"Ebarpx[nmebar]/F");
-    T->Branch("Ebarpy",&Ebarpy,"Ebarpy[nmebar]/F");
-    T->Branch("Ebarpz",&Ebarpz,"Ebarpz[nmebar]/F");
+    T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
+    T->Branch("Ebarpx",&Ebarpx,"Ebarpx[nmLBAR]/F");
+    T->Branch("Ebarpy",&Ebarpy,"Ebarpy[nmLBAR]/F");
+    T->Branch("Ebarpz",&Ebarpz,"Ebarpz[nmLBAR]/F");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -129,7 +129,7 @@ int main(int argc, char **argv){
         while(c12.next() == true){
 
             nmb=0;
-            nmebar=0;
+            nmLBAR=0;
             triggered = 0;
 
             // REC::Particle
@@ -163,11 +163,11 @@ int main(int argc, char **argv){
 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
 
-                    Ebarpx[nmebar] = tPx;
-                    Ebarpy[nmebar] = tPy;
-                    Ebarpz[nmebar] = tPz;
+                    Ebarpx[nmLBAR] = tPx;
+                    Ebarpy[nmLBAR] = tPy;
+                    Ebarpz[nmLBAR] = tPz;
 
-                    nmebar++;
+                    nmLBAR++;
                 } // end of positrons
             } //end of REC::Particle
 
@@ -201,7 +201,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nmb>0) && (triggered>0);
+            bool condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();
 
         }

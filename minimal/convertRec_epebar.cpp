@@ -60,12 +60,12 @@ int main(int argc, char **argv){
     Float_t GenEpz;
 
     // ==== positron =====
-    Int_t nmebar;
+    Int_t nmLBAR;
     Float_t Ebarpx[100];
     Float_t Ebarpy[100];
     Float_t Ebarpz[100];
 
-    Int_t nmEBAR;
+    Int_t nmLBAR;
 
     Float_t GenEbarpx[100];
     Float_t GenEbarpy[100];
@@ -103,9 +103,9 @@ int main(int argc, char **argv){
     T->Branch("GenPpx",&GenPpx,"GenPpx/F");
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
-    T->Branch("GenEbarpx",&GenEbarpx,"GenEbarpx[nmEBAR]/F");
-    T->Branch("GenEbarpy",&GenEbarpy,"GenEbarpy[nmEBAR]/F");
-    T->Branch("GenEbarpz",&GenEbarpz,"GenEbarpz[nmEBAR]/F");
+    T->Branch("GenEbarpx",&GenEbarpx,"GenEbarpx[nmLBAR]/F");
+    T->Branch("GenEbarpy",&GenEbarpy,"GenEbarpy[nmLBAR]/F");
+    T->Branch("GenEbarpz",&GenEbarpz,"GenEbarpz[nmLBAR]/F");
     T->Branch("nmp",&nmp,"nmp/I"); 
     T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
 
@@ -151,8 +151,8 @@ int main(int argc, char **argv){
 
             nmb=0;
             nmp=0;
-            nmebar=0;
-            nmEBAR=0;
+            nmLBAR=0;
+            nmLBAR=0;
             triggered = 0;
 
             //MC::Particle
@@ -177,10 +177,10 @@ int main(int argc, char **argv){
                     GenPpz = tGenPz;
                 }
                 if( tGenPid == -11  ){  // positrons
-                    GenEbarpx[nmEBAR] = tGenPx;
-                    GenEbarpy[nmEBAR] = tGenPy;
-                    GenEbarpz[nmEBAR] = tGenPz;
-                    nmEBAR++;
+                    GenEbarpx[nmLBAR] = tGenPx;
+                    GenEbarpy[nmLBAR] = tGenPy;
+                    GenEbarpz[nmLBAR] = tGenPz;
+                    nmLBAR++;
                 }
                 GenPid[ipa] = tGenPid;
                 nmp++;
@@ -216,11 +216,11 @@ int main(int argc, char **argv){
 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
 
-                    Ebarpx[nmebar] = tPx;
-                    Ebarpy[nmebar] = tPy;
-                    Ebarpz[nmebar] = tPz;
+                    Ebarpx[nmLBAR] = tPx;
+                    Ebarpy[nmLBAR] = tPy;
+                    Ebarpz[nmLBAR] = tPz;
 
-                    nmebar++;
+                    nmLBAR++;
                 } // end of positrons
             } //end of REC::Particle
 
@@ -241,7 +241,7 @@ int main(int argc, char **argv){
                 helicityRaw = tempHR;
             }
 
-            bool condition = (nmb>0) && (triggered>0);
+            bool condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();
         }
     }

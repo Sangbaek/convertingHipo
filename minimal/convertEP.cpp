@@ -59,7 +59,7 @@ int main(int argc, char **argv){
     Float_t Epz;
     Int_t Estat;
 
-    Int_t nmebar;
+    Int_t nmLBAR;
 
     Int_t  triggered;
 
@@ -71,10 +71,11 @@ int main(int argc, char **argv){
     T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
 
     // ===============    Electrons ==============    
-    T->Branch("Epx",&Epx,"Epx/F");
-    T->Branch("Epy",&Epy,"Epy/F");
-    T->Branch("Epz",&Epz,"Epz/F");
-    T->Branch("Estat",&Estat,"Estat/I");
+    T->Branch("nml",&nml,"nml/I");
+    T->Branch("Epx",&Epx,"Epx[nml]/F");
+    T->Branch("Epy",&Epy,"Epy[nml]/F");
+    T->Branch("Epz",&Epz,"Epz[nml]/F");
+    T->Branch("Estat",&Estat,"Estat[nml]/I");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -87,7 +88,7 @@ int main(int argc, char **argv){
     T->Branch("RunNum",&RunNum,"RunNum/L");
     T->Branch("TriggerBit",&TriggerBit,"TriggerBit/L");
 
-    T->Branch("nmebar",&nmebar,"nmebar/I");
+    T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -124,8 +125,9 @@ int main(int argc, char **argv){
 
         while(c12.next() == true){
 
+            nml=0;
             nmb=0;
-            nmebar=0;
+            nmLBAR=0;
             triggered = 0;
 
             // REC::Particle
@@ -142,11 +144,12 @@ int main(int argc, char **argv){
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
-                    Epx = tPx;
-                    Epy = tPy;
-                    Epz = tPz;
-                    Estat = tStat;
-                    if (Estat<0) triggered = 1;
+                    Epx[nml] = tPx;
+                    Epy[nml] = tPy;
+                    Epz[nml] = tPz;
+                    Estat[nml] = tStat;
+                    if (Estat[nml]<0) triggered = 1;
+                    nml++;
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
@@ -159,7 +162,7 @@ int main(int argc, char **argv){
                     nmb++;
                 } // end of protons
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
-                    nmebar++;
+                    nmLBAR++;
                 }
             } //end of REC::Particle
 
@@ -193,7 +196,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nmb>0) && (triggered>0);
+            bool condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();
 
         }

@@ -104,41 +104,42 @@ int main(int argc, char **argv){
     Float_t GenPpy;
     Float_t GenPpz;
     // ==== electron =====
-    Float_t Epx;
-    Float_t Epy;
-    Float_t Epz;
-    Float_t Evx;
-    Float_t Evy;
-    Float_t Evz;
-    Int_t Estat;
-    Int_t Esector;
-    Float_t EDc1Hitx;
-    Float_t EDc1Hity;
-    Float_t EDc1Hitz;
-    Float_t EDc2Hitx;
-    Float_t EDc2Hity;
-    Float_t EDc2Hitz;
-    Float_t EDc3Hitx;
-    Float_t EDc3Hity;
-    Float_t EDc3Hitz;
-    Float_t Eedep;
-    Float_t Eedep1;
-    Float_t Eedep2;
-    Float_t Eedep3;
-    Float_t EcalU1;
-    Float_t EcalV1;
-    Float_t EcalW1;
-    Float_t EcalU2;
-    Float_t EcalV2;
-    Float_t EcalW2;
-    Float_t EcalU3;
-    Float_t EcalV3;
-    Float_t EcalW3;
+    Int_t nml;
+    Float_t Epx[100];
+    Float_t Epy[100];
+    Float_t Epz[100];
+    Float_t Evx[100];
+    Float_t Evy[100];
+    Float_t Evz[100];
+    Int_t Estat[100];
+    Int_t Esector[100];
+    Float_t EDc1Hitx[100];
+    Float_t EDc1Hity[100];
+    Float_t EDc1Hitz[100];
+    Float_t EDc2Hitx[100];
+    Float_t EDc2Hity[100];
+    Float_t EDc2Hitz[100];
+    Float_t EDc3Hitx[100];
+    Float_t EDc3Hity[100];
+    Float_t EDc3Hitz[100];
+    Float_t Eedep[100];
+    Float_t Eedep1[100];
+    Float_t Eedep2[100];
+    Float_t Eedep3[100];
+    Float_t EcalU1[100];
+    Float_t EcalV1[100];
+    Float_t EcalW1[100];
+    Float_t EcalU2[100];
+    Float_t EcalV2[100];
+    Float_t EcalW2[100];
+    Float_t EcalU3[100];
+    Float_t EcalV3[100];
+    Float_t EcalW3[100];
 
-    Float_t Enphe;
-    Float_t EhtccX;
-    Float_t EhtccY;
-    Float_t EhtccZ;
+    Float_t Enphe[100];
+    Float_t EhtccX[100];
+    Float_t EhtccY[100];
+    Float_t EhtccZ[100];
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -253,41 +254,42 @@ int main(int argc, char **argv){
     T->Branch("PNDFtrack",&PNDFtrack,"PNDFtrack[nmb]/I");
 
     // ===============    Electrons ==============    
-    T->Branch("Epx",&Epx,"Epx/F");
-    T->Branch("Epy",&Epy,"Epy/F");
-    T->Branch("Epz",&Epz,"Epz/F");
-    T->Branch("Evx",&Evx,"Evx/F");
-    T->Branch("Evy",&Evy,"Evy/F");
-    T->Branch("Evz",&Evz,"Evz/F");
-    T->Branch("Estat",&Estat,"Estat/I");
-    T->Branch("Esector",&Esector,"Esector/I");
-    T->Branch("EDc1Hitx",&EDc1Hitx,"EDc1Hitx/F");
-    T->Branch("EDc1Hity",&EDc1Hity,"EDc1Hity/F");
-    T->Branch("EDc1Hitz",&EDc1Hitz,"EDc1Hitz/F");
-    T->Branch("EDc2Hitx",&EDc2Hitx,"EDc2Hitx/F");
-    T->Branch("EDc2Hity",&EDc2Hity,"EDc2Hity/F");
-    T->Branch("EDc2Hitz",&EDc2Hitz,"EDc2Hitz/F");
-    T->Branch("EDc3Hitx",&EDc3Hitx,"EDc3Hitx/F");
-    T->Branch("EDc3Hity",&EDc3Hity,"EDc3Hity/F");
-    T->Branch("EDc3Hitz",&EDc3Hitz,"EDc3Hitz/F");
-    T->Branch("Eedep",&Eedep,"Eedep/F");
-    T->Branch("Eedep1",&Eedep1,"Eedep1/F");
-    T->Branch("Eedep2",&Eedep2,"Eedep2/F");
-    T->Branch("Eedep3",&Eedep3,"Eedep3/F");
-    T->Branch("EcalU1",&EcalU1,"EcalU1/F");
-    T->Branch("EcalV1",&EcalV1,"EcalV1/F");
-    T->Branch("EcalW1",&EcalW1,"EcalW1/F");
-    T->Branch("EcalU2",&EcalU2,"EcalU2/F");
-    T->Branch("EcalV2",&EcalV2,"EcalV2/F");
-    T->Branch("EcalW2",&EcalW2,"EcalW2/F");
-    T->Branch("EcalU3",&EcalU3,"EcalU3/F");
-    T->Branch("EcalV3",&EcalV3,"EcalV3/F");
-    T->Branch("EcalW3",&EcalW3,"EcalW3/F");
+    T->Branch("nml",&nml,"nml/I");
+    T->Branch("Epx",&Epx,"Epx[nml]/F");
+    T->Branch("Epy",&Epy,"Epy[nml]/F");
+    T->Branch("Epz",&Epz,"Epz[nml]/F");
+    T->Branch("Evx",&Evx,"Evx[nml]/F");
+    T->Branch("Evy",&Evy,"Evy[nml]/F");
+    T->Branch("Evz",&Evz,"Evz[nml]/F");
+    T->Branch("Estat",&Estat,"Estat[nml]/I");
+    T->Branch("Esector",&Esector,"Esector[nml]/I");
+    T->Branch("EDc1Hitx",&EDc1Hitx,"EDc1Hitx[nml]/F");
+    T->Branch("EDc1Hity",&EDc1Hity,"EDc1Hity[nml]/F");
+    T->Branch("EDc1Hitz",&EDc1Hitz,"EDc1Hitz[nml]/F");
+    T->Branch("EDc2Hitx",&EDc2Hitx,"EDc2Hitx[nml]/F");
+    T->Branch("EDc2Hity",&EDc2Hity,"EDc2Hity[nml]/F");
+    T->Branch("EDc2Hitz",&EDc2Hitz,"EDc2Hitz[nml]/F");
+    T->Branch("EDc3Hitx",&EDc3Hitx,"EDc3Hitx[nml]/F");
+    T->Branch("EDc3Hity",&EDc3Hity,"EDc3Hity[nml]/F");
+    T->Branch("EDc3Hitz",&EDc3Hitz,"EDc3Hitz[nml]/F");
+    T->Branch("Eedep",&Eedep,"Eedep[nml]/F");
+    T->Branch("Eedep1",&Eedep1,"Eedep1[nml]/F");
+    T->Branch("Eedep2",&Eedep2,"Eedep2[nml]/F");
+    T->Branch("Eedep3",&Eedep3,"Eedep3[nml]/F");
+    T->Branch("EcalU1",&EcalU1,"EcalU1[nml]/F");
+    T->Branch("EcalV1",&EcalV1,"EcalV1[nml]/F");
+    T->Branch("EcalW1",&EcalW1,"EcalW1[nml]/F");
+    T->Branch("EcalU2",&EcalU2,"EcalU2[nml]/F");
+    T->Branch("EcalV2",&EcalV2,"EcalV2[nml]/F");
+    T->Branch("EcalW2",&EcalW2,"EcalW2[nml]/F");
+    T->Branch("EcalU3",&EcalU3,"EcalU3[nml]/F");
+    T->Branch("EcalV3",&EcalV3,"EcalV3[nml]/F");
+    T->Branch("EcalW3",&EcalW3,"EcalW3[nml]/F");
 
-    T->Branch("Enphe",&Enphe,"Enphe/F");
-    T->Branch("EhtccX",&EhtccX,"EhtccX/F");
-    T->Branch("EhtccY",&EhtccY,"EhtccY/F");
-    T->Branch("EhtccZ",&EhtccZ,"EhtccZ/F");
+    T->Branch("Enphe",&Enphe,"Enphe[nml]/F");
+    T->Branch("EhtccX",&EhtccX,"EhtccX[nml]/F");
+    T->Branch("EhtccY",&EhtccY,"EhtccY[nml]/F");
+    T->Branch("EhtccZ",&EhtccZ,"EhtccZ[nml]/F");
 
     // ================   Gamma  ===============    
     T->Branch("nmg",&nmg,"nmg/I");
@@ -457,6 +459,7 @@ int main(int argc, char **argv){
 
         while(c12.next() == true){
 
+            nml=0;
             nmb=0;
             nmg=0;
             nmG=0;
@@ -518,35 +521,35 @@ int main(int argc, char **argv){
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
-                    Epx = tPx;
-                    Epy = tPy;
-                    Epz = tPz;
-                    Evx = tVx;
-                    Evy = tVy;
-                    Evz = tVz;
-                    Estat = tStat;
-                    EDc1Hitx = -100000;
-                    EDc1Hity = -100000;
-                    EDc1Hitz = -100000;
-                    EDc2Hitx = -100000;
-                    EDc2Hity = -100000;
-                    EDc2Hitz = -100000;
-                    EDc3Hitx = -100000;
-                    EDc3Hity = -100000;
-                    EDc3Hitz = -100000;
-                    Eedep = 0;
-                    Eedep1 = 0;
-                    Eedep2 = 0;
-                    Eedep3 = 0;
-                    EcalU1 = 0;
-                    EcalV1 = 0;
-                    EcalW1 = 0;
-                    EcalU2 = 0;
-                    EcalV2 = 0;
-                    EcalW2 = 0;
-                    EcalU3 = 0;
-                    EcalV3 = 0;
-                    EcalW3 = 0;
+                    Epx[nml] = tPx;
+                    Epy[nml] = tPy;
+                    Epz[nml] = tPz;
+                    Evx[nml] = tVx;
+                    Evy[nml] = tVy;
+                    Evz[nml] = tVz;
+                    Estat[nml] = tStat;
+                    EDc1Hitx[nml] = -100000;
+                    EDc1Hity[nml] = -100000;
+                    EDc1Hitz[nml] = -100000;
+                    EDc2Hitx[nml] = -100000;
+                    EDc2Hity[nml] = -100000;
+                    EDc2Hitz[nml] = -100000;
+                    EDc3Hitx[nml] = -100000;
+                    EDc3Hity[nml] = -100000;
+                    EDc3Hitz[nml] = -100000;
+                    Eedep[nml] = 0;
+                    Eedep1[nml] = 0;
+                    Eedep2[nml] = 0;
+                    Eedep3[nml] = 0;
+                    EcalU1[nml] = 0;
+                    EcalV1[nml] = 0;
+                    EcalW1[nml] = 0;
+                    EcalU2[nml] = 0;
+                    EcalV2[nml] = 0;
+                    EcalW2[nml] = 0;
+                    EcalU3[nml] = 0;
+                    EcalV3[nml] = 0;
+                    EcalW3[nml] = 0;
 
                     // DC Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
@@ -561,21 +564,21 @@ int main(int argc, char **argv){
                         if (tempPnd_dc == ipa){
                             if (tempDet_dc == 6 ){// dc{
                                 if (tempLay_dc == 6){ //r1
-                                    EDc1Hitx = tempX_dc;
-                                    EDc1Hity = tempY_dc;
-                                    EDc1Hitz = tempZ_dc;
+                                    EDc1Hitx[nml] = tempX_dc;
+                                    EDc1Hity[nml] = tempY_dc;
+                                    EDc1Hitz[nml] = tempZ_dc;
                                 }
 
                                 if (tempLay_dc == 18){ //r2
-                                    EDc2Hitx = tempX_dc;
-                                    EDc2Hity = tempY_dc;
-                                    EDc2Hitz = tempZ_dc;
+                                    EDc2Hitx[nml] = tempX_dc;
+                                    EDc2Hity[nml] = tempY_dc;
+                                    EDc2Hitz[nml] = tempZ_dc;
                                 }
 
                                 if (tempLay_dc == 36){ //r3
-                                    EDc3Hitx = tempX_dc;
-                                    EDc3Hity = tempY_dc;
-                                    EDc3Hitz = tempZ_dc;
+                                    EDc3Hitx[nml] = tempX_dc;
+                                    EDc3Hity[nml] = tempY_dc;
+                                    EDc3Hitz[nml] = tempZ_dc;
                                 }
                             }
                         }
@@ -594,25 +597,25 @@ int main(int argc, char **argv){
                         auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa3); 
                         if (tempPnd_Calo == ipa){
                             if (tempLay_Calo == 1){ 
-                                Eedep1 = tempE_Calo;
-                                EcalU1 = tempU_Calo;
-                                EcalV1 = tempV_Calo;
-                                EcalW1 = tempW_Calo;
-                                Esector = tempSec_Calo;
+                                Eedep1[nml] = tempE_Calo;
+                                EcalU1[nml] = tempU_Calo;
+                                EcalV1[nml] = tempV_Calo;
+                                EcalW1[nml] = tempW_Calo;
+                                Esector[nml] = tempSec_Calo;
                             }
                             if (tempLay_Calo == 4){
-                                Eedep2 = tempE_Calo;
-                                EcalU2 = tempU_Calo;
-                                EcalV2 = tempV_Calo;
-                                EcalW2 = tempW_Calo;
+                                Eedep2[nml] = tempE_Calo;
+                                EcalU2[nml] = tempU_Calo;
+                                EcalV2[nml] = tempV_Calo;
+                                EcalW2[nml] = tempW_Calo;
                             }
                             if (tempLay_Calo == 7){
-                                Eedep3 = tempE_Calo;
-                                EcalU3 = tempU_Calo;
-                                EcalV3 = tempV_Calo;
-                                EcalW3 = tempW_Calo;
+                                Eedep3[nml] = tempE_Calo;
+                                EcalU3[nml] = tempU_Calo;
+                                EcalV3[nml] = tempV_Calo;
+                                EcalW3[nml] = tempW_Calo;
                             }
-                            Eedep += tempE_Calo;
+                            Eedep[nml] += tempE_Calo;
                         }
                     }//end of EC
 
@@ -626,14 +629,15 @@ int main(int argc, char **argv){
                         auto tempZ_Cherenkov = c12.getBank(hdx_Cherenkov)->getFloat(hZ,ipa4);    
                         if (tempPnd_Cherenkov == ipa){
                             if (tempDet_Cherenkov == 15){ //HTCC
-                                Enphe = tempNphe_Cherenkov;
-                                EhtccX = tempX_Cherenkov;
-                                EhtccY = tempY_Cherenkov;
-                                EhtccZ = tempZ_Cherenkov;
+                                Enphe[nml] = tempNphe_Cherenkov;
+                                EhtccX[nml] = tempX_Cherenkov;
+                                EhtccY[nml] = tempY_Cherenkov;
+                                EhtccZ[nml] = tempZ_Cherenkov;
                             }
                         }
                     }//end of Cherenkov
-                    if (Estat<0) triggered = 1;
+                    if (Estat[nml]<0) triggered = 1;
+                    nml++;
                 }// end of electrons
                     
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 2212 ){  // protons
@@ -948,7 +952,7 @@ int main(int argc, char **argv){
                 helicityRaw = tempHR;
             }
 
-            bool condition = (nmb>0) && (nmg>0) && (nmG>0) && (triggered>0);
+            bool condition = (nmb>0) && (nmg>0) && (nmG>0) && (nml>0);
             if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nmG>0);
             if (mode == "ep") condition = (nmb>0);
             if (condition) T->Fill();
