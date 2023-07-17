@@ -61,7 +61,7 @@ int main(int argc, char **argv){
     Float_t GenEpz;
 
     // ==== positron =====
-    Int_t nmLBAR;
+    Int_t nmlbar;
     Float_t Ebarpx[100];
     Float_t Ebarpy[100];
     Float_t Ebarpz[100];
@@ -152,7 +152,7 @@ int main(int argc, char **argv){
 
             nmb=0;
             nmp=0;
-            nmLBAR=0;
+            nmlbar=0;
             nmLBAR=0;
             triggered = 0;
 
@@ -218,11 +218,11 @@ int main(int argc, char **argv){
 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
 
-                    Ebarpx[nmLBAR] = tPx;
-                    Ebarpy[nmLBAR] = tPy;
-                    Ebarpz[nmLBAR] = tPz;
+                    Ebarpx[nmlbar] = tPx;
+                    Ebarpy[nmlbar] = tPy;
+                    Ebarpz[nmlbar] = tPz;
 
-                    nmLBAR++;
+                    nmlbar++;
                 } // end of positrons
             } //end of REC::Particle
 

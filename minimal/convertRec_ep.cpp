@@ -63,7 +63,7 @@ int main(int argc, char **argv){
     Float_t GenEpz;
 
     Int_t nmp;
-    Int_t nmLBAR;
+    Int_t nmlbar;
     Int_t nmLBAR;
     Int_t GenPid[100];
 
@@ -102,7 +102,7 @@ int main(int argc, char **argv){
     T->Branch("nmp",&nmp,"nmp/I"); 
     T->Branch("GenPid",&GenPid,"GenPid[nmp]/I"); 
 
-    T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
+    T->Branch("nmlbar",&nmlbar,"nmlbar/I");
     T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
 
     //loop over files
@@ -147,7 +147,7 @@ int main(int argc, char **argv){
             nml=0;
             nmb=0;
             nmp=0;
-            nmLBAR=0;
+            nmlbar=0;
             nmLBAR=0;
             triggered = 0;
 
@@ -211,7 +211,7 @@ int main(int argc, char **argv){
                     nmb++;
                 } // end of protons                    
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
-                    nmLBAR++;
+                    nmlbar++;
                 }
             } //end of REC::Particle
 

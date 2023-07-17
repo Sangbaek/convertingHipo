@@ -57,6 +57,7 @@ int main(int argc, char **argv){
     Float_t Epx[100];
     Float_t Epy[100];
     Float_t Epz[100];
+    Int_t Epz[100];
 
     // ==== positron =====
     Int_t nmLBAR;
@@ -77,6 +78,7 @@ int main(int argc, char **argv){
     T->Branch("Epx",&Epx,"Epx[nml]/F");
     T->Branch("Epy",&Epy,"Epy[nml]/F");
     T->Branch("Epz",&Epz,"Epz[nml]/F");
+    T->Branch("Estat",&Estat,"Estat[nml]/I");
 
     // ===============    Positrons ==============    
     T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
