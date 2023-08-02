@@ -64,6 +64,8 @@ int main(int argc, char **argv){
 
     Int_t nmp;
     Int_t nmlbar;
+    Int_t nma;
+    Int_t nmc;
     Int_t nmLBAR;
     Int_t GenPid[100];
 
@@ -104,6 +106,8 @@ int main(int argc, char **argv){
 
     T->Branch("nmlbar",&nmlbar,"nmlbar/I");
     T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I");
+    T->Branch("nma",&nma,"nma/I");
+    T->Branch("nmc",&nmc,"nmc/I");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -127,6 +131,7 @@ int main(int argc, char **argv){
         auto iVx  = c12.getBankOrder(idx_RECPart,"vx");
         auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
         auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
+        auto iCharge  = c12.getBankOrder(idx_RECPart,"charge");
         auto iB  = c12.getBankOrder(idx_RECPart,"beta");
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
         auto iChi2pid = c12.getBankOrder(idx_RECPart,"chi2pid");
@@ -180,7 +185,9 @@ int main(int argc, char **argv){
             }
 
             // REC::Particle
-            for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
+
+            nma = c12.getBank(idx_RECPart)->getRows();
+            for(auto ipa=0;ipa<nma;ipa++){
 
                 auto tPx = c12.getBank(idx_RECPart)->getFloat(iPx,ipa);
                 auto tPy = c12.getBank(idx_RECPart)->getFloat(iPy,ipa);
@@ -188,9 +195,12 @@ int main(int argc, char **argv){
                 auto tVx = c12.getBank(idx_RECPart)->getFloat(iVx,ipa);
                 auto tVy = c12.getBank(idx_RECPart)->getFloat(iVy,ipa);
                 auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
+                auto tCharge = c12.getBank(idx_RECPart)->getInt(iCharge,ipa);
                 auto tB = c12.getBank(idx_RECPart)->getFloat(iB,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
+
+                if (tCharge != 0) nmc++;
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
                     Epx[nml] = tPx;

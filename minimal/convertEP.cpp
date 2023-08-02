@@ -61,6 +61,8 @@ int main(int argc, char **argv){
     Int_t Estat[100];
 
     Int_t nmlbar;
+    Int_t nma;
+    Int_t nmc;
 
     Int_t  triggered;
 
@@ -77,6 +79,9 @@ int main(int argc, char **argv){
     T->Branch("Epy",&Epy,"Epy[nml]/F");
     T->Branch("Epz",&Epz,"Epz[nml]/F");
     T->Branch("Estat",&Estat,"Estat[nml]/I");
+
+    T->Branch("nma",&nma,"nma/I");
+    T->Branch("nmc",&nmc,"nmc/I");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -119,6 +124,7 @@ int main(int argc, char **argv){
         auto iVx  = c12.getBankOrder(idx_RECPart,"vx");
         auto iVy  = c12.getBankOrder(idx_RECPart,"vy");
         auto iVz  = c12.getBankOrder(idx_RECPart,"vz");
+        auto iCharge  = c12.getBankOrder(idx_RECPart,"charge");
         auto iB  = c12.getBankOrder(idx_RECPart,"beta");
         auto iStat = c12.getBankOrder(idx_RECPart,"status");
         auto iChi2pid = c12.getBankOrder(idx_RECPart,"chi2pid");
@@ -130,9 +136,11 @@ int main(int argc, char **argv){
             nmb=0;
             nmlbar=0;
             triggered = 0;
+            nma = c12.getBank(idx_RECPart)->getRows();
+            nmc = 0;
 
             // REC::Particle
-            for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
+            for(auto ipa=0;ipa<nma;ipa++){
 
                 auto tPx = c12.getBank(idx_RECPart)->getFloat(iPx,ipa);
                 auto tPy = c12.getBank(idx_RECPart)->getFloat(iPy,ipa);
@@ -140,9 +148,12 @@ int main(int argc, char **argv){
                 auto tVx = c12.getBank(idx_RECPart)->getFloat(iVx,ipa);
                 auto tVy = c12.getBank(idx_RECPart)->getFloat(iVy,ipa);
                 auto tVz = c12.getBank(idx_RECPart)->getFloat(iVz,ipa);
+                auto tCharge = c12.getBank(idx_RECPart)->getInt(iCharge,ipa);
                 auto tB = c12.getBank(idx_RECPart)->getFloat(iB,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
+
+                if (tCharge != 0) nmc++;
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
                     Epx[nml] = tPx;
