@@ -154,6 +154,7 @@ int main(int argc, char **argv){
             nmp=0;
             nmlbar=0;
             nmLBAR=0;
+            nmc=0;
             triggered = 0;
 
             //MC::Particle
