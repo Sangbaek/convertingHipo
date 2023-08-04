@@ -57,6 +57,7 @@ int main(int argc, char **argv){
     Float_t Epy[100];
     Float_t Epz[100];
     Int_t Estat[100];
+    Int_t Epa[100];
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -95,6 +96,7 @@ int main(int argc, char **argv){
     T->Branch("Epy",&Epy,"Epy[nml]/F");
     T->Branch("Epz",&Epz,"Epz[nml]/F");
     T->Branch("Estat",&Estat,"Estat[nml]/I");
+    T->Branch("Epa",&Epa,"Epa[nml]/I");
 
     //=================  Logs =============
     T->Branch("beamQ",&beamQ,"beamQ/F");
@@ -222,6 +224,7 @@ int main(int argc, char **argv){
                     Epy[nml] = tPy;
                     Epz[nml] = tPz;
                     Estat[nml] = tStat;
+                    Epa[nml] = ipa
                     if (Estat[nml]<0) triggered = 1;
                     nml++;
                 }// end of electrons
