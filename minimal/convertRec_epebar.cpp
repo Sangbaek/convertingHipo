@@ -224,7 +224,7 @@ int main(int argc, char **argv){
                     Epy[nml] = tPy;
                     Epz[nml] = tPz;
                     Estat[nml] = tStat;
-                    Epa[nml] = ipa
+                    Epa[nml] = ipa;
                     if (Estat[nml]<0) triggered = 1;
                     nml++;
                 }// end of electrons
