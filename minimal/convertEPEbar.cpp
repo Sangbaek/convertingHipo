@@ -51,6 +51,7 @@ int main(int argc, char **argv){
     Float_t Ppx[100];
     Float_t Ppy[100];
     Float_t Ppz[100];
+    Int_t Pstat[100];
 
     // ==== electron =====
     Int_t nml;
@@ -75,6 +76,7 @@ int main(int argc, char **argv){
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
     T->Branch("Ppy",&Ppy,"Ppy[nmb]/F");
     T->Branch("Ppz",&Ppz,"Ppz[nmb]/F");
+    T->Branch("Pstat",&Pstat,"Pstat[nmb]/I");
 
     // ===============    Electrons ==============    
     T->Branch("nml",&nml,"nml/I");
@@ -166,6 +168,7 @@ int main(int argc, char **argv){
                     Epx[nml] = tPx;
                     Epy[nml] = tPy;
                     Epz[nml] = tPz;
+                    Estat[nml] = tStat;
                     if (Estat[nml]<0) triggered = 1;
                     nml++;
                 }// end of electrons
@@ -175,6 +178,7 @@ int main(int argc, char **argv){
                     Ppx[nmb] = tPx;
                     Ppy[nmb] = tPy;
                     Ppz[nmb] = tPz;
+                    Pstat[nmb] = tStat;
 
                     nmb++;
                 } // end of protons
