@@ -106,7 +106,12 @@ int main(int argc, char **argv){
     T->Branch("helicity",&helicity,"helicity/I");
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
 
-    T->Branch("nmp",&nmp,"nmp/I");
+    // ===============    Positrons ==============    
+    T->Branch("nmlbar",&nmlbar,"nmlbar/I");
+    T->Branch("Ebarpx",&Ebarpx,"Ebarpx[nmlbar]/F");
+    T->Branch("Ebarpy",&Ebarpy,"Ebarpy[nmlbar]/F");
+    T->Branch("Ebarpz",&Ebarpz,"Ebarpz[nmlbar]/F");
+    T->Branch("nma",&nma,"nma/I");
     T->Branch("nmc",&nmc,"nmc/I");
 
     // MC bank
@@ -116,6 +121,7 @@ int main(int argc, char **argv){
     T->Branch("GenPpx",&GenPpx,"GenPpx/F");
     T->Branch("GenPpy",&GenPpy,"GenPpy/F");
     T->Branch("GenPpz",&GenPpz,"GenPpz/F");
+    T->Branch("nmLBAR",&nmLBAR,"nmLBAR/I"); 
     T->Branch("GenEbarpx",&GenEbarpx,"GenEbarpx[nmLBAR]/F");
     T->Branch("GenEbarpy",&GenEbarpy,"GenEbarpy[nmLBAR]/F");
     T->Branch("GenEbarpz",&GenEbarpz,"GenEbarpz[nmLBAR]/F");
