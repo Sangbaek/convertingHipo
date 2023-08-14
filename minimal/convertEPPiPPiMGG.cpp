@@ -27,7 +27,7 @@ int main(int argc, char **argv){
         chain.Add(File);    
     }
 
-    TString mode = "epebar";
+    TString mode = "eppippimgg";
     TString ext = ".root";
     if (argc==2) mode = argv[1];
     std::cout<<"The mode is "<<mode<<"."<<std::endl;
