@@ -226,7 +226,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nmb>0) && (nml>0);
+            bool condition = (nmlbar>0) && (nml>0);
             if (condition) T->Fill();
 
         }
