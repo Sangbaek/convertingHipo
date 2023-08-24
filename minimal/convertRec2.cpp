@@ -113,6 +113,7 @@ int main(int argc, char **argv){
     Float_t Evz[100];
     Int_t Estat[100];
     Int_t Esector[100];
+    Int_t Epa[100];
     Float_t EDc1Hitx[100];
     Float_t EDc1Hity[100];
     Float_t EDc1Hitz[100];
@@ -273,6 +274,7 @@ int main(int argc, char **argv){
     T->Branch("Evz",&Evz,"Evz[nml]/F");
     T->Branch("Estat",&Estat,"Estat[nml]/I");
     T->Branch("Esector",&Esector,"Esector[nml]/I");
+    T->Branch("Epa",&Epa,"Epa[nml]/I");
     T->Branch("EDc1Hitx",&EDc1Hitx,"EDc1Hitx[nml]/F");
     T->Branch("EDc1Hity",&EDc1Hity,"EDc1Hity[nml]/F");
     T->Branch("EDc1Hitz",&EDc1Hitz,"EDc1Hitz[nml]/F");
@@ -595,6 +597,7 @@ int main(int argc, char **argv){
                     Evy[nml] = tVy;
                     Evz[nml] = tVz;
                     Estat[nml] = tStat;
+                    Epa[nml] = ipa;
                     Esector[nml] = PcalSector;
                     EDc1Hitx[nml] = -100000;
                     EDc1Hity[nml] = -100000;
