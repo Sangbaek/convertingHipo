@@ -117,6 +117,11 @@ int main(int argc, char **argv){
     T->Branch("Pimpy",&Pimpy,"Pimpy[nmpim]/F");
     T->Branch("Pimpz",&Pimpz,"Pimpz[nmpim]/F");
 
+    // ===============    Positrons ==============    
+    T->Branch("nmlbar",&nmlbar,"nmlbar/I");
+    T->Branch("Ebarpx",&Ebarpx,"Ebarpx[nmlbar]/F");
+    T->Branch("Ebarpy",&Ebarpy,"Ebarpy[nmlbar]/F");
+    T->Branch("Ebarpz",&Ebarpz,"Ebarpz[nmlbar]/F");
 
     T->Branch("nma",&nma,"nma/I");
     T->Branch("nmc",&nmc,"nmc/I");
@@ -177,6 +182,7 @@ int main(int argc, char **argv){
             nmg = 0;
             nmpip=0;
             nmpim=0;
+            nmlbar=0;
 
             // REC::Particle
             for(auto ipa=0;ipa<nma;ipa++){
@@ -213,6 +219,15 @@ int main(int argc, char **argv){
 
                     nmb++;
                 } // end of protons
+
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -11 ){  // positrons
+
+                    Ebarpx[nmlbar] = tPx;
+                    Ebarpy[nmlbar] = tPy;
+                    Ebarpz[nmlbar] = tPz;
+
+                    nmlbar++;
+                } // end of positrons
 
                 if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 22  ){  // photons
 
@@ -273,7 +288,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nmg>1) && (nmpip>0) && (nmpim>0);
+            bool condition = (nmb>0);
             if (condition) T->Fill();
 
         }
