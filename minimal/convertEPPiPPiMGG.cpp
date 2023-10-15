@@ -79,6 +79,12 @@ int main(int argc, char **argv){
     Float_t Pimpy[100];
     Float_t Pimpz[100];
 
+    // ==== positron =====
+    Int_t nmlbar;
+    Float_t Ebarpx[100];
+    Float_t Ebarpy[100];
+    Float_t Ebarpz[100];
+
     Int_t nma;
     Int_t nmc;
 
