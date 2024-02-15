@@ -203,7 +203,8 @@ int main(int argc, char **argv){
     Long_t EventNumPre;
     Long_t EventNumCur;
 
-    Int_t  triggered;
+    Int_t  electron_triggered;
+    Long_t  TriggerPid;
 
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
@@ -336,6 +337,7 @@ int main(int argc, char **argv){
     T->Branch("RFTime",&RFTime,"RFTime/F");
     T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("helicityRaw",&helicityRaw,"helicityRaw/I");
+    T->Branch("TriggerPid",&TriggerPid,"TriggerPid/I");
 
 
     // MC bank
@@ -502,7 +504,7 @@ int main(int argc, char **argv){
             nmb=0;
             nmg=0;
             nmG=0;
-            triggered = 0;
+            electron_triggered = 0;
 
             //MC::Particle
             for(auto ipa=0;ipa<c12.getBank(idx_GenPart)->getRows();ipa++){
@@ -588,6 +590,8 @@ int main(int argc, char **argv){
                 auto tB = c12.getBank(idx_RECPart)->getFloat(iB,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
+
+                if (tStat<0) TriggerPid = c12.getBank(idx_RECPart)->getInt(iPid,ipa);
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
                     Epx[nml] = tPx;
@@ -707,7 +711,7 @@ int main(int argc, char **argv){
                             }
                         }
                     }//end of Cherenkov
-                    if (Estat[nml]<0) triggered = 1;
+                    if (Estat[nml]<0) electron_triggered = 1;
                     nml++;
                 }// end of electrons
                     

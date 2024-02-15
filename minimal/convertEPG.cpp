@@ -45,6 +45,7 @@ int main(int argc, char **argv){
     Long_t  EventNum;
     Long_t  RunNum;
     Long_t  TriggerBit;
+    Long_t  TriggerPid;
 
     // =====  proton =====
     Int_t nmb;
@@ -175,7 +176,7 @@ int main(int argc, char **argv){
     Int_t Ftof1bSector;
     Int_t Ftof2Sector;
 
-    Int_t  triggered;
+    Int_t  electron_triggered;
 
  ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
@@ -312,6 +313,7 @@ int main(int argc, char **argv){
     T->Branch("EventNum",&EventNum,"EventNum/L");
     T->Branch("RunNum",&RunNum,"RunNum/L");
     T->Branch("TriggerBit",&TriggerBit,"TriggerBit/L");
+    T->Branch("TriggerPid",&TriggerPid,"TriggerPid/I");
 
     //loop over files
     for(int ifile=0; ifile<chain.GetNFiles();++ifile){
@@ -423,7 +425,7 @@ int main(int argc, char **argv){
             nml=0;
             nmb=0;
             nmg=0;
-            triggered = 0;
+            electron_triggered = 0;
 
             // REC::Particle
             for(auto ipa=0;ipa<c12.getBank(idx_RECPart)->getRows();ipa++){
@@ -437,6 +439,8 @@ int main(int argc, char **argv){
                 auto tB = c12.getBank(idx_RECPart)->getFloat(iB,ipa);
                 auto tStat = c12.getBank(idx_RECPart)->getInt(iStat,ipa);
                 auto tChi2pid = c12.getBank(idx_RECPart)->getFloat(iChi2pid,ipa);
+
+                if (tStat<0) TriggerPid = c12.getBank(idx_RECPart)->getInt(iPid,ipa);
 
                 if( (c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 11  ){  // electrons
                     Epx[nml] = tPx;
@@ -555,7 +559,7 @@ int main(int argc, char **argv){
                             }
                         }
                     }//end of Cherenkov
-                    if (Estat[nml]<0) triggered = 1; // triggered by electrons
+                    if (Estat[nml]<0) electron_triggered = 1; // triggered by electrons
                     nml++;
                 }// end of electrons
                     
@@ -884,7 +888,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nml>0) && (nmb>0) && (nmg>0) && (nml>0);
+            bool condition = (nmb>0) && (nmg>0) && (nml>0);
             if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nml>0);
             if (mode == "elas") condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();
