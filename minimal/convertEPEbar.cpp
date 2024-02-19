@@ -235,7 +235,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nml*nmb>0) || (nml*nmlbar>0); // if ep or e+e-
+            bool condition = ((electron_triggered + positron_triggered)*nml*nmb>0) || ((electron_triggered + positron_triggered)*nml*nmlbar>0); // if ep or e+e- when electron/positron triggered
             if (condition) T->Fill();
 
         }
