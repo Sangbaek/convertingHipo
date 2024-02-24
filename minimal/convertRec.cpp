@@ -959,7 +959,7 @@ int main(int argc, char **argv){
                 helicityRaw = tempHR;
             }
 
-            bool condition = (nmb>0) && (nmg>0) && (nmG>0) && (nml>0);
+            bool condition = (electron_triggered>0) && (nmb>0) && (nmg>0) && (nmG>0) && (nml>0);
             if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nmG>0) && (nml>0);
             if (mode == "ep") condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();

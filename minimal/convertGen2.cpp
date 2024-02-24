@@ -67,6 +67,8 @@ int main(int argc, char **argv){
     Float_t GenPtheta;
     Float_t GenGtheta;
 
+    Float_t beamEnergy;
+
 // ===============    xB ==============    
     T->Branch("GenxB",&GenxB,"GenxB/F");
     T->Branch("GenQ2",&GenQ2,"GenQ2/F");
@@ -78,6 +80,7 @@ int main(int argc, char **argv){
     T->Branch("helicity",&helicity,"helicity/F");
     T->Branch("crossRef",&crossRef,"crossRef/L");
     T->Branch("config",&config,"config/L");
+    T->Branch("beamEnergy",&beamEnergy,"beamEnergy/F");
     // T->Branch("coneAngle",&coneAngle,"coneAngle/F");
   //
   //loop over files
@@ -177,7 +180,8 @@ int main(int argc, char **argv){
                   // Genphi = (M_PI-tLifetime)*180.0/M_PI;
                 Genphi = 180.0*tLifetime/3.1415926536;
               }
-              if( ipa == 2 ){  // protons
+              if( ipa == 2 ){  // photons
+                  beamEnergy = tLifetime;
                   BornWeight = tMass;
               }
               nmG++;

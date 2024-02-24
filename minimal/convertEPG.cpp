@@ -888,7 +888,7 @@ int main(int argc, char **argv){
                 TriggerBit = tempT;
             }
 
-            bool condition = (nmb>0) && (nmg>0) && (nml>0);
+            bool condition = (electron_triggered>0) && (nmb>0) && (nmg>0) && (nml>0);
             if (mode == "pi0") condition = (nmb>0) && (nmg>1) && (nml>0);
             if (mode == "elas") condition = (nmb>0) && (nml>0);
             if (condition) T->Fill();
