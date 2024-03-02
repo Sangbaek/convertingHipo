@@ -206,6 +206,8 @@ int main(int argc, char **argv){
     Int_t  electron_triggered;
     Long_t  TriggerPid;
 
+    Float_t beamEnergy;
+
     ///   protons ================================== 
     T->Branch("nmb",&nmb,"nmb/I");
     T->Branch("Ppx",&Ppx,"Ppx[nmb]/F");
@@ -365,6 +367,7 @@ int main(int argc, char **argv){
     T->Branch("GenWeight",&GenWeight,"GenWeight/F");
     T->Branch("BornWeight",&BornWeight,"BornWeight/F");
     T->Branch("radMode",&radMode,"radMode/I");
+    T->Branch("beamEnergy",&beamEnergy,"beamEnergy/F");
 
     T->Branch("crossRef",&crossRef,"crossRef/L");
 
@@ -564,6 +567,7 @@ int main(int argc, char **argv){
                 }
                 if( ipa == 2 ){  // protons
                     BornWeight = tMass;
+                    beamEnergy = tLifetime;
                 }
 
             }
