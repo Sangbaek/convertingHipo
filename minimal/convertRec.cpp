@@ -57,6 +57,7 @@ int main(int argc, char **argv){
     Float_t PFtof1aTime[100];
     Float_t PFtof1aPath[100];
     Int_t PFtof1bSector[100];
+    Int_t PFtof1bComponent[100];
     Float_t PFtof1bHitx[100];
     Float_t PFtof1bHity[100];
     Float_t PFtof1bHitz[100];
@@ -130,12 +131,20 @@ int main(int argc, char **argv){
     Float_t EcalU1[100];
     Float_t EcalV1[100];
     Float_t EcalW1[100];
+    Float_t EcalHx1[100];
+    Float_t EcalHy1[100];
     Float_t EcalU2[100];
     Float_t EcalV2[100];
     Float_t EcalW2[100];
+    Float_t EcalHx2[100];
+    Float_t EcalHy2[100];
     Float_t EcalU3[100];
     Float_t EcalV3[100];
     Float_t EcalW3[100];
+    Float_t EcalHx3[100];
+    Float_t EcalHy3[100];
+    Int_t EFtof1bComponent[100];
+    Int_t EFtof1bSector[100];
 
     Float_t Enphe[100];
     Float_t EhtccX[100];
@@ -168,12 +177,18 @@ int main(int argc, char **argv){
     Float_t GcalU1[100];
     Float_t GcalV1[100];
     Float_t GcalW1[100];
+    Float_t GcalHx1[100];
+    Float_t GcalHy1[100];
     Float_t GcalU2[100];
     Float_t GcalV2[100];
     Float_t GcalW2[100];
+    Float_t GcalHx2[100];
+    Float_t GcalHy2[100];
     Float_t GcalU3[100];
     Float_t GcalV3[100];
     Float_t GcalW3[100];
+    Float_t GcalHx3[100];
+    Float_t GcalHy3[100];
 
     Int_t nmG;
     Float_t GenGpx[100];
@@ -212,6 +227,7 @@ int main(int argc, char **argv){
     T->Branch("PFtof1aTime",&PFtof1aTime,"PFtof1aTime[nmb]/F");
     T->Branch("PFtof1aPath",&PFtof1aPath,"PFtof1aPath[nmb]/F");
     T->Branch("PFtof1bSector",&PFtof1bSector,"PFtof1bSector[nmb]/I");
+    T->Branch("PFtof1bComponent",&PFtof1bComponent,"PFtof1bComponent[nmb]/I");
     T->Branch("PFtof1bHitx",&PFtof1bHitx,"PFtof1bHitx[nmb]/F");
     T->Branch("PFtof1bHity",&PFtof1bHity,"PFtof1bHity[nmb]/F");
     T->Branch("PFtof1bHitz",&PFtof1bHitz,"PFtof1bHitz[nmb]/F");
@@ -282,17 +298,26 @@ int main(int argc, char **argv){
     T->Branch("EcalU1",&EcalU1,"EcalU1[nml]/F");
     T->Branch("EcalV1",&EcalV1,"EcalV1[nml]/F");
     T->Branch("EcalW1",&EcalW1,"EcalW1[nml]/F");
+    T->Branch("EcalHx1",&EcalHx1,"EcalHx1[nml]/F");
+    T->Branch("EcalHy1",&EcalHy1,"EcalHy1[nml]/F");
     T->Branch("EcalU2",&EcalU2,"EcalU2[nml]/F");
     T->Branch("EcalV2",&EcalV2,"EcalV2[nml]/F");
     T->Branch("EcalW2",&EcalW2,"EcalW2[nml]/F");
+    T->Branch("EcalHx2",&EcalHx2,"EcalHx2[nml]/F");
+    T->Branch("EcalHy2",&EcalHy2,"EcalHy2[nml]/F");
     T->Branch("EcalU3",&EcalU3,"EcalU3[nml]/F");
     T->Branch("EcalV3",&EcalV3,"EcalV3[nml]/F");
     T->Branch("EcalW3",&EcalW3,"EcalW3[nml]/F");
+    T->Branch("EcalHx3",&EcalHx3,"EcalHx3[nml]/F");
+    T->Branch("EcalHy3",&EcalHy3,"EcalHy3[nml]/F");
 
     T->Branch("Enphe",&Enphe,"Enphe[nml]/F");
     T->Branch("EhtccX",&EhtccX,"EhtccX[nml]/F");
     T->Branch("EhtccY",&EhtccY,"EhtccY[nml]/F");
     T->Branch("EhtccZ",&EhtccZ,"EhtccZ[nml]/F");
+
+    T->Branch("EFtof1bSector",&EFtof1bSector,"EFtof1bSector[nml]/I");
+    T->Branch("EFtof1bComponent",&EFtof1bComponent,"EFtof1bComponent[nml]/I");
 
     // ================   Gamma  ===============    
     T->Branch("nmg",&nmg,"nmg/I");
@@ -311,12 +336,18 @@ int main(int argc, char **argv){
     T->Branch("GcalU1",&GcalU1,"GcalU1[nmg]/F");
     T->Branch("GcalV1",&GcalV1,"GcalV1[nmg]/F");
     T->Branch("GcalW1",&GcalW1,"GcalW1[nmg]/F");
+    T->Branch("GcalHx1",&GcalHx1,"GcalHx1[nmg]/F");
+    T->Branch("GcalHy1",&GcalHy1,"GcalHy1[nmg]/F");
     T->Branch("GcalU2",&GcalU2,"GcalU2[nmg]/F");
     T->Branch("GcalV2",&GcalV2,"GcalV2[nmg]/F");
     T->Branch("GcalW2",&GcalW2,"GcalW2[nmg]/F");
+    T->Branch("GcalHx2",&GcalHx2,"GcalHx2[nmg]/F");
+    T->Branch("GcalHy2",&GcalHy2,"GcalHy2[nmg]/F");
     T->Branch("GcalU3",&GcalU3,"GcalU3[nmg]/F");
     T->Branch("GcalV3",&GcalV3,"GcalV3[nmg]/F");
     T->Branch("GcalW3",&GcalW3,"GcalW3[nmg]/F");
+    T->Branch("GcalHx3",&GcalHx3,"GcalHx3[nmg]/F");
+    T->Branch("GcalHy3",&GcalHy3,"GcalHy3[nmg]/F");
     T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
     T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
@@ -551,12 +582,37 @@ int main(int argc, char **argv){
                     EcalU1[nml] = 0;
                     EcalV1[nml] = 0;
                     EcalW1[nml] = 0;
+                    EcalHx1[nml] = -100000;
+                    EcalHy1[nml] = -100000;
+                    EcalV1[nml] = 0;
                     EcalU2[nml] = 0;
                     EcalV2[nml] = 0;
+                    EcalHx2[nml] = -100000;
+                    EcalHy2[nml] = -100000;
                     EcalW2[nml] = 0;
                     EcalU3[nml] = 0;
                     EcalV3[nml] = 0;
                     EcalW3[nml] = 0;
+                    EcalHx3[nml] = -100000;
+                    EcalHy3[nml] = -100000;
+
+                    // FTOF Bank (REC::Scintillator)
+                    // Scintillaror Bank        //
+                    for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
+                        auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPindex,ipa1);
+                        auto tempDet = c12.getBank(idx_RECScint)->getInt(jDet,ipa1);    
+                        auto tempComp = c12.getBank(idx_RECScint)->getInt(jComp,ipa1);    
+                        auto tempSec = c12.getBank(idx_RECScint)->getInt(jSec,ipa1);    
+                        auto tempLay = c12.getBank(idx_RECScint)->getInt(jLay,ipa1); 
+                        if (tempPnd == ipa){
+                            if (tempDet == 12 ){// ftof{
+                                if (tempLay == 2){
+                                    EFtof1bComponent[nml]     = tempComp;
+                                    EFtof1bSector[nml]        = tempSec;
+                                }
+                            }
+                        }
+                    } //end of TOF
 
                     // DC Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
@@ -602,12 +658,16 @@ int main(int argc, char **argv){
                         auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa3); 
                         auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa3); 
                         auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa3); 
+                        auto tempHx_Calo = c12.getBank(mdx_Calo)->getFloat(mhx,ipa3); 
+                        auto tempHy_Calo = c12.getBank(mdx_Calo)->getFloat(mhy,ipa3); 
                         if (tempPnd_Calo == ipa){
                             if (tempLay_Calo == 1){ 
                                 Eedep1[nml] = tempE_Calo;
                                 EcalU1[nml] = tempU_Calo;
                                 EcalV1[nml] = tempV_Calo;
                                 EcalW1[nml] = tempW_Calo;
+                                EcalHx1[nml] = tempHx_Calo;
+                                EcalHy1[nml] = tempHy_Calo;
                                 Esector[nml] = tempSec_Calo;
                             }
                             if (tempLay_Calo == 4){
@@ -615,12 +675,16 @@ int main(int argc, char **argv){
                                 EcalU2[nml] = tempU_Calo;
                                 EcalV2[nml] = tempV_Calo;
                                 EcalW2[nml] = tempW_Calo;
+                                EcalHx2[nml] = tempHx_Calo;
+                                EcalHy2[nml] = tempHy_Calo;
                             }
                             if (tempLay_Calo == 7){
                                 Eedep3[nml] = tempE_Calo;
                                 EcalU3[nml] = tempU_Calo;
                                 EcalV3[nml] = tempV_Calo;
                                 EcalW3[nml] = tempW_Calo;
+                                EcalHx3[nml] = tempHx_Calo;
+                                EcalHy3[nml] = tempHy_Calo;
                             }
                             Eedep[nml] += tempE_Calo;
                         }
@@ -737,6 +801,7 @@ int main(int argc, char **argv){
                                     PFtof1bHitz[nmb] = tempZ;
                                     PFtof1bTime[nmb] = tempTim;
                                     PFtof1bPath[nmb] = tempPat;
+                                    PFtof1bComponent[nmb] = tempComp;
                                 }
                                 if (tempLay == 3){
                                     Ftof2Sector     = tempSec;
@@ -862,12 +927,18 @@ int main(int argc, char **argv){
                     GcalU1[nmg] = 0;
                     GcalV1[nmg] = 0;
                     GcalW1[nmg] = 0;
+                    GcalHx1[nmg] = -100000;
+                    GcalHy1[nmg] = -100000;
                     GcalU2[nmg] = 0;
                     GcalV2[nmg] = 0;
                     GcalW2[nmg] = 0;
+                    GcalHx2[nmg] = -100000;
+                    GcalHy2[nmg] = -100000;
                     GcalU3[nmg] = 0;
                     GcalV3[nmg] = 0;
                     GcalW3[nmg] = 0;
+                    GcalHx3[nmg] = -100000;
+                    GcalHy3[nmg] = -100000;
                     Gtime[nmg] = 0;
                     Gpath[nmg] = 0;
 
@@ -886,12 +957,16 @@ int main(int argc, char **argv){
                         auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa2); 
                         auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa2); 
                         auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa2); 
+                        auto tempHx_Calo = c12.getBank(mdx_Calo)->getFloat(mhx,ipa2); 
+                        auto tempHy_Calo = c12.getBank(mdx_Calo)->getFloat(mhy,ipa2); 
 
                         if (tempPnd_Calo == ipa){
                             if (tempLay_Calo == 1) {
                                 Gedep1[nmg] = tempE_Calo;
                                 GcX[nmg] = tempX_Calo;
                                 GcY[nmg] = tempY_Calo;
+                                GcalHx1[nmg] = tempHx_Calo;
+                                GcalHy1[nmg] = tempHy_Calo;
                                 GcalU1[nmg] = tempU_Calo;
                                 GcalV1[nmg] = tempV_Calo;
                                 GcalW1[nmg] = tempW_Calo;
@@ -904,12 +979,16 @@ int main(int argc, char **argv){
                                 GcalU2[nmg] = tempU_Calo;
                                 GcalV2[nmg] = tempV_Calo;
                                 GcalW2[nmg] = tempW_Calo;
+                                GcalHx2[nmg] = tempHx_Calo;
+                                GcalHy2[nmg] = tempHy_Calo;
                             }
                             if (tempLay_Calo == 7) {
                                 Gedep3[nmg] = tempE_Calo;
                                 GcalU3[nmg] = tempU_Calo;
                                 GcalV3[nmg] = tempV_Calo;
                                 GcalW3[nmg] = tempW_Calo;
+                                GcalHx3[nmg] = tempHx_Calo;
+                                GcalHy3[nmg] = tempHy_Calo;
                             }
                             Gedep[nmg] += tempE_Calo;
                         }

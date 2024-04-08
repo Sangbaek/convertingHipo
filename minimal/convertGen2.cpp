@@ -152,8 +152,8 @@ int main(int argc, char **argv){
           GenPtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenPpx*GenPpx+GenPpy*GenPpy),GenPpz);
           GenGtheta = (180.0/TMath::Pi())*TMath::ATan2(TMath::Sqrt(GenGpx*GenGpx+GenGpy*GenGpy),GenGpz);
 
-          if (GenPtheta<40 && GenGtheta<5) config = 0; // FDFT
-          else if (GenPtheta<40 && (GenGtheta>=5)) config = 1; //FDFD
+          if ((GenPtheta<40) && (GenGtheta<5)) config = 0; // FDFT
+          else if ((GenPtheta<40) && (GenGtheta>=5)) config = 1; //FDFD
           else if (GenPtheta>=40 && (GenGtheta>=5)) config = 2; //CDFD
           else if ((GenPtheta>=40) && (GenGtheta<5)) config = 3; //CDFT
           else config = -1;//errorneous bit
