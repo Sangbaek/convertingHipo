@@ -455,6 +455,8 @@ int main(int argc, char **argv){
         auto mx = c12.getBankOrder(mdx_Calo,"x");
         auto my = c12.getBankOrder(mdx_Calo,"y");
         auto mz = c12.getBankOrder(mdx_Calo,"z");
+        auto mhx = c12.getBankOrder(mdx_Calo,"hx");
+        auto mhy = c12.getBankOrder(mdx_Calo,"hy");
         auto mu = c12.getBankOrder(mdx_Calo,"lu");
         auto mv = c12.getBankOrder(mdx_Calo,"lv");
         auto mw = c12.getBankOrder(mdx_Calo,"lw");
