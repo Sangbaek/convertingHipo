@@ -424,6 +424,7 @@ int main(int argc, char **argv){
         auto idx_RECScint = c12.addBank("REC::Scintillator");
         auto jPindex = c12.getBankOrder(idx_RECScint,"pindex");
         auto jDet = c12.getBankOrder(idx_RECScint,"detector");
+        auto jComp = c12.getBankOrder(idx_RECScint,"component");
         auto jSec = c12.getBankOrder(idx_RECScint,"sector");
         auto jLay = c12.getBankOrder(idx_RECScint,"layer");
         auto jTim = c12.getBankOrder(idx_RECScint,"time");
