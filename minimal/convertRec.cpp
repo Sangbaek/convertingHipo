@@ -777,6 +777,7 @@ int main(int argc, char **argv){
 
                         auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPindex,ipa1);
                         auto tempDet = c12.getBank(idx_RECScint)->getInt(jDet,ipa1);    
+                        auto tempComp = c12.getBank(idx_RECScint)->getInt(jComp,ipa1);    
                         auto tempSec = c12.getBank(idx_RECScint)->getInt(jSec,ipa1);    
                         auto tempLay = c12.getBank(idx_RECScint)->getInt(jLay,ipa1); 
                         auto tempTim = c12.getBank(idx_RECScint)->getFloat(jTim,ipa1); 
