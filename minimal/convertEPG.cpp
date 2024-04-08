@@ -63,6 +63,7 @@ int main(int argc, char **argv){
     Float_t PFtof1aTime[100];
     Float_t PFtof1aPath[100];
     Int_t PFtof1bSector[100];
+    Int_t PFtof1bComponent[100];
     Float_t PFtof1bHitx[100];
     Float_t PFtof1bHity[100];
     Float_t PFtof1bHitz[100];
@@ -139,6 +140,8 @@ int main(int argc, char **argv){
     Float_t EcalU3[100];
     Float_t EcalV3[100];
     Float_t EcalW3[100];
+    Int_t EFtof1bComponent[100];
+    Int_t EFtof1bSector[100];
 
     Float_t Enphe[100];
     Float_t EhtccX[100];
@@ -194,6 +197,7 @@ int main(int argc, char **argv){
     T->Branch("PFtof1aTime",&PFtof1aTime,"PFtof1aTime[nmb]/F");
     T->Branch("PFtof1aPath",&PFtof1aPath,"PFtof1aPath[nmb]/F");
     T->Branch("PFtof1bSector",&PFtof1bSector,"PFtof1bSector[nmb]/I");
+    T->Branch("PFtof1bComponent",&PFtof1bComponent,"PFtof1bComponent[nmb]/I");
     T->Branch("PFtof1bHitx",&PFtof1bHitx,"PFtof1bHitx[nmb]/F");
     T->Branch("PFtof1bHity",&PFtof1bHity,"PFtof1bHity[nmb]/F");
     T->Branch("PFtof1bHitz",&PFtof1bHitz,"PFtof1bHitz[nmb]/F");
@@ -276,6 +280,9 @@ int main(int argc, char **argv){
     T->Branch("EhtccX",&EhtccX,"EhtccX[nml]/F");
     T->Branch("EhtccY",&EhtccY,"EhtccY[nml]/F");
     T->Branch("EhtccZ",&EhtccZ,"EhtccZ[nml]/F");
+
+    T->Branch("EFtof1bSector",&EFtof1bSector,"EFtof1bSector[nml]/I");
+    T->Branch("EFtof1bComponent",&EFtof1bComponent,"EFtof1bComponent[nml]/I");
 
     // ================   Gamma  ===============    
     T->Branch("nmg",&nmg,"nmg/I");
@@ -362,6 +369,7 @@ int main(int argc, char **argv){
         auto idx_RECScint = c12.addBank("REC::Scintillator");
         auto jPindex = c12.getBankOrder(idx_RECScint,"pindex");
         auto jDet = c12.getBankOrder(idx_RECScint,"detector");
+        auto jComp = c12.getBankOrder(idx_RECScint,"component");
         auto jSec = c12.getBankOrder(idx_RECScint,"sector");
         auto jLay = c12.getBankOrder(idx_RECScint,"layer");
         auto jTim = c12.getBankOrder(idx_RECScint,"time");
@@ -473,6 +481,24 @@ int main(int argc, char **argv){
                     EcalU3[nml] = 0;
                     EcalV3[nml] = 0;
                     EcalW3[nml] = 0;
+
+                    // FTOF Bank (REC::Scintillator)
+                    // Scintillaror Bank        //
+                    for(auto ipa1 = 0; ipa1<c12.getBank(idx_RECScint)->getRows();ipa1++){
+                        auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPindex,ipa1);
+                        auto tempDet = c12.getBank(idx_RECScint)->getInt(jDet,ipa1);    
+                        auto tempComp = c12.getBank(idx_RECScint)->getInt(jComp,ipa1);    
+                        auto tempSec = c12.getBank(idx_RECScint)->getInt(jSec,ipa1);    
+                        auto tempLay = c12.getBank(idx_RECScint)->getInt(jLay,ipa1); 
+                        if (tempPnd == ipa){
+                            if (tempDet == 12 ){// ftof{
+                                if (tempLay == 2){
+                                    EFtof1bComponent[nml]     = tempComp;
+                                    EFtof1bSector[nml]        = tempSec;
+                                }
+                            }
+                        }
+                    } //end of TOF
 
                     // DC Bank (REC::Traj)        //
                     for(auto ipa2 = 0; ipa2<c12.getBank(idx_Traj)->getRows();ipa2++){
@@ -626,6 +652,7 @@ int main(int argc, char **argv){
 
                         auto tempPnd = c12.getBank(idx_RECScint)->getInt(jPindex,ipa1);
                         auto tempDet = c12.getBank(idx_RECScint)->getInt(jDet,ipa1);    
+                        auto tempComp = c12.getBank(idx_RECScint)->getInt(jComp,ipa1);    
                         auto tempSec = c12.getBank(idx_RECScint)->getInt(jSec,ipa1);    
                         auto tempLay = c12.getBank(idx_RECScint)->getInt(jLay,ipa1); 
                         auto tempTim = c12.getBank(idx_RECScint)->getFloat(jTim,ipa1); 
@@ -653,6 +680,7 @@ int main(int argc, char **argv){
                                     PFtof1bHitz[nmb] = tempZ;
                                     PFtof1bTime[nmb] = tempTim;
                                     PFtof1bPath[nmb] = tempPat;
+                                    PFtof1bComponent[nmb] = tempComp;
                                 }
                                 if (tempLay == 3){
                                     Ftof2Sector     = tempSec;
