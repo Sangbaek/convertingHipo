@@ -177,18 +177,18 @@ int main(int argc, char **argv){
     Float_t GcalU1[100];
     Float_t GcalV1[100];
     Float_t GcalW1[100];
-    Float_t GcalHx1[100];
-    Float_t GcalHy1[100];
+    Float_t GcalX1[100];
+    Float_t GcalY1[100];
     Float_t GcalU2[100];
     Float_t GcalV2[100];
     Float_t GcalW2[100];
-    Float_t GcalHx2[100];
-    Float_t GcalHy2[100];
+    Float_t GcalX2[100];
+    Float_t GcalY2[100];
     Float_t GcalU3[100];
     Float_t GcalV3[100];
     Float_t GcalW3[100];
-    Float_t GcalHx3[100];
-    Float_t GcalHy3[100];
+    Float_t GcalX3[100];
+    Float_t GcalY3[100];
 
     Int_t nmG;
     Float_t GenGpx[100];
@@ -336,18 +336,18 @@ int main(int argc, char **argv){
     T->Branch("GcalU1",&GcalU1,"GcalU1[nmg]/F");
     T->Branch("GcalV1",&GcalV1,"GcalV1[nmg]/F");
     T->Branch("GcalW1",&GcalW1,"GcalW1[nmg]/F");
-    T->Branch("GcalHx1",&GcalHx1,"GcalHx1[nmg]/F");
-    T->Branch("GcalHy1",&GcalHy1,"GcalHy1[nmg]/F");
+    T->Branch("GcalX1",&GcalX1,"GcalX1[nmg]/F");
+    T->Branch("GcalY1",&GcalY1,"GcalY1[nmg]/F");
     T->Branch("GcalU2",&GcalU2,"GcalU2[nmg]/F");
     T->Branch("GcalV2",&GcalV2,"GcalV2[nmg]/F");
     T->Branch("GcalW2",&GcalW2,"GcalW2[nmg]/F");
-    T->Branch("GcalHx2",&GcalHx2,"GcalHx2[nmg]/F");
-    T->Branch("GcalHy2",&GcalHy2,"GcalHy2[nmg]/F");
+    T->Branch("GcalX2",&GcalX2,"GcalX2[nmg]/F");
+    T->Branch("GcalY2",&GcalY2,"GcalY2[nmg]/F");
     T->Branch("GcalU3",&GcalU3,"GcalU3[nmg]/F");
     T->Branch("GcalV3",&GcalV3,"GcalV3[nmg]/F");
     T->Branch("GcalW3",&GcalW3,"GcalW3[nmg]/F");
-    T->Branch("GcalHx3",&GcalHx3,"GcalHx3[nmg]/F");
-    T->Branch("GcalHy3",&GcalHy3,"GcalHy3[nmg]/F");
+    T->Branch("GcalX3",&GcalX3,"GcalX3[nmg]/F");
+    T->Branch("GcalY3",&GcalY3,"GcalY3[nmg]/F");
     T->Branch("Gpath",&Gpath,"Gpath[nmg]/F");
     T->Branch("Gtime",&Gtime,"Gtime[nmg]/F");
 
@@ -931,18 +931,18 @@ int main(int argc, char **argv){
                     GcalU1[nmg] = 0;
                     GcalV1[nmg] = 0;
                     GcalW1[nmg] = 0;
-                    GcalHx1[nmg] = -100000;
-                    GcalHy1[nmg] = -100000;
+                    GcalX1[nmg] = -100000;
+                    GcalY1[nmg] = -100000;
                     GcalU2[nmg] = 0;
                     GcalV2[nmg] = 0;
                     GcalW2[nmg] = 0;
-                    GcalHx2[nmg] = -100000;
-                    GcalHy2[nmg] = -100000;
+                    GcalX2[nmg] = -100000;
+                    GcalY2[nmg] = -100000;
                     GcalU3[nmg] = 0;
                     GcalV3[nmg] = 0;
                     GcalW3[nmg] = 0;
-                    GcalHx3[nmg] = -100000;
-                    GcalHy3[nmg] = -100000;
+                    GcalX3[nmg] = -100000;
+                    GcalY3[nmg] = -100000;
                     Gtime[nmg] = 0;
                     Gpath[nmg] = 0;
 
@@ -961,16 +961,14 @@ int main(int argc, char **argv){
                         auto tempU_Calo = c12.getBank(mdx_Calo)->getFloat(mu,ipa2); 
                         auto tempV_Calo = c12.getBank(mdx_Calo)->getFloat(mv,ipa2); 
                         auto tempW_Calo = c12.getBank(mdx_Calo)->getFloat(mw,ipa2); 
-                        auto tempHx_Calo = c12.getBank(mdx_Calo)->getFloat(mhx,ipa2); 
-                        auto tempHy_Calo = c12.getBank(mdx_Calo)->getFloat(mhy,ipa2); 
 
                         if (tempPnd_Calo == ipa){
                             if (tempLay_Calo == 1) {
                                 Gedep1[nmg] = tempE_Calo;
                                 GcX[nmg] = tempX_Calo;
                                 GcY[nmg] = tempY_Calo;
-                                GcalHx1[nmg] = tempHx_Calo;
-                                GcalHy1[nmg] = tempHy_Calo;
+                                GcalX1[nmg] = tempX_Calo;
+                                GcalY1[nmg] = tempY_Calo;
                                 GcalU1[nmg] = tempU_Calo;
                                 GcalV1[nmg] = tempV_Calo;
                                 GcalW1[nmg] = tempW_Calo;
@@ -983,16 +981,16 @@ int main(int argc, char **argv){
                                 GcalU2[nmg] = tempU_Calo;
                                 GcalV2[nmg] = tempV_Calo;
                                 GcalW2[nmg] = tempW_Calo;
-                                GcalHx2[nmg] = tempHx_Calo;
-                                GcalHy2[nmg] = tempHy_Calo;
+                                GcalX2[nmg] = tempX_Calo;
+                                GcalY2[nmg] = tempY_Calo;
                             }
                             if (tempLay_Calo == 7) {
                                 Gedep3[nmg] = tempE_Calo;
                                 GcalU3[nmg] = tempU_Calo;
                                 GcalV3[nmg] = tempV_Calo;
                                 GcalW3[nmg] = tempW_Calo;
-                                GcalHx3[nmg] = tempHx_Calo;
-                                GcalHy3[nmg] = tempHy_Calo;
+                                GcalX3[nmg] = tempX_Calo;
+                                GcalY3[nmg] = tempY_Calo;
                             }
                             Gedep[nmg] += tempE_Calo;
                         }
