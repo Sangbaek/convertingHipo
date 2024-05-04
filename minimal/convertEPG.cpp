@@ -573,7 +573,7 @@ int main(int argc, char **argv){
                                 EhtcctrajX[nml] = tempX_dc;
                                 EhtcctrajY[nml] = tempY_dc;
                                 EhtcctrajZ[nml] = tempZ_dc;
-
+                            }
                         }
                     }// end of DC
 

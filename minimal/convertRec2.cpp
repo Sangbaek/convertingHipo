@@ -150,6 +150,9 @@ int main(int argc, char **argv){
     Float_t EhtccX[100];
     Float_t EhtccY[100];
     Float_t EhtccZ[100];
+    Float_t EhtcctrajX[100];
+    Float_t EhtcctrajY[100];
+    Float_t EhtcctrajZ[100];
 
     Float_t GenEpx;
     Float_t GenEpy;
@@ -327,6 +330,9 @@ int main(int argc, char **argv){
     T->Branch("EhtccX",&EhtccX,"EhtccX[nml]/F");
     T->Branch("EhtccY",&EhtccY,"EhtccY[nml]/F");
     T->Branch("EhtccZ",&EhtccZ,"EhtccZ[nml]/F");
+    T->Branch("EhtcctrajX",&EhtcctrajX,"EhtcctrajX[nml]/F");
+    T->Branch("EhtcctrajY",&EhtcctrajY,"EhtcctrajY[nml]/F");
+    T->Branch("EhtcctrajZ",&EhtcctrajZ,"EhtcctrajZ[nml]/F");
 
     T->Branch("EFtof1bSector",&EFtof1bSector,"EFtof1bSector[nml]/I");
     T->Branch("EFtof1bComponent",&EFtof1bComponent,"EFtof1bComponent[nml]/I");
@@ -718,6 +724,11 @@ int main(int argc, char **argv){
                                     EDc3Hity[nml] = tempY_dc;
                                     EDc3Hitz[nml] = tempZ_dc;
                                 }
+                            }
+                            if (tempDet_dc == 15 ){// htcc{
+                                EhtcctrajX[nml] = tempX_dc;
+                                EhtcctrajY[nml] = tempY_dc;
+                                EhtcctrajZ[nml] = tempZ_dc;
                             }
                         }
                     }// end of DC
