@@ -114,8 +114,8 @@ int main(int argc, char **argv){
     // ================   Pi+  ===============    
     T->Branch("nmKp",&nmKp,"nmKp/I");
     T->Branch("Kppx",&Kppx,"Kppx[nmKp]/F");
-    T->Branch("Kppy",&Kpyp,"Kpy[pnmKp]/F");
-    T->Branch("Kppz",&Kpz,p"Kpz[nmpKp]/F");
+    T->Branch("Kppy",&Kppy,"Kppy[nmKp]/F");
+    T->Branch("Kppz",&Kppz"Kppz[nmKp]/F");
 
     // ================   Pi-  ===============    
     T->Branch("nmKm",&nmKm,"nmKm/I");
