@@ -69,9 +69,9 @@ int main(int argc, char **argv){
 
     // ==== Pi+s =====
     Int_t nmKp;
-    Float_t Kpx[100];
-    Float_t Kpy[100];
-    Float_t Kpz[100];
+    Float_t Kppx[100];
+    Float_t Kppy[100];
+    Float_t Kppz[100];
 
     // ==== Pi-s =====
     Int_t nmKm;
@@ -113,9 +113,9 @@ int main(int argc, char **argv){
 
     // ================   Pi+  ===============    
     T->Branch("nmKp",&nmKp,"nmKp/I");
-    T->Branch("Kpx",&Kpx,"Kpx[nmKp]/F");
-    T->Branch("Kpy",&Kpy,"Kpy[nmKp]/F");
-    T->Branch("Kpz",&Kpz,"Kpz[nmKp]/F");
+    T->Branch("Kppx",&Kppx,"Kppx[nmKp]/F");
+    T->Branch("Kppy",&Kpyp,"Kpy[pnmKp]/F");
+    T->Branch("Kppz",&Kpz,p"Kpz[nmpKp]/F");
 
     // ================   Pi-  ===============    
     T->Branch("nmKm",&nmKm,"nmKm/I");
@@ -244,23 +244,23 @@ int main(int argc, char **argv){
                     nmg++;
                 } //end of photons
 
-                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 311 ){  // π+'s
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == 321 ){  // K+'s
 
-                    Kpx[nmKp] = tPx;
-                    Kpy[nmKp] = tPy;
-                    Kpz[nmKp] = tPz;
+                    Kppx[nmKp] = tPx;
+                    Kppy[nmKp] = tPy;
+                    Kppz[nmKp] = tPz;
 
                     nmKp++;
-                } // end of π+'s
+                } // end of K+'s
 
-                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -311 ){  // π-'s
+                if((c12.getBank(idx_RECPart)->getInt(iPid,ipa)) == -321 ){  // K-'s
 
                     Kmpx[nmKp] = tPx;
                     Kmpy[nmKp] = tPy;
                     Kmpz[nmKp] = tPz;
 
                     nmKm++;
-                } // end of π-'s
+                } // end of K-'s
 
             } //end of REC::Particle
 
